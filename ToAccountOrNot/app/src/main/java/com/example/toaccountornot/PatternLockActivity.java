@@ -13,10 +13,11 @@ import android.widget.Toast;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
+import com.example.toaccountornot.utils.PreferenceUtils;
 
 import java.util.List;
 
-public class PatternLockViewActivity extends AppCompatActivity {
+public class PatternLockActivity extends AppCompatActivity {
 
     private PatternLockView mPatternLockView;
 
@@ -34,21 +35,21 @@ public class PatternLockViewActivity extends AppCompatActivity {
         @Override
         public void onComplete(List<PatternLockView.Dot> pattern) {
             //密码
-            String paswd = "24678";
+            String password = PreferenceUtils.getGesturePassword(PatternLockActivity.this);
             String patternToString = PatternLockUtils.patternToString(mPatternLockView, pattern);
             if (!TextUtils.isEmpty(patternToString)) {
-                if (patternToString.equals(paswd)) {
+                if (patternToString.equals(password)) {
                     //判断为正确
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
-                    Toast.makeText(PatternLockViewActivity.this, "您绘制的密码是：" + patternToString + "\n" + "密码正确，开锁成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToString + "\n" + "密码正确，开锁成功", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(PatternLockViewActivity.this, MainActivity.class);
+                    Intent intent = new Intent(PatternLockActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
 
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
-                    Toast.makeText(PatternLockViewActivity.this, "您绘制的密码是：" + patternToString + "\n" + "密码错误，请重新绘制", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToString + "\n" + "密码错误，请重新绘制", Toast.LENGTH_SHORT).show();
                 }
 
             }
