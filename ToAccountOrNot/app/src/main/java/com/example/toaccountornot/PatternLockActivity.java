@@ -36,12 +36,12 @@ public class PatternLockActivity extends AppCompatActivity {
         public void onComplete(List<PatternLockView.Dot> pattern) {
             //密码
             String password = PreferenceUtils.getGesturePassword(PatternLockActivity.this);
-            String patternToString = PatternLockUtils.patternToString(mPatternLockView, pattern);
-            if (!TextUtils.isEmpty(patternToString)) {
-                if (patternToString.equals(password)) {
+            String patternToMD5 = PatternLockUtils.patternToMD5(mPatternLockView, pattern);
+            if (!TextUtils.isEmpty(patternToMD5)) {
+                if (patternToMD5.equals(password)) {
                     //判断为正确
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
-                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToString + "\n" + "密码正确，开锁成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToMD5 + "\n" + "密码正确，开锁成功", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(PatternLockActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -49,7 +49,7 @@ public class PatternLockActivity extends AppCompatActivity {
                 } else {
 
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
-                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToString + "\n" + "密码错误，请重新绘制", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToMD5 + "\n" + "密码错误，请重新绘制", Toast.LENGTH_SHORT).show();
                 }
 
             }

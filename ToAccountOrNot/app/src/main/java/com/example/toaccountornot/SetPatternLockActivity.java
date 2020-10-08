@@ -25,7 +25,7 @@ public class SetPatternLockActivity extends AppCompatActivity {
     private PatternLockView mPatternLockView;
 
     private boolean isFirst = true;
-    private String mpassword;
+    private String mPassword;
 
     private PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
         @Override
@@ -44,16 +44,16 @@ public class SetPatternLockActivity extends AppCompatActivity {
             String patternToString = PatternLockUtils.patternToString(mPatternLockView, pattern);
             if (!TextUtils.isEmpty(patternToString)) {
                 if (isFirst) {
-                    mpassword = patternToString;
+                    mPassword = patternToString;
                     mTitleTv.setText("请再次输入密码");
                     isFirst = false;
                 } else {
-                    if (patternToString.equals(mpassword)) {
-                        PreferenceUtils.setGesturePassword(SetPatternLockActivity.this, mpassword);
+                    if (patternToString.equals(mPassword)) {
+                        PreferenceUtils.setGesturePassword(SetPatternLockActivity.this, PatternLockUtils.patternToMD5(mPatternLockView, pattern));
                         startActivity(new Intent(SetPatternLockActivity.this, MainActivity.class));
                     } else {
                         Toast.makeText(SetPatternLockActivity.this,"两次密码不一致，请重新设置",Toast.LENGTH_SHORT).show();
-                        mpassword = "";
+                        mPassword = "";
                         mTitleTv.setText("请设置密码");
                         isFirst = true;
                     }
