@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_detail"
+        android:icon="@drawable/detail"
+        android:title="明细" />
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/addaccount"
+        android:title="记账"/>
+
+    <item
+        android:id="@+id/navigation_chart"
+        android:icon="@drawable/chart"
+        android:title="图表" />
+
+    <item
+        android:id="@+id/navigation_mine"
+        android:icon="@drawable/mine"
+        android:title="我的" />
+
+</menu>
