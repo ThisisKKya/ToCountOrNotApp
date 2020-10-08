@@ -43,7 +43,7 @@ public class PatternLockActivity extends AppCompatActivity {
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
                     Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToMD5 + "\n" + "密码正确，开锁成功", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(PatternLockActivity.this, MainActivity.class);
+                    Intent intent = new Intent(PatternLockActivity.this, NavigationActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

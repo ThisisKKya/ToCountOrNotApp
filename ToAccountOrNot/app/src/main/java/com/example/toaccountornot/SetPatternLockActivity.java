@@ -50,7 +50,7 @@ public class SetPatternLockActivity extends AppCompatActivity {
                 } else {
                     if (patternToString.equals(mPassword)) {
                         PreferenceUtils.setGesturePassword(SetPatternLockActivity.this, PatternLockUtils.patternToMD5(mPatternLockView, pattern));
-                        startActivity(new Intent(SetPatternLockActivity.this, MainActivity.class));
+                        startActivity(new Intent(SetPatternLockActivity.this, NavigationActivity.class));
                     } else {
                         Toast.makeText(SetPatternLockActivity.this,"两次密码不一致，请重新设置",Toast.LENGTH_SHORT).show();
                         mPassword = "";
