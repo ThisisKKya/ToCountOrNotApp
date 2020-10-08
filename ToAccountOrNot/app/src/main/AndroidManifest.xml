@@ -17,6 +17,17 @@
         <activity
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation">
+        </activity>
+        <activity
+            android:name=".SetPatternLockActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen">
+        </activity>
+        <activity
+            android:name=".PatternLockActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
