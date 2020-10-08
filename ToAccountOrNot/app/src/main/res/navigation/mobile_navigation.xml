@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_detail">
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.example.toaccountornot.ui.detail.DetailFragment"
+        android:label="detail"
+        tools:layout="@layout/fragment_detail" />
+
+    <fragment
+        android:id="@+id/navigation_chart"
+        android:name="com.example.toaccountornot.ui.chart.ChartFragment"
+        android:label="chart"
+        tools:layout="@layout/fragment_chart" />
+    <activity
+        android:id="@+id/navigation_account"
+        android:name="com.example.toaccountornot.AccountActivity"
+        android:label="account"
+        tools:layout="@layout/activity_account"/>
+
+    <fragment
+        android:id="@+id/navigation_mine"
+        android:name="com.example.toaccountornot.ui.mine.MineFragment"
+        android:label="mine"
+        tools:layout="@layout/fragment_mine" />
+</navigation>
