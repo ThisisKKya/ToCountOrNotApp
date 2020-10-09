@@ -1,10 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-27dp" />
+
+    <LinearLayout
+        android:id="@+id/llKeborad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:id="@+id/tvNoteHint"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:minLines="1"
+                android:singleLine="true"
+                android:text="备注:"
+                android:textColor="#222222"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/etNote"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="70dp"
+                android:gravity="left|center_vertical"
+                android:hint="点击填写备注"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#222222"
+                android:textColorHint="#989DB3"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/etInput"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="0.00"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </FrameLayout>
+
+        <com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView
+            android:id="@+id/keyboard_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/keyboard_background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:keyBackground="@drawable/key_background"
+            android:keyTextColor="#222222"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:shadowRadius="0.0"
+            android:visibility="visible" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

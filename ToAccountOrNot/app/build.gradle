@@ -20,7 +20,7 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs=
+            res.srcDirs =
                     [
                             'src/main/res/layout/activity_account',
                             'src/main/res/layout/activity_navigation',
