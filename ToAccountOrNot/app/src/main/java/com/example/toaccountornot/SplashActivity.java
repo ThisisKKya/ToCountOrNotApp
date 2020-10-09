@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (passwordStr == "") {
                     intent = new Intent(SplashActivity.this, SetPatternLockActivity.class);
                 } else {
-                    intent = new Intent(SplashActivity.this, PinLockActivity.class);
+                    intent = new Intent(SplashActivity.this, PatternLockActivity.class);
                 }
                 startActivity(intent);
                 finish();
