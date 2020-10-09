@@ -19,13 +19,14 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String passwordStr = PreferenceUtils.getGesturePassword(SplashActivity.this);
+//                String passwordStr = PreferenceUtils.getGesturePassword(SplashActivity.this);
                 Intent intent;
-                if (passwordStr == "") {
-                    intent = new Intent(SplashActivity.this, SetPatternLockActivity.class);
-                } else {
-                    intent = new Intent(SplashActivity.this, PatternLockActivity.class);
-                }
+//                if (passwordStr == "") {
+//                    intent = new Intent(SplashActivity.this, SetPatternLockActivity.class);
+//                } else {
+//                    intent = new Intent(SplashActivity.this, PatternLockActivity.class);
+//                }
+                intent = new Intent(SplashActivity.this, PinLockActivity.class);
                 startActivity(intent);
                 finish();
             }
