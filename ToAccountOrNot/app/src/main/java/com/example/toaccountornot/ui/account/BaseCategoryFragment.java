@@ -32,7 +32,6 @@ public class BaseCategoryFragment extends Fragment   {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initCategory();
     }
 
 //    @Override
@@ -53,7 +52,7 @@ public class BaseCategoryFragment extends Fragment   {
         llKeborad = view.findViewById(R.id.llKeborad);
         initKey();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         CategoryAdapter adapter = new CategoryAdapter(categoryList);
@@ -69,15 +68,7 @@ public class BaseCategoryFragment extends Fragment   {
         return view;
     }
 
-    private void initCategory() {
-        for (int i = 0; i < 30; i++) {
-            Category dinner = new Category("Dinner",R.drawable.dinner);
-            categoryList.add(dinner);
-            Category lunch = new Category("lunch",R.drawable.lunch);
-            categoryList.add(lunch);
-        }
-    }
-    private void initKey() {
+    public void initKey() {
         // 设置禁止获取焦点，这个etInput用于键盘输入和计算结果的展示
         etInput.setFocusable(false);
         etInput.setFocusableInTouchMode(false);
