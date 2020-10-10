@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.toaccountornot.utils.PreferenceUtils;
-
+/**
+ * 启动页
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -19,13 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String passwordStr = PreferenceUtils.getGesturePassword(SplashActivity.this);
-                Intent intent;
-                if (passwordStr == "") {
-                    intent = new Intent(SplashActivity.this, SetPatternLockActivity.class);
-                } else {
-                    intent = new Intent(SplashActivity.this, PatternLockActivity.class);
-                }
+                Intent intent = new Intent(SplashActivity.this, PatternLockActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -12,15 +12,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DatabaseActivity"></activity>
         <activity
+            android:name=".PinLockActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"></activity>
+        <activity
             android:name=".AccountActivity"
             android:label="@string/title_activity_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation" />
-        <activity
-            android:name=".SetPatternLockActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".PatternLockActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
