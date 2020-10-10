@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +20,13 @@ import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 import com.example.toaccountornot.utils.Utils;
 
+/**
+ * 文本密码
+ */
 public class PinLockActivity extends AppCompatActivity {
 
     private TextView mTextTitle;
+    private Button mButtonPattern;
     private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
 
@@ -59,7 +65,8 @@ public class PinLockActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pin_lock);
 
-        mTextTitle = (TextView) findViewById(R.id.profile_name);
+        mTextTitle = (TextView) findViewById(R.id.title);
+        mButtonPattern = (Button) findViewById(R.id.change_mode_button);
         mPinLockView = (PinLockView) findViewById(R.id.pin_lock_view);
         mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
 
@@ -72,14 +79,23 @@ public class PinLockActivity extends AppCompatActivity {
         mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
 
         if (mSetPin) {
-            mTextTitle.setText("请设置密码");
+            mTextTitle.setText(getString(R.string.lock_set));
         } else {
             String pin = getPinFromSharedPreferences();
             if (pin.equals("")) {
-                mTextTitle.setText("请设置密码");
+                mTextTitle.setText(getString(R.string.lock_set));
                 mSetPin = true;
             }
         }
+
+        mButtonPattern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PinLockActivity.this, PatternLockActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void writePinToSharedPreferences(String pin) {
@@ -101,7 +117,7 @@ public class PinLockActivity extends AppCompatActivity {
     private void setPin(String pin) {
         if (mFirstPin.equals("")) {
             mFirstPin = pin;
-            mTextTitle.setText("请再次输入密码");
+            mTextTitle.setText(getString(R.string.lock_second));
             mPinLockView.resetPinLockView();
         } else {
             if (pin.equals(mFirstPin)) {
@@ -111,8 +127,8 @@ public class PinLockActivity extends AppCompatActivity {
                 finish();
             } else {
                 shake();
-                Toast.makeText(PinLockActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
-                mTextTitle.setText("请重新设置密码");
+                Toast.makeText(PinLockActivity.this, getString(R.string.toast_not_same), Toast.LENGTH_SHORT).show();
+                mTextTitle.setText(getString(R.string.lock_retry));
                 mPinLockView.resetPinLockView();
                 mFirstPin = "";
             }
@@ -126,7 +142,7 @@ public class PinLockActivity extends AppCompatActivity {
             finish();
         } else {
             shake();
-            mTextTitle.setText("密码错误，请重新输入");
+            mTextTitle.setText(getString(R.string.lock_wrong));
             mPinLockView.resetPinLockView();
         }
     }

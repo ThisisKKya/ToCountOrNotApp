@@ -3,6 +3,9 @@ package com.example.toaccountornot.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * 工具类
+ */
 public class Utils {
     // utility function
     private static String bytesToHexString(byte[] bytes) {

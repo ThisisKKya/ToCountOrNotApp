@@ -8,24 +8,24 @@
     tools:context="com.example.toaccountornot.PinLockActivity">
 
     <ImageView
-        android:id="@+id/profile_image"
+        android:id="@+id/lock_image"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/password" />
 
     <TextView
-        android:id="@+id/profile_name"
-        android:layout_width="256dp"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_image"
+        android:layout_below="@+id/lock_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
-        android:maxLines="2"
-        android:text="请输入密码"
+        android:maxLines="1"
+        android:text="@string/lock_input"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -33,7 +33,7 @@
         android:id="@+id/indicator_dots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_name"
+        android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp" />
 
@@ -44,9 +44,21 @@
         android:layout_below="@id/indicator_dots"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        app:keypadButtonSize="72dp"
+        app:keypadButtonSize="62dp"
         app:keypadShowDeleteButton="true"
         app:keypadTextColor="@color/white"
         app:keypadTextSize="18dp" />
 
+    <Button
+        android:id="@+id/change_mode_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pin_lock_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:text="@string/lock_pattern"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
 </RelativeLayout>
