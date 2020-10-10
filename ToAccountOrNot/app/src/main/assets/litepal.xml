@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+
+    <dbname value="accountlist" />  //数据库名称
+
+    <version value="1" />   //数据库版本
+
+    <list>
+        <mapping class="com.example.toaccountornot.utils.Accounts"></mapping>
+    </list>
+</litepal>
