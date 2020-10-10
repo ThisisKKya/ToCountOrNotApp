@@ -57,7 +57,7 @@ public class PinLockActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_pin_lock2);
+        setContentView(R.layout.activity_pin_lock);
 
         mTextTitle = (TextView) findViewById(R.id.profile_name);
         mPinLockView = (PinLockView) findViewById(R.id.pin_lock_view);
