@@ -20,7 +20,7 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs=
+            res.srcDirs =
                     [
                             'src/main/res/layout/activity_account',
                             'src/main/res/layout/activity_navigation',
@@ -44,4 +44,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
+    implementation 'org.litepal.guolindev:core:3.2.2'
 }
