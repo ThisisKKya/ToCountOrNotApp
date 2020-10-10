@@ -39,12 +39,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
+        final ViewHolder  holder = new ViewHolder(view);
         holder.fruitView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (myViewClickListener != null) {
-                    myViewClickListener.callKeyboard();
+                    int position = holder.getAdapterPosition();
+                    Category category = mFruitList.get(position);
+                    myViewClickListener.callKeyboard(category.getName());
                 }
             }
         });
@@ -68,6 +70,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.myViewClickListener = myViewClickListener;
     }
     public interface MyViewClickListener{
-        void callKeyboard();
+        void callKeyboard(String fisrtCategory);
     }
 }
