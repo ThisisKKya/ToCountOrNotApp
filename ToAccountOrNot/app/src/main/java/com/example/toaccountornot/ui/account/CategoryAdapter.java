@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private List<Category> mFruitList;
-
+    private MyViewClickListener myViewClickListener;
     static class ViewHolder extends RecyclerView.ViewHolder {
         View fruitView;
         ImageView fruitImage;
@@ -36,24 +36,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @NonNull
     @Override
+
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category, parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.fruitName.setOnClickListener(new View.OnClickListener() {
+        holder.fruitView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                Category fruit = mFruitList.get(position);
-                Toast.makeText(v.getContext(), "You clicked name"+fruit.getName(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        holder.fruitImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                Category fruit = mFruitList.get(position);
-                Toast.makeText(v.getContext(),"You clicked image" + fruit.getName(), Toast.LENGTH_SHORT).show();
+                if (myViewClickListener != null) {
+                    myViewClickListener.callKeyboard();
+                }
             }
         });
         return holder;
@@ -70,5 +62,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public int getItemCount() {
         return mFruitList.size();
+    }
+    //回调监听点击，调用软键盘
+    public void setMyViewClickListener(MyViewClickListener myViewClickListener) {
+        this.myViewClickListener = myViewClickListener;
+    }
+    public interface MyViewClickListener{
+        void callKeyboard();
     }
 }
