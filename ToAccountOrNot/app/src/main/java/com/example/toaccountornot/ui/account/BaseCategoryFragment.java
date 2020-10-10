@@ -1,6 +1,5 @@
 package com.example.toaccountornot.ui.account;
 
-import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,18 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
-import com.example.toaccountornot.utils.Accounts;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BaseCategoryFragment extends Fragment   {
     private List<Category> categoryList = new ArrayList<>();
-    String mfirstCategory;
     EditText etInput, etNote;
     LinearLayout llKeborad;
     MyKeyboardView keyboard_temp;
@@ -38,6 +33,13 @@ public class BaseCategoryFragment extends Fragment   {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+//    @Override
+//    public void callKeyboard() {
+//        if (llKeborad.getVisibility() == View.GONE) {
+//            llKeborad.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     @Nullable
     @Override
@@ -53,12 +55,11 @@ public class BaseCategoryFragment extends Fragment   {
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        final CategoryAdapter adapter = new CategoryAdapter(categoryList);
+        CategoryAdapter adapter = new CategoryAdapter(categoryList);
         recyclerView.setAdapter(adapter);
         adapter.setMyViewClickListener(new CategoryAdapter.MyViewClickListener() {
             @Override
-            public void callKeyboard(String firstCategory) {
-                mfirstCategory = firstCategory;
+            public void callKeyboard() {
                 if (llKeborad.getVisibility() == View.GONE){
                     llKeborad.setVisibility(View.VISIBLE);
                 }
@@ -107,15 +108,8 @@ public class BaseCategoryFragment extends Fragment   {
             public void doneCallback() {
 
                 String etnote = etNote.getText().toString().trim();
-                Double tvinput = Double.valueOf(etInput.getText().toString().trim());
-                Accounts accounts = new Accounts();
-                accounts.setFirst(mfirstCategory);
-                accounts.setSecond(etnote);
-                accounts.setPrice(tvinput);
-                Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
+                String tvinput = etInput.getText().toString().trim();
                 Keyboard.Key key = helper.getKey(-100000);
-                Intent intent = new Intent(getContext(), NavigationActivity.class);
-                startActivity(intent);
             }
 
             @Override

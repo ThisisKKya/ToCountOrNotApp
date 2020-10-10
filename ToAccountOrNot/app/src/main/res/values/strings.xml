@@ -8,12 +8,4 @@
     <string name="tab_text_1">支出</string>
     <string name="tab_text_2">收入</string>
     <string name="tab_text_3">转账</string>
-    <string name="lock_input">请输入密码</string>
-    <string name="lock_set">请设置密码</string>
-    <string name="lock_second">请再次输入密码</string>
-    <string name="lock_retry">请重新设置密码</string>
-    <string name="lock_wrong">密码错误，请重新输入</string>
-    <string name="toast_not_same">两次密码不一致</string>
-    <string name="lock_pin">使用文本密码</string>
-    <string name="lock_pattern">使用图形密码</string>
 </resources>

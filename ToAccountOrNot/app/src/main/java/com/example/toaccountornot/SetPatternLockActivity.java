@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andrognito.patternlockview.PatternLockView;
@@ -17,9 +18,14 @@ import com.example.toaccountornot.utils.PreferenceUtils;
 
 import java.util.List;
 
-public class PatternLockActivity extends AppCompatActivity {
+public class SetPatternLockActivity extends AppCompatActivity {
 
+
+    private TextView mTitleTv;
     private PatternLockView mPatternLockView;
+
+    private boolean isFirst = true;
+    private String mPassword;
 
     private PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
         @Override
@@ -34,24 +40,24 @@ public class PatternLockActivity extends AppCompatActivity {
 
         @Override
         public void onComplete(List<PatternLockView.Dot> pattern) {
-            //密码
-            String password = PreferenceUtils.getGesturePassword(PatternLockActivity.this);
-            String patternToMD5 = PatternLockUtils.patternToMD5(mPatternLockView, pattern);
-            if (!TextUtils.isEmpty(patternToMD5)) {
-                if (patternToMD5.equals(password)) {
-                    //判断为正确
-                    mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
-                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToMD5 + "\n" + "密码正确，开锁成功", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(PatternLockActivity.this, NavigationActivity.class);
-                    startActivity(intent);
-                    finish();
+            String patternToString = PatternLockUtils.patternToString(mPatternLockView, pattern);
+            if (!TextUtils.isEmpty(patternToString)) {
+                if (isFirst) {
+                    mPassword = patternToString;
+                    mTitleTv.setText("请再次输入密码");
+                    isFirst = false;
                 } else {
-
-                    mPatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
-                    Toast.makeText(PatternLockActivity.this, "您绘制的密码是：" + patternToMD5 + "\n" + "密码错误，请重新绘制", Toast.LENGTH_SHORT).show();
+                    if (patternToString.equals(mPassword)) {
+                        PreferenceUtils.setGesturePassword(SetPatternLockActivity.this, PatternLockUtils.patternToMD5(mPatternLockView, pattern));
+                        startActivity(new Intent(SetPatternLockActivity.this, NavigationActivity.class));
+                    } else {
+                        Toast.makeText(SetPatternLockActivity.this,"两次密码不一致，请重新设置",Toast.LENGTH_SHORT).show();
+                        mPassword = "";
+                        mTitleTv.setText("请设置密码");
+                        isFirst = true;
+                    }
                 }
-
             }
             //2s后清除图案
             new Handler().postDelayed(new Runnable() {
@@ -60,6 +66,7 @@ public class PatternLockActivity extends AppCompatActivity {
                     mPatternLockView.clearPattern();
                 }
             },2000);
+
         }
 
         @Override
@@ -74,8 +81,9 @@ public class PatternLockActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_pattern_lock_view);
+        setContentView(R.layout.activity_set_lock);
 
+        mTitleTv = (TextView) findViewById(R.id.profile_name);
         mPatternLockView = (PatternLockView) findViewById(R.id.pattern_lock_view);
         mPatternLockView.addPatternLockListener(mPatternLockViewListener);
     }
