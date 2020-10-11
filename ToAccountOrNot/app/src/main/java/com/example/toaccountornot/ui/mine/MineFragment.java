@@ -21,6 +21,7 @@ import java.util.List;
 
 public class MineFragment extends Fragment {
 
+    /*
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,9 +32,10 @@ public class MineFragment extends Fragment {
             public void onClick(View v) {
                 List<Accounts> list = LitePal.findAll(Accounts.class);
                 for (Accounts account:list) {
-                    Toast.makeText(getContext(),account.getPrice(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), account.getPrice(), Toast.LENGTH_SHORT).show();
                 }
-            }
+                }
+
         });
-    }
+    }*/
 }
