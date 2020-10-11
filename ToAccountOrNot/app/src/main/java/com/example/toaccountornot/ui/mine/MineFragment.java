@@ -21,6 +21,7 @@ import java.util.List;
 
 public class MineFragment extends Fragment {
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ public class MineFragment extends Fragment {
                 for (Accounts account : list) {
                     Toast.makeText(getContext(), "" + account.getPrice(), Toast.LENGTH_SHORT).show();
                 }
-            }
+                }
+
         });
         return view;
     }
