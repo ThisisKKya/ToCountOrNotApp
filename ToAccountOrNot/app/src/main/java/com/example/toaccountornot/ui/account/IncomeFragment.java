@@ -42,7 +42,7 @@ public class IncomeFragment extends BaseCategoryFragment {
         recyclerView.setAdapter(adapter);
         adapter.setMyViewClickListener(new CategoryAdapter.MyViewClickListener() {
             @Override
-            public void callKeyboard() {
+            public void callKeyboard(String fisrtCategory) {
                 if (llKeborad.getVisibility() == View.GONE){
                     llKeborad.setVisibility(View.VISIBLE);
                 }
