@@ -5,8 +5,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_account">AccountActivity</string>
-    <string name="tab_text_1">收入</string>
-    <string name="tab_text_2">支出</string>
+    <string name="tab_text_1">支出</string>
+    <string name="tab_text_2">收入</string>
     <string name="tab_text_3">转账</string>
     <string name="lock_input">请输入密码</string>
     <string name="lock_set">请设置密码</string>

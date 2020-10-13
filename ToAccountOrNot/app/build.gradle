@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
     implementation 'org.litepal.guolindev:core:3.2.2'
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
