@@ -21,19 +21,5 @@ import java.util.List;
 
 public class MineFragment extends Fragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine,container,false);
-        Button button = view.findViewById(R.id.btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Accounts> list = LitePal.findAll(Accounts.class);
-                for (Accounts account:list) {
-                    Toast.makeText(getContext(),account.getPrice(),Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+
 }
