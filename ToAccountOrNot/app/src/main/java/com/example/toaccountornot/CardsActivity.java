@@ -53,11 +53,15 @@ public class CardsActivity extends AppCompatActivity {
         });
     }
     private void initCards() {
-        Cards cash = new Cards("现金",R.drawable.cash, 0.00,0.00,0.00);
-        cardlist.add(cash);
         Cards wechat = new Cards("微信",R.drawable.wechat, 1.11,0.00,1.11);
         cardlist.add(wechat);
         Cards alipay = new Cards("支付宝",R.drawable.alipay, 2.22,1.00,1.22);
         cardlist.add(alipay);
+        Cards cash = new Cards("现金",R.drawable.cash, 0.00,0.00,0.00);
+        cardlist.add(cash);
+        Cards bankcard = new Cards("储蓄卡",R.drawable.bankcard,9.99,10.1,2000.1);
+        cardlist.add(bankcard);
+        Cards creditcard = new Cards("信用卡",R.drawable.creditcard,2000.99,10.1,2000.1);
+        cardlist.add(creditcard);
     }
 }
