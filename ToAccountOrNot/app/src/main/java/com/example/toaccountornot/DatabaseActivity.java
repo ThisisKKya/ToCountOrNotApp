@@ -53,6 +53,8 @@ public class DatabaseActivity extends AppCompatActivity {
                     Log.d("DatabaseActivity","id" + account.getId());
                     Log.d("DatabaseActivity","price" + account.getPrice());
                     Log.d("DatabaseActivity","time" + account.getTime());
+                    Log.d("DatabaseActivity","member" + account.getMember());
+                    Log.d("DatabaseActivity","card" + account.getCard());
                 }
             }
         });
