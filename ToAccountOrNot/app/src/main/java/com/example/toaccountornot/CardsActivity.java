@@ -63,5 +63,9 @@ public class CardsActivity extends AppCompatActivity {
         cardlist.add(bankcard);
         Cards creditcard = new Cards("信用卡",R.drawable.creditcard,2000.99,10.1,2000.1);
         cardlist.add(creditcard);
+        Cards bankcard1 = new Cards("储蓄卡",R.drawable.bankcard,9.99,10.1,2000.1);
+        cardlist.add(bankcard1);
+        Cards creditcard2 = new Cards("信用卡",R.drawable.creditcard,2000.99,10.1,2000.1);
+        cardlist.add(creditcard2);
     }
 }
