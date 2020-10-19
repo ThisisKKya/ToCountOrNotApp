@@ -2,6 +2,7 @@ package com.example.toaccountornot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,25 +32,21 @@ public class CreateCardActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
-                    case 0:
+                    case 0: //储蓄卡
+                        Intent intent = new Intent();
+                        intent.setClass(CreateCardActivity.this, CreateCardDetailActivity.class);
+                        startActivity(intent);
                         Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
                         break;//当我们点击某一项就能吐司我们点了哪一项
 
-                    case 1:
+                    case 1: //信用卡
                         Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
                         break;
 
-                    case 2:
+                    case 2: //自定义
                         Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
                         break;
 
-                    case 3:
-                        Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
-                        break;
-
-                    case 4:
-                        Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
-                        break;
                 }
             }
         });

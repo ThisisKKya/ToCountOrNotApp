@@ -11,11 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CreateCardDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
             android:name=".CreateCardActivity"
             android:label="添加账户" />
         <activity
             android:name=".CardsActivity"
-            android:label="账户"/>
+            android:label="账户" />
         <activity android:name=".DatabaseActivity" />
         <activity
             android:name=".PinLockActivity"
