@@ -10,6 +10,8 @@ public class Accounts extends LitePalSupport {
     private String second;  //二级分类
     private double price;    //账目金额
     private Date time;      //记账时间
+    private String card;    //账户
+    private String member;  //成员
 
     public long getId() {
         return id;
@@ -49,5 +51,21 @@ public class Accounts extends LitePalSupport {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
     }
 }
