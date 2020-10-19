@@ -2,9 +2,11 @@ package com.example.toaccountornot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +22,15 @@ public class CardsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_view);
+        Button createcard = findViewById(R.id.create_card);
+        createcard.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent();
+               intent.setClass(CardsActivity.this, CreateCardActivity.class);
+               startActivity(intent);
+           }
+       });
         initCards();
         CardsAdapter adapter = new CardsAdapter(CardsActivity.this,
                 R.layout.cards_list_item, cardlist);

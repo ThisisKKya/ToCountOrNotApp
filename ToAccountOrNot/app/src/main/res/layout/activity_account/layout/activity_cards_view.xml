@@ -13,7 +13,7 @@
     <com.deadline.statebutton.StateButton
         android:id="@+id/create_card"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:text="+  添加资产"
