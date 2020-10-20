@@ -12,6 +12,69 @@ public class Accounts extends LitePalSupport {
     private Date time;      //记账时间
     private String card;    //账户
     private String member;  //成员
+    private String inorout; //收入支出
+    private double income;
+    private double outcome;
+    private String date;
+    private String date_year;
+    private String date_month;
+    private String paymethod;
+
+    public double getIncome() {
+        return income;
+    }
+
+    public void setIncome(double income) {
+        this.income = income;
+    }
+
+    public double getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(double outcome) {
+        this.outcome = outcome;
+    }
+
+    public String getPaymethod() {
+        return paymethod;
+    }
+
+    public void setPaymethod(String paymethod) {
+        this.paymethod = paymethod;
+    }
+
+    public String getDate_year() {
+        return date_year;
+    }
+
+    public void setDate_year(String date_year) {
+        this.date_year = date_year;
+    }
+
+    public String getDate_month() {
+        return date_month;
+    }
+
+    public void setDate_month(String date_month) {
+        this.date_month = date_month;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getInorout() {
+        return inorout;
+    }
+
+    public void setInorout(String inorout) {
+        this.inorout = inorout;
+    }
 
     public long getId() {
         return id;
