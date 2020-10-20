@@ -35,9 +35,6 @@ public class CreateCardActivity extends AppCompatActivity {
                     case 0: //储蓄卡
                         Intent intent = new Intent();
                         intent.setClass(CreateCardActivity.this, CreateCardDetailActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("type",0);
-                        intent.putExtras(bundle);
                         startActivity(intent);
                         Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
                         break;//当我们点击某一项就能吐司我们点了哪一项

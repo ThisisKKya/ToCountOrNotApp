@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.CardsAdapter;
 
-import org.litepal.LitePal;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,29 +64,19 @@ public class CardsActivity extends AppCompatActivity {
         });
     }
     private void initCards() {
-        Cards wechat = new Cards();
-        wechat.setCards("微信",null,0,R.drawable.wechat, 1.11,0.00,1.11);
+        Cards wechat = new Cards("微信",R.drawable.wechat, 1.11,0.00,1.11);
         cardlist.add(wechat);
-        Cards alipay = new Cards();
-        alipay.setCards("支付宝",null,0,R.drawable.alipay, 2.22,1.00,1.22);
+        Cards alipay = new Cards("支付宝",R.drawable.alipay, 2.22,1.00,1.22);
         cardlist.add(alipay);
-        Cards cash = new Cards();
-        cash.setCards("现金",null,0,R.drawable.cash, 0.00,0.00,0.00);
+        Cards cash = new Cards("现金",R.drawable.cash, 0.00,0.00,0.00);
         cardlist.add(cash);
-        /*List<Cards> list = LitePal.findAll(Cards.class);
-        int image = 0;
-        for (Cards card:list) {
-            Cards extra = new Cards();
-            switch (card.getCardtype()) {
-                case 0:
-                    image = R.drawable.bankcard;
-                    break;
-                case 1:
-                    image = R.drawable.creditcard;
-                    break;
-            }
-            extra.setCards(card.getCard(),card.getRemark(),card.getCardtype(),image,card.getIncome(),card.getOutcome(),card.getSurplus());
-            cardlist.add(extra);
-        }*/
+        Cards bankcard = new Cards("储蓄卡",R.drawable.bankcard,9.99,10.1,2000.1);
+        cardlist.add(bankcard);
+        Cards creditcard = new Cards("信用卡",R.drawable.creditcard,2000.99,10.1,2000.1);
+        cardlist.add(creditcard);
+        Cards bankcard1 = new Cards("储蓄卡",R.drawable.bankcard,9.99,10.1,2000.1);
+        cardlist.add(bankcard1);
+        Cards creditcard2 = new Cards("信用卡",R.drawable.creditcard,2000.99,10.1,2000.1);
+        cardlist.add(creditcard2);
     }
 }

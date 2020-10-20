@@ -36,7 +36,7 @@
         />
 
     <EditText
-        android:id="@+id/bankname"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|right"
@@ -83,11 +83,11 @@
         />
 
     <EditText
-        android:id="@+id/cardnumber"
+        android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|right"
-        android:layout_below="@+id/bankname"
+        android:layout_below="@+id/editText"
         android:layout_alignStart="@+id/strut"
         android:layout_alignLeft="@+id/strut"
         android:layout_toRightOf="@+id/textView2"
@@ -130,13 +130,13 @@
         />
 
     <EditText
-        android:id="@+id/remark"
+        android:id="@+id/editText3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|right"
         android:paddingTop="30dp"
         android:paddingBottom="30dp"
-        android:layout_below="@+id/cardnumber"
+        android:layout_below="@+id/editText2"
         android:layout_alignStart="@+id/strut"
         android:layout_alignLeft="@+id/strut"
         android:layout_toRightOf="@+id/textView3"
