@@ -20,7 +20,13 @@ import java.util.List;
 
 public class CardsActivity extends AppCompatActivity {
     private List<Cards> cardlist = new ArrayList<>();
-   @Override
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        initCards();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_view);
@@ -33,7 +39,7 @@ public class CardsActivity extends AppCompatActivity {
                startActivity(intent);
            }
        });
-        initCards();
+
         CardsAdapter adapter = new CardsAdapter(CardsActivity.this,
                 R.layout.cards_list_item, cardlist);
         ListView listView = (ListView) findViewById(R.id.listview);//在视图中找到ListView
@@ -75,7 +81,7 @@ public class CardsActivity extends AppCompatActivity {
         Cards cash = new Cards();
         cash.setCards("现金",null,0,R.drawable.cash, 0.00,0.00,0.00);
         cardlist.add(cash);
-        /*List<Cards> list = LitePal.findAll(Cards.class);
+        List<Cards> list = LitePal.findAll(Cards.class);
         int image = 0;
         for (Cards card:list) {
             Cards extra = new Cards();
@@ -89,6 +95,6 @@ public class CardsActivity extends AppCompatActivity {
             }
             extra.setCards(card.getCard(),card.getRemark(),card.getCardtype(),image,card.getIncome(),card.getOutcome(),card.getSurplus());
             cardlist.add(extra);
-        }*/
+        }
     }
 }

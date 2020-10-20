@@ -33,17 +33,21 @@ public class CreateCardActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0: //储蓄卡
-                        Intent intent = new Intent();
-                        intent.setClass(CreateCardActivity.this, CreateCardDetailActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("type",0);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent();
+                        intent1.setClass(CreateCardActivity.this, CreateCardDetailActivity.class);
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putInt("type",0);
+                        intent1.putExtras(bundle1);
+                        startActivity(intent1);
                         break;//当我们点击某一项就能吐司我们点了哪一项
 
                     case 1: //信用卡
-                        Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent();
+                        intent2.setClass(CreateCardActivity.this, CreateCardDetailActivity.class);
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putInt("type",1);
+                        intent2.putExtras(bundle2);
+                        startActivity(intent2);
                         break;
 
                     case 2: //自定义
