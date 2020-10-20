@@ -24,11 +24,13 @@ import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
 import com.example.toaccountornot.utils.Accounts;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BaseCategoryFragment extends Fragment   {
-    private List<Category> categoryList = new ArrayList<>();
+    public List<Category> categoryList = new ArrayList<>();
     String mfirstCategory;
     EditText etInput, etNote;
     LinearLayout llKeborad;
@@ -37,6 +39,7 @@ public class BaseCategoryFragment extends Fragment   {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initCategory();
     }
 
     @Nullable
@@ -59,12 +62,15 @@ public class BaseCategoryFragment extends Fragment   {
             @Override
             public void callKeyboard(String firstCategory) {
                 mfirstCategory = firstCategory;
+//                Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
                 if (llKeborad.getVisibility() == View.GONE){
                     llKeborad.setVisibility(View.VISIBLE);
                 }
             }
         });
         return view;
+    }
+    public void initCategory() {
     }
 
     public void initKey() {
@@ -112,6 +118,7 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setFirst(mfirstCategory);
                 accounts.setSecond(etnote);
                 accounts.setPrice(tvinput);
+                accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
                 Intent intent = new Intent(getContext(), NavigationActivity.class);
