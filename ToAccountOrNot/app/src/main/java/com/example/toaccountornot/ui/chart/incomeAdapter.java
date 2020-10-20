@@ -54,42 +54,5 @@ public class incomeAdapter extends RecyclerView.Adapter<incomeAdapter.ViewHolder
         return incomes.size();
     }
 
-    /*public incomeAdapter(List<income> incomes) {
-        this.incomes = incomes;
-    }
-
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_item,parent,false);
-        return new MyViewHolder(view);
-    }
-
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        income income = incomes.get(position);
-        //holder.textViewNumber.setText(String.valueOf(position));
-        holder.textViewName.setText(income.getName());
-        holder.textViewAge.setText(String.valueOf(income.getPrice()));
-    }
-
-
-    public int getItemCount() {
-        return incomes.size();
-    }
-
-    /**
-     * 创建ViewHolder类，用来缓存item中的子控件，避免不必要的findViewById
-     */
-    /*public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewNumber, textViewName, textViewAge;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            //textViewNumber = itemView.findViewById(R.id.texeView_number);
-            textViewName = itemView.findViewById(R.id.income_name);
-            textViewAge = itemView.findViewById(R.id.income_image);
-        }
-    }*/
 
     }

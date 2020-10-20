@@ -77,7 +77,7 @@ public class BarChartManager{
         xAxisValue.add("me");
         xAxisValue.add("baba");
         xAxisValue.add("mama");
-        xAxisValue.add("didi");
+        //xAxisValue.add("didi");
         XAxis xAxis=barChart.getXAxis();
         xAxis.setLabelCount(xAxisValue.size());     //设置x轴显示的标签个数
         xAxis.setCenterAxisLabels(true);//设置标签居中

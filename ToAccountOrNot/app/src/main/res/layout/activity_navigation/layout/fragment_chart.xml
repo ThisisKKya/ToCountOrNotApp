@@ -12,28 +12,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp">
 
         <ImageView
             android:id="@+id/view_income"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/piechart_income" />
+            android:src="@drawable/piechart_income"
+            android:background="@drawable/frame" />
 
         <ImageView
             android:id="@+id/view_outcome"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/piechart_outcome" />
+            android:src="@drawable/piechart_outcome"
+            android:background="@drawable/frame" />
 
         <ImageView
             android:id="@+id/people"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/people" />
+            android:src="@drawable/people"
+            android:background="@drawable/frame" />
 
 
 

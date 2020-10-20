@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -49,7 +50,7 @@ public class ChartFragment extends Fragment{
     private PieChart pieChart;
     private BarChart barChart;
     private RecyclerView recyclerView;
-    private List<income> incomeList = new ArrayList<>();
+    private List<income> myList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -72,6 +73,7 @@ public class ChartFragment extends Fragment{
         barChart = (BarChart) getActivity().findViewById(R.id.bc);
         barChart.setNoDataText("");
         initPieChart_income();
+        initRV(1);
 
         // 点击事件
         one_pei_income.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +82,7 @@ public class ChartFragment extends Fragment{
                 barChart.setVisibility(View.GONE);
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_income();
-                initRV();
+                initRV(1);
             }
         });
 
@@ -90,6 +92,7 @@ public class ChartFragment extends Fragment{
                 barChart.setVisibility(View.GONE);      // 隐藏柱状图
                 pieChart.setVisibility(View.VISIBLE);   // 显示饼状图
                 initPieChart_outcome();
+                initRV(2);
             }
         });
 
@@ -98,7 +101,8 @@ public class ChartFragment extends Fragment{
             public void onClick(View v) {
                 pieChart.setVisibility(View.GONE);
                 barChart.setVisibility(View.VISIBLE);
-                initBarchart_income();
+                initBarchart();
+                initRV(3);
             }
         });
 
@@ -167,7 +171,7 @@ public class ChartFragment extends Fragment{
         return  colors;
     }
 
-    void initBarchart_income() {
+    void initBarchart() {
         //填充数据
         List<BarEntry> barEntry1 = get_Barchart_income() ;  //成员的收入
         List<BarEntry> barEntry2 = get_Barchart_outcome() ;  //成员的支出
@@ -186,8 +190,8 @@ public class ChartFragment extends Fragment{
         barEntry1.add(x2) ;
         BarEntry x3 = new BarEntry(6f , 9000f) ;
         barEntry1.add(x3) ;
-        BarEntry x4 = new BarEntry(9f , 12000f) ;
-        barEntry1.add(x4) ;
+        //BarEntry x4 = new BarEntry(9f , 12000f) ;
+        //barEntry1.add(x4) ;
         return barEntry1;
     }
 
@@ -199,46 +203,21 @@ public class ChartFragment extends Fragment{
         barEntry2.add(y2) ;
         BarEntry y3 = new BarEntry(7f , 10500f) ;
         barEntry2.add(y3) ;
-        BarEntry y4 = new BarEntry(10f , 17000f) ;
-        barEntry2.add(y4) ;
+        //BarEntry y4 = new BarEntry(10f , 17000f) ;
+        //barEntry2.add(y4) ;
         return barEntry2;
     }
 
 
-    private void initRV() {
-        initincome();
+    private void initRV(int i) {
+        RvList rvList = new RvList(myList);
+        if(i == 1)    myList = rvList.choice(0);
+        else if (i == 2)    myList = rvList.choice(1);
+        else    myList = rvList.choice(2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        incomeAdapter adapter = new incomeAdapter(incomeList);
+        incomeAdapter adapter = new incomeAdapter(myList);
         recyclerView.setAdapter(adapter);
     }
 
-    private void initincome() {
-        income income1 = new income("income1",100f,R.drawable.food);
-        incomeList.add(income1);
-        income income2 = new income("income2",100f,R.drawable.fruit);
-        incomeList.add(income2);
-        income income3 = new income("income4",100f,R.drawable.food);
-        incomeList.add(income3);
-        income income4 = new income("income4",100f,R.drawable.fruit);
-        incomeList.add(income4);
-        income income5 = new income("income5",100f,R.drawable.food);
-        incomeList.add(income5);
-        income income6 = new income("income6",100f,R.drawable.fruit);
-        incomeList.add(income6);
-    }
-
-
-    /*
-    private void initRV() {
-        List<income> list = new ArrayList<>();
-        for (int i = 0; i <= 10; i++) {
-            @SuppressLint("DefaultLocale") income income = new income("incomei",100f,R.id.people);
-            list.add(income);
-        }
-        incomeAdapter myAdapter = new incomeAdapter(list);
-        recyclerView.setAdapter(myAdapter);
-        //使用垂直布局来实现
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }*/
 }
