@@ -1,13 +1,16 @@
 package com.example.toaccountornot.ui.chart;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,22 +23,33 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.R;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartFragment extends Fragment {
-    private ImageView income;
-    private ImageView outcome;
+public class ChartFragment extends Fragment{
+    private ImageView one_pei_income;
+    private ImageView one_pei_outcome;
+    private ImageView people;
     private PieChart pieChart;
-    private TextView money;
+    private BarChart barChart;
+    private RecyclerView recyclerView;
+    private List<income> incomeList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -49,25 +63,45 @@ public class ChartFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //pieChart = (PieChart) getActivity().findViewById(R.id.pc);
-        income = (ImageView) getActivity().findViewById(R.id.view_income);
-        outcome = (ImageView) getActivity().findViewById(R.id.view_outcome);
+        one_pei_income = (ImageView) getActivity().findViewById(R.id.view_income);
+        one_pei_outcome = (ImageView) getActivity().findViewById(R.id.view_outcome);
+        people = (ImageView) getActivity().findViewById(R.id.people);
+        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
+
         pieChart = (PieChart) getActivity().findViewById(R.id.pc);
+        barChart = (BarChart) getActivity().findViewById(R.id.bc);
+        barChart.setNoDataText("");
         initPieChart_income();
 
-        income.setOnClickListener(new View.OnClickListener() {
+        // 点击事件
+        one_pei_income.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                barChart.setVisibility(View.GONE);
+                pieChart.setVisibility(View.VISIBLE);
                 initPieChart_income();
+                initRV();
             }
         });
 
-        outcome.setOnClickListener(new View.OnClickListener() {
+        one_pei_outcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                barChart.setVisibility(View.GONE);      // 隐藏柱状图
+                pieChart.setVisibility(View.VISIBLE);   // 显示饼状图
                 initPieChart_outcome();
             }
         });
+
+        people.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pieChart.setVisibility(View.GONE);
+                barChart.setVisibility(View.VISIBLE);
+                initBarchart_income();
+            }
+        });
+
 
     }
 
@@ -86,16 +120,6 @@ public class ChartFragment extends Fragment {
         PieChartManager pieChartManager = new PieChartManager(pieChart);
         pieChartManager.showSolidPieChart(yVals,colors);
         pieChart.postInvalidate();
-        /*
-        PieDataSet pieDataSet = new PieDataSet(yVals,"");
-        pieDataSet.setColors(colors);
-        PieData pieData = new PieData(pieDataSet);
-
-        // 更改饼状图的大小
-        pieChart.setExtraOffsets(0f,32f,0f,32f);
-        pieChart.setData(pieData);
-        // 更新数据
-        pieChart.postInvalidate();*/
     }
 
 
@@ -143,4 +167,78 @@ public class ChartFragment extends Fragment {
         return  colors;
     }
 
+    void initBarchart_income() {
+        //填充数据
+        List<BarEntry> barEntry1 = get_Barchart_income() ;  //成员的收入
+        List<BarEntry> barEntry2 = get_Barchart_outcome() ;  //成员的支出
+
+        BarChartManager barChartManager = new BarChartManager(barChart);
+        barChartManager.showBarChart(barEntry1,barEntry2);
+        //刷新
+        barChart.invalidate();
+    }
+
+    private List<BarEntry> get_Barchart_income() {
+        List<BarEntry> barEntry1 = new ArrayList<>();
+        BarEntry x1 = new BarEntry(0f , 10000f) ;
+        barEntry1.add(x1) ;
+        BarEntry x2 = new BarEntry(3f , 11000f) ;
+        barEntry1.add(x2) ;
+        BarEntry x3 = new BarEntry(6f , 9000f) ;
+        barEntry1.add(x3) ;
+        BarEntry x4 = new BarEntry(9f , 12000f) ;
+        barEntry1.add(x4) ;
+        return barEntry1;
+    }
+
+    private List<BarEntry> get_Barchart_outcome() {
+        List<BarEntry> barEntry2 = new ArrayList<>();
+        BarEntry y1 = new BarEntry(1f , 2000f) ;
+        barEntry2.add(y1) ;
+        BarEntry y2 = new BarEntry(4f , 15000f) ;
+        barEntry2.add(y2) ;
+        BarEntry y3 = new BarEntry(7f , 10500f) ;
+        barEntry2.add(y3) ;
+        BarEntry y4 = new BarEntry(10f , 17000f) ;
+        barEntry2.add(y4) ;
+        return barEntry2;
+    }
+
+
+    private void initRV() {
+        initincome();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        incomeAdapter adapter = new incomeAdapter(incomeList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void initincome() {
+        income income1 = new income("income1",100f,R.drawable.food);
+        incomeList.add(income1);
+        income income2 = new income("income2",100f,R.drawable.fruit);
+        incomeList.add(income2);
+        income income3 = new income("income4",100f,R.drawable.food);
+        incomeList.add(income3);
+        income income4 = new income("income4",100f,R.drawable.fruit);
+        incomeList.add(income4);
+        income income5 = new income("income5",100f,R.drawable.food);
+        incomeList.add(income5);
+        income income6 = new income("income6",100f,R.drawable.fruit);
+        incomeList.add(income6);
+    }
+
+
+    /*
+    private void initRV() {
+        List<income> list = new ArrayList<>();
+        for (int i = 0; i <= 10; i++) {
+            @SuppressLint("DefaultLocale") income income = new income("incomei",100f,R.id.people);
+            list.add(income);
+        }
+        incomeAdapter myAdapter = new incomeAdapter(list);
+        recyclerView.setAdapter(myAdapter);
+        //使用垂直布局来实现
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }*/
 }
