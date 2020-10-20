@@ -82,18 +82,9 @@ public class CardsActivity extends AppCompatActivity {
         cash.setCards("现金",null,0,R.drawable.cash, 0.00,0.00,0.00);
         cardlist.add(cash);
         List<Cards> list = LitePal.findAll(Cards.class);
-        int image = 0;
         for (Cards card:list) {
             Cards extra = new Cards();
-            switch (card.getCardtype()) {
-                case 0:
-                    image = R.drawable.bankcard;
-                    break;
-                case 1:
-                    image = R.drawable.creditcard;
-                    break;
-            }
-            extra.setCards(card.getCard(),card.getRemark(),card.getCardtype(),image,card.getIncome(),card.getOutcome(),card.getSurplus());
+            extra.setCards(card.getCard(),card.getRemark(),card.getCardtype(),card.getCardid(),card.getIncome(),card.getOutcome(),card.getSurplus());
             cardlist.add(extra);
         }
     }

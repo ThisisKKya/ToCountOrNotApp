@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.toaccountornot.utils.Cards;
-import com.example.toaccountornot.utils.CardsAdapter;
 import com.example.toaccountornot.utils.CreateCard;
 import com.example.toaccountornot.utils.CreateCardAdapter;
 
@@ -51,7 +48,9 @@ public class CreateCardActivity extends AppCompatActivity {
                         break;
 
                     case 2: //自定义
-                        Toast.makeText(CreateCardActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
+                        Intent intent3 = new Intent();
+                        intent3.setClass(CreateCardActivity.this, CardCustomizeActivity.class);
+                        startActivity(intent3);
                         break;
 
                 }
