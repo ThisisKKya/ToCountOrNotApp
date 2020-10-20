@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.toaccountornot.utils.Cards;
 
@@ -29,25 +30,29 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
                 startActivity(intent);
-                Cards card = new Cards();
-                if (TextUtils.isEmpty(cardnumber.getText()))
-                    card.setCard(bankname.getText().toString());
-                else
-                    card.setCard(bankname.getText().toString() + "(" + cardnumber.getText().toString() + ")");
-                card.setRemark(remark.getText().toString());
-                card.setCardtype(type);
-                switch (type) {
-                    case 0:
-                        card.setCardid(R.drawable.bankcard);
-                        break;
-                    case 1:
-                        card.setCardid(R.drawable.creditcard);
-                        break;
+                if(TextUtils.isEmpty(bankname.getText()))
+                    Toast.makeText(CreateCardDetailActivity.this,"输入无效",Toast.LENGTH_LONG).show();
+                else{
+                    Cards card = new Cards();
+                    if (TextUtils.isEmpty(cardnumber.getText()))
+                        card.setCard(bankname.getText().toString());
+                    else
+                        card.setCard(bankname.getText().toString() + "(" + cardnumber.getText().toString() + ")");
+                    card.setRemark(remark.getText().toString());
+                    card.setCardtype(type);
+                    switch (type) {
+                        case 0:
+                            card.setCardid(R.drawable.bankcard);
+                            break;
+                        case 1:
+                            card.setCardid(R.drawable.creditcard);
+                            break;
+                    }
+                    card.setIncome(0);
+                    card.setOutcome(0);
+                    card.setSurplus(0);
+                    card.save();
                 }
-                card.setIncome(0);
-                card.setOutcome(0);
-                card.setSurplus(0);
-                card.save();
             }
         });
     }

@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.toaccountornot.utils.Cards;
 
@@ -25,14 +27,18 @@ public class CardCustomizeActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(CardCustomizeActivity.this, CardsActivity.class);
                 startActivity(intent);
-                Cards card = new Cards();
-                card.setCard(name.getText().toString());
-                card.setRemark(remark.getText().toString());
-                card.setCardid(R.drawable.customize);
-                card.setIncome(0);
-                card.setOutcome(0);
-                card.setSurplus(0);
-                card.save();
+                if(TextUtils.isEmpty(name.getText()))
+                    Toast.makeText(CardCustomizeActivity.this,"输入无效",Toast.LENGTH_LONG).show();
+                else{
+                    Cards card = new Cards();
+                    card.setCard(name.getText().toString());
+                    card.setRemark(remark.getText().toString());
+                    card.setCardid(R.drawable.customize);
+                    card.setIncome(0);
+                    card.setOutcome(0);
+                    card.setSurplus(0);
+                    card.save();
+                }
             }
         });
     }
