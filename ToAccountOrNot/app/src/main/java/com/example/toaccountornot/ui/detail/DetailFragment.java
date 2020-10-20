@@ -84,7 +84,7 @@ public class DetailFragment extends Fragment {
         if (!list.isEmpty()) {
             for (Accounts accounts : list) {
                 String date = accounts.getDate();
-                dayList.add(new Day(date, getContext()));
+                dayList.add(new Day(date));
                 DayAdapter dayAdapter = new DayAdapter(dayList, getContext());
                 rec_day.setAdapter(dayAdapter);
             }
@@ -105,6 +105,5 @@ public class DetailFragment extends Fragment {
             label_out.setText("0");
             label_in.setText("0");
         }
-
     }
 }

@@ -2,25 +2,21 @@ package com.example.toaccountornot.utils;
 
 public class Single {
 
-    private long id = 0;
-    private double income = 0;
-    private double outcome = 0;
-    private String inorout="";
-    private String date = "";
-    private String remark = "";
-    private String pay_method = "";
-    private String first = "";
+    private long id;
+    private String inorout;
+    private String first;
+    private String second;
+    private double price;
+    private String date;
 
-    public Single(String first, double income, double outcome, String inorout, String pay_method, String remark, String date, long id){
+    public Single(long id, String inorout, String first, String second, double price, String date){
 
         this.id = id;
-        this.income = income;
-        this.outcome = outcome;
         this.inorout = inorout;
-        this.date = date;
-        this.remark = remark;
-        this.pay_method = pay_method;
         this.first = first;
+        this.second = second;
+        this.price = price;
+        this.date = date;
 
     }
 
@@ -28,12 +24,8 @@ public class Single {
         return id;
     }
 
-    public double getIncome() {
-        return income;
-    }
-
-    public double getOutcome() {
-        return outcome;
+    public double getPrice() {
+        return price;
     }
 
     public String getInorout() {
@@ -44,12 +36,8 @@ public class Single {
         return date;
     }
 
-    public String getRemark() {
-        return remark;
-    }
-
-    public String getPay_method() {
-        return pay_method;
+    public String getSecond() {
+        return second;
     }
 
     public String getFirst() {

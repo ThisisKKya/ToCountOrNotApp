@@ -23,29 +23,27 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
     private Context mContext;
     private List<Single> singleList;
 
-    public SingleAdapter(List<Single>singleList, Context mcontext) {
-        mContext = mcontext;
+    public SingleAdapter(List<Single> singleList, Context context) {
+        mContext = context;
         this.singleList = singleList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView first;
-        TextView paymethod;
+        TextView second;
         TextView money;
-        Button button_lookmore;
         ImageView image_property;
         LinearLayout clickItem;
-        LinearLayout single_all;
+        Button button_lookmore;
+
         public ViewHolder(View itemView) {
             super(itemView);
             first = itemView.findViewById(R.id.text_first);
-            paymethod = itemView.findViewById(R.id.text_paymethod);
+            second = itemView.findViewById(R.id.text_second);
             money = itemView.findViewById(R.id.money);
-            image_property = itemView.findViewById(R.id.propertyimage);
+            image_property = itemView.findViewById(R.id.property_image);
             clickItem = itemView.findViewById(R.id.click_item);
             button_lookmore = itemView.findViewById(R.id.button_lookmore);
-            single_all = itemView.findViewById(R.id.itemsingle_all);
-
         }
     }
 
@@ -60,18 +58,18 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         DecimalFormat df = new DecimalFormat("#.##");
         Single single = singleList.get(position);
+        holder.first.setText(single.getFirst());
+        holder.second.setText(single.getSecond());
         switch (single.getInorout())
         {
             case "in":
-                holder.money.setText(df.format(single.getIncome()));
+                holder.money.setText(df.format(single.getPrice()));
                 break;
             case "out":
-                holder.money.setText("-"+df.format(single.getOutcome()));
+                holder.money.setText("-"+df.format(single.getPrice()));
                 break;
         }
         imageSwitch(single.getFirst(), holder.image_property);
-        holder.first.setText(single.getFirst());
-        holder.paymethod.setText(String.valueOf(single.getPay_method()));
 //        if(singleList.size()>3)
         initClickListener(holder,single);
     }
@@ -81,8 +79,21 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         return singleList.size();
     }
 
-    void imageSwitch(String property, ImageView imageProperty) {
-        // 待补充
+    void imageSwitch(String first, ImageView imageProperty) {
+        switch (first) // 没写完 待补充
+        {
+            case"餐饮":
+                imageProperty.setImageResource(R.drawable.food);
+                break;
+            case "购物":
+                imageProperty.setImageResource(R.drawable.shopping);
+                break;
+            case "日用":
+                imageProperty.setImageResource(R.drawable.daily);
+                break;
+            default:
+                break;
+        }
     }
 
     void initClickListener(final ViewHolder holder, final Single single) {

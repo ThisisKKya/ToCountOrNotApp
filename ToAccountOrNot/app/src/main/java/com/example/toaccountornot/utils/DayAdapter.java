@@ -20,13 +20,11 @@ import java.util.List;
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Day> dayList;
-    private List<Single> singles;
-    private SingleAdapter singleAdapter;
+    private List<Day> mDayList;
 
-    public DayAdapter(List<Day> objects, Context mcontext){
-        mContext = mcontext;
-        dayList = objects;
+    public DayAdapter(List<Day> dayList, Context context){
+        mContext = context;
+        mDayList = dayList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,11 +52,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         List<Single> singleList;
+        SingleAdapter singleAdapter;
         DecimalFormat df = new DecimalFormat("#.##");
-        Day day = dayList.get(position);
+        Day day = mDayList.get(position);
 
         singleList = initSinglelist(day.getDate());
-        singles = singleList;
 
         holder.day_outcome.setText(df.format(day.getOutcome_day()));
         holder.day_income.setText(df.format(day.getIncome_day()));
@@ -70,40 +68,29 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return dayList.size();
+        return mDayList.size();
     }
 
     public List<Single> initSinglelist(String date) {
         List<Single>singleList = new ArrayList<>();
-        String first = "";
-        String inorout = "";
-        String pay_method = "";
-        String remark = "";
-        long id = 0;
-        double income = 0;
-        double outcome = 0;
+
+        long id;
+        String inorout;
+        String first;
+        String second;
+        double price = 0;
 
         List<Accounts> list = LitePal.where("date=?", date)
                 .order("id desc")
                 .find(Accounts.class);
         for (Accounts accounts : list) {
+            id = accounts.getId();
             inorout = accounts.getInorout();
             first = accounts.getFirst();
-            pay_method = accounts.getPaymethod();
-            remark = accounts.getSecond();
-            id = accounts.getId();
-            switch (inorout)
-            {
-                case "in":
-                    income = accounts.getIncome();
-                    outcome = 0;
-                    break;
-                case "out":
-                    outcome = accounts.getOutcome();
-                    income = 0;
-                    break;
-            }
-            singleList.add(new Single(first, income, outcome, inorout, pay_method, remark, date, id));
+            second = accounts.getSecond();
+            price = accounts.getPrice();
+
+            singleList.add(new Single(id, inorout, first, second, price, date));
         }
 
         return singleList;

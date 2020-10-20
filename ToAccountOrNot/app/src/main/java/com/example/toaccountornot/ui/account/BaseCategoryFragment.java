@@ -118,6 +118,12 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setFirst(mfirstCategory);
                 accounts.setSecond(etnote);
                 accounts.setPrice(tvinput);
+                // 流水测试用
+                accounts.setInorout("out");
+                accounts.setDate("2020年10月21日");
+                accounts.setDate_year("2020");
+                accounts.setDate_month("10");
+
                 accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
