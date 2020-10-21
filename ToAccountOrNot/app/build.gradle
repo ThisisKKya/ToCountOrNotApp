@@ -29,6 +29,7 @@ android {
                     ]
         }
     }
+
 }
 
 dependencies {
@@ -44,6 +45,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -51,4 +53,5 @@ dependencies {
     implementation 'org.litepal.guolindev:core:3.2.2'
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.niniloveyou:StateButton:v1.0.0'
 }
