@@ -50,6 +50,12 @@ public class OutcomeFragment extends BaseCategoryFragment {
         categoryList.add(doctor);
         Category pet = new Category("宠物",R.drawable.pet);
         categoryList.add(pet);
+        Category pet2 = new Category("宠物",R.drawable.pet);
+        categoryList.add(pet);
+        Category pet3 = new Category("宠物",R.drawable.pet);
+        categoryList.add(pet);
+        Category pet4 = new Category("宠物",R.drawable.pet);
+        categoryList.add(pet);
         Category setting = new Category("自定义",R.drawable.setting);
         categoryList.add(setting);
     }
