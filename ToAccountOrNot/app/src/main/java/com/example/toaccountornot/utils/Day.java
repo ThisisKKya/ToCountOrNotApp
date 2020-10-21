@@ -2,9 +2,6 @@ package com.example.toaccountornot.utils;
 
 import org.litepal.LitePal;
 
-import java.util.List;
-
-
 public class Day {
     private String date;
     private double outcome_day;
@@ -25,9 +22,9 @@ public class Day {
 
     public Day(String date) {
         this.date = date;
-        List<Accounts> out = LitePal.select("sum(price)").where("inorout=? and date=?", "out", date).find(Accounts.class); // 不确定
-        this.outcome_day = out.get(0).getPrice();
-        List<Accounts> in = LitePal.select("sum(price)").where("inorout=? and date=?", "in", date).find(Accounts.class);
-        this.income_day = in.get(0).getPrice();
+        Double sum_out = LitePal.where("inorout=? and date=?", "out", date).sum(Accounts.class, "price", Double.TYPE);
+        this.outcome_day = sum_out;
+        Double sum_in = LitePal.where("inorout=? and date=?", "in", date).sum(Accounts.class, "price", Double.TYPE);
+        this.income_day = sum_in;
     }
 }

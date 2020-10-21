@@ -1,5 +1,6 @@
 package com.example.toaccountornot.ui.detail;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,17 +78,17 @@ public class DetailFragment extends Fragment {
 
     void initDaylist() {
         dayList.clear();
-        List<Accounts> list = LitePal.select("date")
-                .where("date_year=? and date_month=?", label_year.getText().toString(), label_month.getText().toString())
-                .order("date desc")
-                .find(Accounts.class);
-        if (!list.isEmpty()) {
-            for (Accounts accounts : list) {
-                String date = accounts.getDate();
+        Cursor cursor = LitePal.findBySQL("select date from Accounts where date_year=?" +
+                        "and date_month=? group by date order by date desc",
+                label_year.getText().toString(),
+                label_month.getText().toString());
+        if (cursor.moveToFirst()) {
+            do {
+                String date = cursor.getString(0);
                 dayList.add(new Day(date));
                 DayAdapter dayAdapter = new DayAdapter(dayList, getContext());
                 rec_day.setAdapter(dayAdapter);
-            }
+            } while (cursor.moveToNext());
 
             double outcome = 0;
             double income = 0;
