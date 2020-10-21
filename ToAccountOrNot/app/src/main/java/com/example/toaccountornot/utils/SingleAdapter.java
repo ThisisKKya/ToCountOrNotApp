@@ -80,7 +80,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
     }
 
     void imageSwitch(String first, ImageView imageProperty) {
-        switch (first) // 没写完 测试用 待补充
+        switch (first)
         {
             case"餐饮":
                 imageProperty.setImageResource(R.drawable.food);
@@ -91,7 +91,53 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             case "日用":
                 imageProperty.setImageResource(R.drawable.daily);
                 break;
+            case "学习":
+                imageProperty.setImageResource(R.drawable.study);
+                break;
+            case "交通":
+                imageProperty.setImageResource(R.drawable.transport);
+                break;
+            case "水果":
+                imageProperty.setImageResource(R.drawable.fruit);
+                break;
+            case "零食":
+                imageProperty.setImageResource(R.drawable.snacks);
+                break;
+            case "运动":
+                imageProperty.setImageResource(R.drawable.sport);
+                break;
+            case "娱乐":
+                imageProperty.setImageResource(R.drawable.entertainment);
+                break;
+            case "住房":
+                imageProperty.setImageResource(R.drawable.house);
+                break;
+            case "聚会":
+                imageProperty.setImageResource(R.drawable.dating);
+                break;
+            case "旅行":
+                imageProperty.setImageResource(R.drawable.travel);
+                break;
+            case "医疗":
+                imageProperty.setImageResource(R.drawable.doctor);
+                break;
+            case "宠物":
+                imageProperty.setImageResource(R.drawable.pet);
+                break;
+            case "工资":
+                imageProperty.setImageResource(R.drawable.salary);
+                break;
+            case "兼职":
+                imageProperty.setImageResource(R.drawable.parttime);
+                break;
+            case "礼金":
+                imageProperty.setImageResource(R.drawable.gift);
+                break;
+            case "转账":
+                imageProperty.setImageResource(R.drawable.transfer);
+                break;
             default:
+                imageProperty.setImageResource(R.drawable.setting);
                 break;
         }
     }
