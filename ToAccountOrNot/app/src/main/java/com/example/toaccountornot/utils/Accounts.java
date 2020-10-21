@@ -9,9 +9,46 @@ public class Accounts extends LitePalSupport {
     private String first;   //一级分类
     private String second;  //二级分类
     private double price;    //账目金额
-    private Date time;      //记账时间
+//    private Date time;      //记账时间
     private String card;    //账户
     private String member;  //成员
+    // 为测试流水新增的
+    private String date;
+    private String date_year;
+    private String date_month;
+    private String inorout; //收入支出类型
+
+    public String getDate_year() {
+        return date_year;
+    }
+
+    public void setDate_year(String date_year) {
+        this.date_year = date_year;
+    }
+
+    public String getDate_month() {
+        return date_month;
+    }
+
+    public void setDate_month(String date_month) {
+        this.date_month = date_month;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getInorout() {
+        return inorout;
+    }
+
+    public void setInorout(String inorout) {
+        this.inorout = inorout;
+    }
 
     public long getId() {
         return id;
@@ -45,13 +82,13 @@ public class Accounts extends LitePalSupport {
         this.price = price;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
+//    public Date getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(Date time) {
+//        this.time = time;
+//    }
 
     public String getCard() {
         return card;
