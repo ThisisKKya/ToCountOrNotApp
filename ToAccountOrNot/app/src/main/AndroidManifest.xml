@@ -10,8 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".CardCustomizeActivity"></activity>
+        <activity android:name=".CardDetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".CardCustomizeActivity" />
         <activity
             android:name=".CreateCardDetailActivity"
             android:label="添加账户明细" />
