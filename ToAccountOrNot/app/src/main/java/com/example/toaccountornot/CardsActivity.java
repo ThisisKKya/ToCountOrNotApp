@@ -73,7 +73,7 @@ public class CardsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //switch (i){
                     //case 0:
-                    Toast.makeText(CardsActivity.this,"你点击了"+i+"按钮",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CardsActivity.this,cardlist.get(i).getCard(),Toast.LENGTH_SHORT).show();
                     Intent cardintent = new Intent();
                     cardintent.setClass(CardsActivity.this, CardDetailActivity.class);
                     Bundle cardbundle = new Bundle();
@@ -134,6 +134,9 @@ public class CardsActivity extends AppCompatActivity {
         }
     }
     private void initCards() {
+        Cards c = new Cards();
+        c.setIncome(19);
+        c.updateAll("card=?","支付宝");
         List<Cards> list = LitePal.findAll(Cards.class);
         for (Cards card:list) {
             Cards extra = new Cards();
