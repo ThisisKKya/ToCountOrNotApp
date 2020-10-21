@@ -12,6 +12,7 @@ public class Accounts extends LitePalSupport {
     private Date time;      //记账时间
     private String card;    //账户
     private String member;  //成员
+    private String inorout; //收入或支出
 
     public long getId() {
         return id;
@@ -67,5 +68,13 @@ public class Accounts extends LitePalSupport {
 
     public void setMember(String member) {
         this.member = member;
+    }
+
+    public String getInorout() {
+        return inorout;
+    }
+
+    public void setInorout(String inorout) {
+        this.inorout = inorout;
     }
 }

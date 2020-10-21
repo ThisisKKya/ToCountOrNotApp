@@ -39,7 +39,7 @@ public class CardsActivity extends AppCompatActivity {
                startActivity(intent);
            }
        });
-
+        
         CardsAdapter adapter = new CardsAdapter(CardsActivity.this,
                 R.layout.cards_list_item, cardlist);
         ListView listView = (ListView) findViewById(R.id.listview);//在视图中找到ListView
@@ -73,10 +73,10 @@ public class CardsActivity extends AppCompatActivity {
     }
     private void initCards() {
         Cards wechat = new Cards();
-        wechat.setCards("微信",null,0,R.drawable.wechat, +1.11,-0.00,+1.11);
+        wechat.setCards("微信",null,0,R.drawable.wechat, 1.11,0.00,1.11);
         cardlist.add(wechat);
         Cards alipay = new Cards();
-        alipay.setCards("支付宝",null,0,R.drawable.alipay, +2.22,1.00,-1.22);
+        alipay.setCards("支付宝",null,0,R.drawable.alipay, 2.22,3.00,-1.22);
         cardlist.add(alipay);
         Cards cash = new Cards();
         cash.setCards("现金",null,0,R.drawable.cash, 0.00,0.00,0.00);
