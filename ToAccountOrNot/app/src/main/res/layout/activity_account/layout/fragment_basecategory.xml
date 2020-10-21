@@ -4,14 +4,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:id="@+id/account_fragment_father">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-27dp" />
+        android:fadeScrollbars="false"
+        app:fastScrollEnabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/llKeborad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/llKeborad"
@@ -20,8 +26,10 @@
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -73,7 +81,6 @@
             android:id="@+id/keyboard_temp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@drawable/keyboard_background"
             android:focusable="true"
             android:focusableInTouchMode="true"
