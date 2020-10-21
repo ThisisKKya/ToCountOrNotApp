@@ -28,8 +28,6 @@ import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 
-import org.litepal.LitePal;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,12 +35,15 @@ import java.util.List;
 
 public class BaseCategoryFragment extends Fragment   {
     public List<Category> categoryList = new ArrayList<>();
+    public List<String> cardString = new ArrayList<>();
+    public List<String> memberString = new ArrayList<>();
     String mfirstCategory;
     Date mtime;
+    String msecondCategory;
     String mcard;
     String mmember;
-    TextView tvNote;
-    EditText etInput, etNote;
+    TextView tvSecond,tvCard,tvmember;
+    EditText etInput;
     LinearLayout llKeborad;
     MyKeyboardView keyboard_temp;
     MyKeyboardHelper helper;
@@ -50,24 +51,59 @@ public class BaseCategoryFragment extends Fragment   {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCategory();
+        initStringList();
     }
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basecategory,container,false);
-        etNote = view.findViewById(R.id.etNote);
         etInput = view.findViewById(R.id.etInput);
-        tvNote = view.findViewById(R.id.tvNoteHint);
-        tvNote.setOnClickListener(new View.OnClickListener() {
+        tvSecond = view.findViewById(R.id.secondCategory);
+        tvCard = view.findViewById(R.id.card);
+        tvmember = view.findViewById(R.id.member);
+        tvCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new XPopup.Builder(getContext())
-                        .asBottomList("请选择一项", new String[]{"条目1", "条目2", "条目3", "条目4", "条目5"},
+                        .asBottomList("账户", cardString.toArray(new String[cardString.size()]),
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
+                                        tvCard.setText("账户:"+text);
+                                        mcard = text;
+                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .show();
+            }
+        });
+        tvmember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(getContext())
+                        .asBottomList("成员", memberString.toArray(new String[memberString.size()]),
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        tvmember.setText("成员:"+text);
+                                        mmember = text;
+                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .show();
+            }
+        });
+        tvSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(getContext())
+                        .asBottomList("请选择一项", new String[]{"子类1"},
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        tvSecond.setText("分类:"+text);
+                                        msecondCategory = text;
                                         Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -99,6 +135,14 @@ public class BaseCategoryFragment extends Fragment   {
         return view;
     }
     public void initCategory() {
+    }
+    public void initStringList() {
+        cardString.add("现金");
+        cardString.add("支付宝");
+        cardString.add("微信");
+        memberString.add("爸爸");
+        memberString.add("妈妈");
+        memberString.add("我");
     }
 
     public void initKey() {
@@ -140,12 +184,13 @@ public class BaseCategoryFragment extends Fragment   {
             @Override
             public void doneCallback() {
 
-                String etnote = etNote.getText().toString().trim();
                 Double tvinput = Double.valueOf(etInput.getText().toString().trim());
                 Accounts accounts = new Accounts();
                 accounts.setFirst(mfirstCategory);
                 accounts.setTime(mtime);
-                accounts.setSecond(etnote);
+                accounts.setCard(mcard);
+                accounts.setMember(mmember);
+                accounts.setSecond(msecondCategory);
                 accounts.setPrice(tvinput);
                 accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
