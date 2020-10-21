@@ -30,6 +30,7 @@ import com.lxj.xpopupext.popup.TimePickerPopup;
 
 import org.litepal.LitePal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -144,14 +145,17 @@ public class BaseCategoryFragment extends Fragment   {
                 Double tvinput = Double.valueOf(etInput.getText().toString().trim());
                 Accounts accounts = new Accounts();
                 accounts.setFirst(mfirstCategory);
-                accounts.setTime(mtime);
+//                accounts.setTime(mtime);
                 accounts.setSecond(etnote);
                 accounts.setPrice(tvinput);
                 // 流水测试用
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(mtime);
                 accounts.setInorout("out");
-                accounts.setDate("2020年10月21日");
-                accounts.setDate_year("2020");
-                accounts.setDate_month("10");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                accounts.setDate(simpleDateFormat.format(mtime));
+                accounts.setDate_year(String.valueOf(calendar.get(Calendar.YEAR)));
+                accounts.setDate_month(String.valueOf(calendar.get(Calendar.MONTH)+1));
 
                 accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();

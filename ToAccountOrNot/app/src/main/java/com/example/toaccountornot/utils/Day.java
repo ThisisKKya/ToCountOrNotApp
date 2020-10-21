@@ -2,6 +2,9 @@ package com.example.toaccountornot.utils;
 
 import org.litepal.LitePal;
 
+/**
+ * 一天的支出和收入
+ */
 public class Day {
     private String date;
     private double outcome_day;

@@ -24,6 +24,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+
+/**
+ * 明细
+ */
 public class DetailFragment extends Fragment {
 
     private View view;
@@ -71,13 +75,14 @@ public class DetailFragment extends Fragment {
         choose_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 待补充
+                // 待补充 使用DatePicker
             }
         });
     }
 
     void initDaylist() {
         dayList.clear();
+        // 因为LitePal不支持group by, 故使用SQL语句查询
         Cursor cursor = LitePal.findBySQL("select date from Accounts where date_year=?" +
                         "and date_month=? group by date order by date desc",
                 label_year.getText().toString(),

@@ -80,7 +80,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
     }
 
     void imageSwitch(String first, ImageView imageProperty) {
-        switch (first) // 没写完 待补充
+        switch (first) // 没写完 测试用 待补充
         {
             case"餐饮":
                 imageProperty.setImageResource(R.drawable.food);
@@ -101,13 +101,13 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                // 待补充
+                // 待补充 详情页
             }
         });
         holder.button_lookmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 待补充
+                // 待补充 查看更多
             }
         });
     }

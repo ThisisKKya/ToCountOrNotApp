@@ -38,7 +38,7 @@ public class DatabaseActivity extends AppCompatActivity {
                 account.setSecond("晚餐");
                 account.setPrice(30.12);
                 Date d1 = new Date(2000-1900,9-1,28);
-                account.setTime(d1);
+//                account.setTime(d1);
                 account.save();
             }
         });
@@ -52,7 +52,7 @@ public class DatabaseActivity extends AppCompatActivity {
                     Log.d("DatabaseActivity","second" + account.getSecond());
                     Log.d("DatabaseActivity","id" + account.getId());
                     Log.d("DatabaseActivity","price" + account.getPrice());
-                    Log.d("DatabaseActivity","time" + account.getTime());
+//                    Log.d("DatabaseActivity","time" + account.getTime());
                     Log.d("DatabaseActivity","member" + account.getMember());
                     Log.d("DatabaseActivity","card" + account.getCard());
                 }

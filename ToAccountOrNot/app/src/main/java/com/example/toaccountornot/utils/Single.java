@@ -1,5 +1,8 @@
 package com.example.toaccountornot.utils;
 
+/**
+ * 某天中的一条记录
+ */
 public class Single {
 
     private long id;

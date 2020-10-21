@@ -9,7 +9,7 @@ public class Accounts extends LitePalSupport {
     private String first;   //一级分类
     private String second;  //二级分类
     private double price;    //账目金额
-    private Date time;      //记账时间
+//    private Date time;      //记账时间
     private String card;    //账户
     private String member;  //成员
     // 为测试流水新增的
@@ -82,13 +82,13 @@ public class Accounts extends LitePalSupport {
         this.price = price;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
+//    public Date getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(Date time) {
+//        this.time = time;
+//    }
 
     public String getCard() {
         return card;
