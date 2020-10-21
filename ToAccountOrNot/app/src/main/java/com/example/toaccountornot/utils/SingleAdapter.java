@@ -2,6 +2,7 @@ package com.example.toaccountornot.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,7 +164,15 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                // 待补充 详情页
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", single.getId());
+                bundle.putString("inorout", single.getInorout());
+                bundle.putString("first", single.getFirst());
+                bundle.putString("second", single.getSecond());
+                bundle.putDouble("price", single.getPrice());
+                bundle.putString("date", single.getDate());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
             }
         });
         holder.button_lookmore.setOnClickListener(new View.OnClickListener() {
