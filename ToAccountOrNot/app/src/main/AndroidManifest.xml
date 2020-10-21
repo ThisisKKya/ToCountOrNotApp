@@ -11,9 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".CardCustomizeActivity"></activity>
+        <activity
+            android:name=".CreateCardDetailActivity"
+            android:label="添加账户明细" />
+        <activity
+            android:name=".CreateCardActivity"
+            android:label="添加账户" />
         <activity
             android:name=".CardsActivity"
-            android:label="账户"></activity>
+            android:label="账户" />
         <activity android:name=".DatabaseActivity" />
         <activity
             android:name=".PinLockActivity"

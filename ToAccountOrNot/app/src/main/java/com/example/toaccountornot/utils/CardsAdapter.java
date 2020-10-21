@@ -25,11 +25,13 @@ public class CardsAdapter extends ArrayAdapter {
         Cards card = (Cards) getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(CardId,parent,false);//这个是实例化一个我们自己写的界面Item
         TextView name = view.findViewById(R.id.account_card);
+        TextView remark = view.findViewById(R.id.account_remark);
         ImageView headImage = view.findViewById(R.id.account_image);
         TextView in = view.findViewById(R.id.account_in);
         TextView out = view.findViewById(R.id.account_out);
         TextView sur = view.findViewById(R.id.account_sur);
         name.setText(card.getCard());
+        remark.setText(card.getRemark());
         headImage.setImageResource(card.getCardid());
         in.setText(String.valueOf(card.getIncome()));
         out.setText(String.valueOf(card.getOutcome()));

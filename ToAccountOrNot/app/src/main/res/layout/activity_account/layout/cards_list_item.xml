@@ -23,8 +23,20 @@
             android:layout_marginStart="15dp"
             android:layout_toRightOf="@+id/account_image"
             android:layout_toEndOf="@+id/account_image"
+            android:layout_marginTop="10dp"
             android:layout_centerVertical="true"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/account_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/account_card"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_toRightOf="@+id/account_image"
+            android:layout_toEndOf="@+id/account_image"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/account_sur"
