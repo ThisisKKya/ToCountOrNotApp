@@ -16,12 +16,16 @@ import com.example.toaccountornot.DetailActivity;
 import com.example.toaccountornot.R;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder>{
 
     private Context mContext;
     private List<Single> singleList;
+    List<LinearLayout>hide = new ArrayList<>();
+    Button button;
+    boolean isHide = true;
 
     public SingleAdapter(List<Single> singleList, Context context) {
         mContext = context;
@@ -34,6 +38,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         TextView money;
         ImageView image_property;
         LinearLayout clickItem;
+        LinearLayout single_all;
         Button button_lookmore;
 
         public ViewHolder(View itemView) {
@@ -43,6 +48,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             money = itemView.findViewById(R.id.money);
             image_property = itemView.findViewById(R.id.property_image);
             clickItem = itemView.findViewById(R.id.click_item);
+            single_all = itemView.findViewById(R.id.single_all);
             button_lookmore = itemView.findViewById(R.id.button_lookmore);
         }
     }
@@ -70,7 +76,17 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
                 break;
         }
         imageSwitch(single.getFirst(), holder.image_property);
-//        if(singleList.size()>3)
+        if(singleList.size()>3)
+        {
+            if(position>1&&position!=(singleList.size()-1)) {
+                setVisibility(false,holder.single_all);
+                hide.add(holder.single_all);
+            }
+            if(position==(singleList.size()-1)) {
+                holder.button_lookmore.setVisibility(View.VISIBLE);
+                button = holder.button_lookmore;
+            }
+        }
         initClickListener(holder,single);
     }
 
@@ -153,8 +169,34 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         holder.button_lookmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 待补充 查看更多
+                if(isHide) {
+                    for (int j = 0; j < hide.size(); j++) {
+                        setVisibility(true, hide.get(j));
+                    }
+                    button.setText("收起");
+                    isHide = false;
+                } else {
+                    for (int j = 0; j < hide.size(); j++) {
+                        setVisibility(false, hide.get(j));
+                    }
+                    button.setText("查看更多");
+                    isHide = true;
+                }
             }
         });
+    }
+
+    public void setVisibility(boolean isVisible,LinearLayout itemView){
+        RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
+        if (isVisible){
+            param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            itemView.setVisibility(View.VISIBLE);
+        }else{
+            itemView.setVisibility(View.GONE);
+            param.height = 0;
+            param.width = 0;
+        }
+        itemView.setLayoutParams(param);
     }
 }
