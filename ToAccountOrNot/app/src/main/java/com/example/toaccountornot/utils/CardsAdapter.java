@@ -17,7 +17,7 @@ public class CardsAdapter extends ArrayAdapter {
     private int CardId;
     public CardsAdapter(Context context, int headImage, List<Cards> obj){
         super(context,headImage,obj);
-        CardId = headImage;//这个是传入我们自己定义的界面
+        CardId = headImage;
     }
 
     @Override
@@ -27,15 +27,20 @@ public class CardsAdapter extends ArrayAdapter {
         TextView name = view.findViewById(R.id.account_card);
         TextView remark = view.findViewById(R.id.account_remark);
         ImageView headImage = view.findViewById(R.id.account_image);
+        ImageView card_return = view.findViewById(R.id.card_return);
         TextView in = view.findViewById(R.id.account_in);
         TextView out = view.findViewById(R.id.account_out);
         TextView sur = view.findViewById(R.id.account_sur);
         name.setText(card.getCard());
         remark.setText(card.getRemark());
         headImage.setImageResource(card.getCardid());
-        in.setText(String.valueOf(card.getIncome()));
-        out.setText(String.valueOf(card.getOutcome()));
-        sur.setText(String.valueOf(card.getSurplus()));
+        card_return.setImageResource(R.drawable.returnsignal);
+        String income = "+"+ card.getIncome();
+        in.setText(income);
+        String outcome  = "-"+card.getOutcome();
+        out.setText(outcome);
+        String surplus = card.getSurplus() >0 ? "+"+card.getSurplus():""+card.getSurplus();
+        sur.setText(surplus);
         return view;
     }
 }
