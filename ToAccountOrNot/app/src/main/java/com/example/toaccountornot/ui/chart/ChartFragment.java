@@ -73,9 +73,11 @@ public class ChartFragment extends Fragment{
 
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("hello","1111");
         one_pei_income = (ImageView) getActivity().findViewById(R.id.view_income);
         one_pei_outcome = (ImageView) getActivity().findViewById(R.id.view_outcome);
         people = (ImageView) getActivity().findViewById(R.id.people);
@@ -113,6 +115,7 @@ public class ChartFragment extends Fragment{
         one_pei_income.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("hello","click income");
                 barChart.setVisibility(View.GONE);
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_income();
@@ -123,7 +126,7 @@ public class ChartFragment extends Fragment{
         one_pei_outcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("hello" ,"1111");
+                Log.d("hello" ,"click outcome");
                 barChart.setVisibility(View.GONE);      // 隐藏柱状图
                 pieChart.setVisibility(View.VISIBLE);   // 显示饼状图
                 initPieChart_outcome();
@@ -141,19 +144,13 @@ public class ChartFragment extends Fragment{
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Demo demo = Demo.values()[11];
-                demo.startActivity(getActivity());
-            }
-        });
-
     }
+
 
 
     // 收入饼状图
     private void initPieChart_income() {
+        Log.d("hello","updating income date");
         // 获取饼状图收入数据
         PieData pieData = new PieData();
         List<PieEntry> yVals = pieData.income();
@@ -198,6 +195,7 @@ public class ChartFragment extends Fragment{
 
     // 流水展示
     private void initRV(int i) {
+        Log.d("hello","updating rv date");
         RvList rvList = new RvList(myList);
         if(i == 1)    myList = rvList.choice(0);        // 流水展示饼状图收入类
         else if (i == 2)    myList = rvList.choice(1);  // 流水展示饼状图支出类
