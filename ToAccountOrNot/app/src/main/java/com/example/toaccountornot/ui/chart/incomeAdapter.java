@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class incomeAdapter extends RecyclerView.Adapter<incomeAdapter.ViewHolder> {
@@ -22,11 +23,13 @@ public class incomeAdapter extends RecyclerView.Adapter<incomeAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView incomeImage;
         TextView incomeName;
+        TextView incomePrice;
 
         public ViewHolder(View view) {
             super(view);
             incomeImage = (ImageView) view.findViewById(R.id.income_image);
             incomeName = (TextView) view.findViewById(R.id.income_name);
+            incomePrice = (TextView) view.findViewById(R.id.income_price);
         }
     }
 
@@ -47,6 +50,9 @@ public class incomeAdapter extends RecyclerView.Adapter<incomeAdapter.ViewHolder
         income income = incomes.get(position);
         holder.incomeImage.setImageResource(income.getImageId());
         holder.incomeName.setText(income.getName());
+        DecimalFormat df = new DecimalFormat("#.##");
+        holder.incomePrice.setText(df.format(income.getPrice()));
+
     }
 
     @Override

@@ -35,6 +35,10 @@
             android:name=".PatternLockActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
+            android:name=".ui.chart.DemoLikePathActivity"
+            android:label="@string/app_name"
+            />
+        <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">
             <intent-filter>
