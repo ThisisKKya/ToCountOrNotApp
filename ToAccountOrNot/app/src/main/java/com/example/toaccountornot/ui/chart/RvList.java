@@ -23,7 +23,7 @@ public class RvList {
     // 饼状图收入的流水展示
     private void initincome() {
         myList.clear();
-        income income1 = new income("工资",100f,R.drawable.salary);
+        income income1 = new income("工资",100f, R.drawable.salary);
         myList.add(income1);
         income income2 = new income("兼职",100f,R.drawable.parttime);
         myList.add(income2);

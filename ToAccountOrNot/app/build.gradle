@@ -50,5 +50,4 @@ dependencies {
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.niniloveyou:StateButton:v1.0.0'
-    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
 }
