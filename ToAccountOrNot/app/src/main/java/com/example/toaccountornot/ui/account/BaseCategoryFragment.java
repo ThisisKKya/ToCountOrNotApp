@@ -23,16 +23,30 @@ import com.example.toaccountornot.R;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
 import com.example.toaccountornot.utils.Accounts;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnSelectListener;
+import com.lxj.xpopupext.listener.TimePickerListener;
+import com.lxj.xpopupext.popup.TimePickerPopup;
 
 import org.litepal.LitePal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class BaseCategoryFragment extends Fragment   {
     public List<Category> categoryList = new ArrayList<>();
+    public List<String> cardString = new ArrayList<>();
+    public List<String> memberString = new ArrayList<>();
     String mfirstCategory;
-    EditText etInput, etNote;
+    Date mtime;
+    String msecondCategory;
+    String mcard;
+    String mmember;
+    TextView tvSecond,tvCard,tvmember;
+    EditText etInput;
     LinearLayout llKeborad;
     MyKeyboardView keyboard_temp;
     MyKeyboardHelper helper;
@@ -40,15 +54,65 @@ public class BaseCategoryFragment extends Fragment   {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCategory();
+        initStringList();
     }
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basecategory,container,false);
-        etNote = view.findViewById(R.id.etNote);
         etInput = view.findViewById(R.id.etInput);
+        tvSecond = view.findViewById(R.id.secondCategory);
+        tvCard = view.findViewById(R.id.card);
+        tvmember = view.findViewById(R.id.member);
+        tvCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(getContext())
+                        .asBottomList("账户", cardString.toArray(new String[cardString.size()]),
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        tvCard.setText("账户:"+text);
+                                        mcard = text;
+                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .show();
+            }
+        });
+        tvmember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(getContext())
+                        .asBottomList("成员", memberString.toArray(new String[memberString.size()]),
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        tvmember.setText("成员:"+text);
+                                        mmember = text;
+                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .show();
+            }
+        });
+        tvSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(getContext())
+                        .asBottomList("请选择一项", new String[]{"子类1"},
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        tvSecond.setText("分类:"+text);
+                                        msecondCategory = text;
+                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .show();
+            }
+        });
         keyboard_temp = view.findViewById(R.id.keyboard_temp);
         llKeborad = view.findViewById(R.id.llKeborad);
         initKey();
@@ -66,11 +130,22 @@ public class BaseCategoryFragment extends Fragment   {
                 if (llKeborad.getVisibility() == View.GONE){
                     llKeborad.setVisibility(View.VISIBLE);
                 }
+                else {
+                    llKeborad.setVisibility(View.GONE);
+                }
             }
         });
         return view;
     }
     public void initCategory() {
+    }
+    public void initStringList() {
+        cardString.add("现金");
+        cardString.add("支付宝");
+        cardString.add("微信");
+        memberString.add("爸爸");
+        memberString.add("妈妈");
+        memberString.add("我");
     }
 
     public void initKey() {
@@ -112,12 +187,23 @@ public class BaseCategoryFragment extends Fragment   {
             @Override
             public void doneCallback() {
 
-                String etnote = etNote.getText().toString().trim();
                 Double tvinput = Double.valueOf(etInput.getText().toString().trim());
                 Accounts accounts = new Accounts();
                 accounts.setFirst(mfirstCategory);
-                accounts.setSecond(etnote);
+//                accounts.setTime(mtime);
+                accounts.setCard(mcard);
+                accounts.setMember(mmember);
+                accounts.setSecond(msecondCategory);
                 accounts.setPrice(tvinput);
+                // 流水测试用
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(mtime);
+                accounts.setInorout("out");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                accounts.setDate(simpleDateFormat.format(mtime));
+                accounts.setDate_year(String.valueOf(calendar.get(Calendar.YEAR)));
+                accounts.setDate_month(String.valueOf(calendar.get(Calendar.MONTH)+1));
+
                 accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
@@ -127,15 +213,30 @@ public class BaseCategoryFragment extends Fragment   {
 
             @Override
             public void dateCallback(final Keyboard.Key key) {
-//                DateSelectDialog.getCalendar(, new DateSelectDialog.DateTimeCallback() {
-//                    @Override
-//                    public Void timeCallback(String time) {
-//                        key.label = time;
-//                        // 这里调用了系统日历，需要调用view的postInvalidate进行重绘
-//                        helper.getKeyBoradView().postInvalidate();
-//                        return null;
-//                    }
-//                });
+                Calendar date = Calendar.getInstance();
+                date.set(2000, 5,1);
+                Calendar date2 = Calendar.getInstance();
+                date2.set(2020, 5,1);
+                TimePickerPopup popup = new TimePickerPopup(getContext())
+//                        .setDefaultDate(date)  //设置默认选中日期
+//                        .setYearRange(1990, 1999) //设置年份范围
+//                        .setDateRang(date, date2) //设置日期范围
+                        .setTimePickerListener(new TimePickerListener() {
+                            @Override
+                            public void onTimeChanged(Date date) {
+                                //时间改变
+                            }
+                            @Override
+                            public void onTimeConfirm(Date date, View view) {
+                                //点击确认时间
+                                mtime = date;
+                                Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                new XPopup.Builder(getContext())
+                        .asCustom(popup)
+                        .show();
             }
         });
     }

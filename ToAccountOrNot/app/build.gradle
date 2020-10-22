@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.2"
     defaultConfig {
         applicationId "com.example.toaccountornot"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -33,8 +33,12 @@ android {
 }
 
 dependencies {
+    implementation 'com.lxj:xpopup-ext:0.0.3'
+    implementation 'com.lxj:xpopup:2.1.4'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     //implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
@@ -49,6 +53,8 @@ dependencies {
     implementation 'org.litepal.guolindev:core:3.2.2'
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.niniloveyou:StateButton:v1.0.0'
     implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
 }
