@@ -154,7 +154,8 @@
         android:id="@+id/mainlist"
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"/>
 
 
 </RelativeLayout>
