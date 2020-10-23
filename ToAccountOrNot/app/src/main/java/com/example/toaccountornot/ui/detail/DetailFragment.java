@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,12 +17,17 @@ import com.example.toaccountornot.R;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayAdapter;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopupext.listener.TimePickerListener;
+import com.lxj.xpopupext.popup.TimePickerPopup;
 
 import org.litepal.LitePal;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -41,6 +47,7 @@ public class DetailFragment extends Fragment {
     private List<Day> dayList = new ArrayList<>();
     private String year;
     private String month;
+    private BasePopupView datePicker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +55,7 @@ public class DetailFragment extends Fragment {
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         initView(inflater, container);
-
+        initPicker();
         return view;
     }
 
@@ -75,7 +82,7 @@ public class DetailFragment extends Fragment {
         choose_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 待补充 使用DatePicker
+                datePicker.show();
             }
         });
     }
@@ -111,5 +118,29 @@ public class DetailFragment extends Fragment {
             label_out.setText("0");
             label_in.setText("0");
         }
+    }
+
+    private void initPicker() {
+        TimePickerPopup timePickerPopup = new TimePickerPopup(getContext())
+                .setTimePickerListener(new TimePickerListener() {
+                    @Override
+                    public void onTimeChanged(Date date) {
+
+                    }
+
+                    @Override
+                    public void onTimeConfirm(Date date, View view) {
+                        Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        year = String.valueOf(calendar.get(Calendar.YEAR));
+                        month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                        label_year.setText(year);
+                        label_month.setText(month);
+                        initDaylist();
+                    }
+                });
+        timePickerPopup.setMode(TimePickerPopup.Mode.YM);
+        datePicker = new XPopup.Builder(getContext()).asCustom(timePickerPopup);
     }
 }
