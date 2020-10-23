@@ -23,12 +23,16 @@ public class DetailActivity extends AppCompatActivity {
     String second;
     double price;
     String date;
+    private String card;
+    private String member;
 
     ImageView imageProperty;
     TextView textFirst;
     TextView textPrice;
     TextView textDate;
     TextView textSecond;
+    TextView textCard;
+    TextView textMember;
     ImageView return_bar;
     ImageView delete_bar;
 
@@ -46,6 +50,8 @@ public class DetailActivity extends AppCompatActivity {
         textSecond = findViewById(R.id.text_second);
         textPrice = findViewById(R.id.text_price);
         textDate = findViewById(R.id.text_date);
+        textCard = findViewById(R.id.text_card);
+        textMember = findViewById(R.id.text_member);
         return_bar = findViewById(R.id.return_bar);
         delete_bar = findViewById(R.id.delete_bar);
 
@@ -57,11 +63,16 @@ public class DetailActivity extends AppCompatActivity {
         second = bundle.getString("second");
         price = bundle.getDouble("price");
         date = bundle.getString("date");
+        card = bundle.getString("card");
+        member = bundle.getString("member");
+
         imageSwitch(first, imageProperty);
         textFirst.setText(first);
         textSecond.setText(second);
         textPrice.setText(String.valueOf(price));
         textDate.setText(date);
+        textCard.setText(card);
+        textMember.setText(member);
     }
 
     void imageSwitch(String first, ImageView imageProperty) {

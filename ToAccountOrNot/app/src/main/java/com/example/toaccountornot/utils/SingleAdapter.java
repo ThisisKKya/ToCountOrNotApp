@@ -171,6 +171,8 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
                 bundle.putString("second", single.getSecond());
                 bundle.putDouble("price", single.getPrice());
                 bundle.putString("date", single.getDate());
+                bundle.putString("card", single.getCard());
+                bundle.putString("member", single.getMember());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }

@@ -90,7 +90,7 @@
                     android:id="@+id/text_first"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="8"
                     android:text="餐饮"
                     android:textColor="#333333" />
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:text="8"
                     android:textColor="?attr/colorPrimary"
                     android:textSize="20sp" />
@@ -119,20 +119,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
+                        android:layout_marginStart="3dp"
                         android:layout_weight="1"
                         android:text="时间"
                         android:textColor="@color/greyish" />
@@ -142,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:text="2018/5/20"
                         android:textColor="@color/greyish" />
                 </LinearLayout>
@@ -152,14 +150,13 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
+                        android:layout_marginStart="3dp"
                         android:layout_weight="1"
                         android:text="备注"
                         android:textColor="@color/greyish" />
@@ -169,35 +166,60 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:text="早餐"
                         android:textColor="@color/greyish" />
                 </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:orientation="horizontal">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView19"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="3dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="备注"-->
-<!--                        android:textColor="@color/greyish" />-->
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="1"
+                        android:text="账户"
+                        android:textColor="@color/greyish" />
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/remarktext"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="right"-->
-<!--                        android:text="我吃的饭"-->
-<!--                        android:textColor="@color/greyish" />-->
-<!--                </LinearLayout>-->
+                    <TextView
+                        android:id="@+id/text_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="支付宝"
+                        android:textColor="@color/greyish" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="1"
+                        android:text="成员"
+                        android:textColor="@color/greyish" />
+
+                    <TextView
+                        android:id="@+id/text_member"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="我"
+                        android:textColor="@color/greyish" />
+                </LinearLayout>
 
             </LinearLayout>
 
