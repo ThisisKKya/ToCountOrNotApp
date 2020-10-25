@@ -55,6 +55,8 @@ public class BarData {
                 // 设置饼状图
             } while (cursor.moveToNext());
         }
+
+        // 按照“in”查找数据获得成员所有收入
         Cursor cursor_in = LitePal.findBySQL("select member,sum(price) from Accounts where date_year=?" +
                         "and date_month=? and inorout=? group by member order by member desc",
                 year,
@@ -62,26 +64,44 @@ public class BarData {
                 "in");
         if (cursor_in.moveToFirst()) {
             do {
-                String member = cursor.getString(0);
+                String member = cursor_in.getString(0);
                 Member_in.add(member);
-                double total = cursor.getDouble(1);
+                double total = cursor_in.getDouble(1);
                 Log.d("hello_mem", String.valueOf(total));
                 in.add(total);
                 // 设置饼状图
-            } while (cursor.moveToNext());
+            } while (cursor_in.moveToNext());
         }
     }
 
     //  Barchart成员收入
     public List<BarEntry> income(List<Accounts> accounts) {
         data = new ArrayList<>();
-        float[] x = new float[]{0f,3f,6f};
-        BarEntry me = new BarEntry(0f , 100f) ;   // "爸爸"的收入
-        data.add(me) ;
-        BarEntry father = new BarEntry(3f , 110f) ;   // “我”的收入
-        data.add(father) ;
-        BarEntry mather = new BarEntry(6f , 90f) ;    // “妈妈”的收入
-        data.add(mather) ;
+        float xA = 0f;
+        float[] x = new float[]{1f,4f,7f};
+        for(int i = 0 ; i < Member_in.size() ; i++) {
+            //Log.d("hello",Member_out.get(i));
+            //Log.d("hello", String.valueOf(out.get(i)));
+            switch (Member_in.get(i))
+            {
+                case"我":
+                    xA = 1f;
+                    //float xY = i;
+                    break;
+                case "爸爸":
+                    //Log.d("hello","bababa");
+                    xA = 4f;
+                    //float xY = i;
+                    break;
+                case "妈妈":
+                    xA = 7f;
+                    //float xY = i;
+                    break;
+            }
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry y = new BarEntry(xA , Float.parseFloat(df.format(in.get(i))));
+            data.add(y);
+        }
         return data;
     }
 

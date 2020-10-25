@@ -71,6 +71,7 @@ public class ChartFragment extends Fragment{
     private View menuLayout;
     private ArcLayout arcLayout;
     private List<Accounts> accounts = new ArrayList<>();
+    private int num = 1;    // 判断点击哪个饼状图;
 
     @Nullable
     @Override
@@ -133,6 +134,7 @@ public class ChartFragment extends Fragment{
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_income("一");
                 initRV(1,"一");      // 收入的流水一级展示
+                num = 1;
             }
         });
 
@@ -145,6 +147,7 @@ public class ChartFragment extends Fragment{
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_outcome("一");
                 initRV(2,"一");      // 支出的一级流水展示
+                num = 2;
             }
         });
 
@@ -164,44 +167,16 @@ public class ChartFragment extends Fragment{
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                /*for (int i = 0; i < counts.size(); i++) {
-                    float x = counts.get(i).getValue();     // 获得饼状图百分比
-                    if (x == e.getY()) {
-                        Log.d("hello", String.valueOf(h.getX()));
-                        //break;
-                    }
-                }*/
-                Log.d("hello", String.valueOf(h.getX()));
-                Log.d("hello",accounts.get((int) h.getX()).getFirst());
-                initRV(2,String.valueOf(h.getX()));
+                int a = (int)h.getX();
+                initRV(num,String.valueOf(a));
 
             }
             @Override
             public void onNothingSelected () {
-
+                initRV(num,"一");
             }
         });
 
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                /*for (int i = 0; i < counts.size(); i++) {
-                    float x = counts.get(i).getValue();     // 获得饼状图百分比
-                    if (x == e.getY()) {
-                        Log.d("hello", String.valueOf(h.getX()));
-                        //break;
-                    }
-                }*/
-                Log.d("hello", String.valueOf(h.getX()));
-                Log.d("hello",accounts.get((int) h.getX()).getFirst());
-                //initRV(2,String.valueOf(h.getX()));
-
-            }
-            @Override
-            public void onNothingSelected () {
-
-            }
-        });
 
     }
 
@@ -210,10 +185,10 @@ public class ChartFragment extends Fragment{
     // 收入饼状图
     // cate:一级or二级
     private void initPieChart_income(String cate) {
-        Log.d("hello","1111");
+        //Log.d("hello","1111");
         // 获取饼状图收入数据
         PieData pieData = new PieData();
-        List<PieEntry> yVals = pieData.income(accounts,cate);
+        List<PieEntry> yVals = pieData.income();
 
         // 饼状图颜色获取
         PieColor pieColor = new PieColor();
@@ -228,7 +203,7 @@ public class ChartFragment extends Fragment{
     private void initPieChart_outcome(String cate) {
         // 获得饼状图支出数据
         PieData pieData = new PieData();
-        List<PieEntry> yVals = pieData.outcome(accounts,cate);
+        List<PieEntry> yVals = pieData.outcome();
 
         PieColor pieColor = new PieColor();
         List<Integer> colors = pieColor.initcolor(accounts,"out",yVals.size());
