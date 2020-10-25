@@ -11,9 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".BudgetActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".CardCustomizeActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CardCustomizeActivity" />
         <activity
             android:name=".CreateCardDetailActivity"
             android:label="添加账户明细" />
@@ -39,8 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".ui.chart.DemoLikePathActivity"
-            android:label="@string/app_name"
-            />
+            android:label="@string/app_name" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">

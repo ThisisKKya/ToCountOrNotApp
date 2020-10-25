@@ -1,5 +1,6 @@
 package com.example.toaccountornot.ui.detail;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.toaccountornot.BudgetActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Day;
@@ -48,6 +50,7 @@ public class DetailFragment extends Fragment {
     private String year;
     private String month;
     private BasePopupView datePicker;
+    private LinearLayout budget_layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class DetailFragment extends Fragment {
         label_in = view.findViewById(R.id.label_in);
         choose_date = view.findViewById(R.id.choose_date);
         rec_day = view.findViewById(R.id.mainlist);
+        budget_layout = view.findViewById(R.id.budget_layout);
 
         label_year.setText(year);
         label_month.setText(month);
@@ -83,6 +87,14 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 datePicker.show();
+            }
+        });
+        budget_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BudgetActivity.class);
+                intent.putExtra("outcome", label_out.getText());
+                getContext().startActivity(intent);
             }
         });
     }
