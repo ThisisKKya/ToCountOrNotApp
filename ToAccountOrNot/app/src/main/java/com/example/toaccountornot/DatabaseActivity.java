@@ -27,6 +27,16 @@ public class DatabaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Connector.getDatabase();
+                List<Accounts> list = LitePal.findAll(Accounts.class);
+                for (Accounts account:list) {
+                    Log.d("DatabaseActivity","first" + account.getFirst());
+                    Log.d("DatabaseActivity","second" + account.getSecond());
+                    Log.d("DatabaseActivity","id" + account.getId());
+                    Log.d("DatabaseActivity","price" + account.getPrice());
+//                    Log.d("DatabaseActivity","time" + account.getTime());
+                    Log.d("DatabaseActivity","member" + account.getMember());
+                    Log.d("DatabaseActivity","card" + account.getCard());
+                }
             }
         });
         Button addData = (Button) findViewById(R.id.add_data);
@@ -42,6 +52,16 @@ public class DatabaseActivity extends AppCompatActivity {
                 account.save();
             }
         });
+        List<Accounts> list = LitePal.findAll(Accounts.class);
+        for (Accounts account:list) {
+            Log.d("DatabaseActivity","first" + account.getFirst());
+            Log.d("DatabaseActivity","second" + account.getSecond());
+            Log.d("DatabaseActivity","id" + account.getId());
+            Log.d("DatabaseActivity","price" + account.getPrice());
+//                    Log.d("DatabaseActivity","time" + account.getTime());
+            Log.d("DatabaseActivity","member" + account.getMember());
+            Log.d("DatabaseActivity","card" + account.getCard());
+        }
         Button queryData = (Button) findViewById(R.id.query_data);
         queryData.setOnClickListener(new View.OnClickListener() {
             @Override

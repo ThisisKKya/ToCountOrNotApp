@@ -34,9 +34,6 @@ public class CardCustomizeActivity extends AppCompatActivity {
                     card.setCard(name.getText().toString());
                     card.setRemark(remark.getText().toString());
                     card.setCardid(R.drawable.customize);
-                    card.setIncome(0);
-                    card.setOutcome(0);
-                    card.setSurplus(0);
                     card.save();
                 }
             }

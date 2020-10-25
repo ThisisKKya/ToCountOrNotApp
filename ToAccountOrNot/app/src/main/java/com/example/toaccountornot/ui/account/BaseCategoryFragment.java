@@ -23,6 +23,7 @@ import com.example.toaccountornot.R;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
 import com.example.toaccountornot.utils.Accounts;
+import com.example.toaccountornot.utils.Cards;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
@@ -140,9 +141,10 @@ public class BaseCategoryFragment extends Fragment   {
     public void initCategory() {
     }
     public void initStringList() {
-        cardString.add("现金");
-        cardString.add("支付宝");
-        cardString.add("微信");
+        List<Cards> list = LitePal.findAll(Cards.class);    //从数据库读账户
+        for (Cards card:list) {
+            cardString.add(card.getCard());
+        }
         memberString.add("爸爸");
         memberString.add("妈妈");
         memberString.add("我");
