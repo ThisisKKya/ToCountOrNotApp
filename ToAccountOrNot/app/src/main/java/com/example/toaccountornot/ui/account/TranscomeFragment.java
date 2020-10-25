@@ -19,6 +19,7 @@ public class TranscomeFragment extends BaseCategoryFragment {
     @Override
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        minorout = "转账";
         super.onCreate(savedInstanceState);
     }
 

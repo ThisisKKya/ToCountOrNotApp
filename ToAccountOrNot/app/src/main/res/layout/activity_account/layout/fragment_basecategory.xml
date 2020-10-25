@@ -50,7 +50,7 @@
                     android:gravity="center_vertical"
                     android:minLines="1"
                     android:singleLine="true"
-                    android:text="分类:"
+                    android:text="分类:无"
                     android:textColor="#222222"
                     android:textSize="14dp" />
                 <TextView
@@ -62,7 +62,7 @@
                     android:gravity="center_vertical"
                     android:minLines="1"
                     android:singleLine="true"
-                    android:text="账户:"
+                    android:text="账户:微信"
                     android:textColor="#222222"
                     android:textSize="14dp" />
                 <TextView
@@ -74,7 +74,7 @@
                     android:gravity="center_vertical"
                     android:minLines="1"
                     android:singleLine="true"
-                    android:text="成员:"
+                    android:text="成员:我"
                     android:textColor="#222222"
                     android:textSize="14dp" />
             </LinearLayout>
