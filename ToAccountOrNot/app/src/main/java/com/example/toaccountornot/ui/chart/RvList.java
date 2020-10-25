@@ -1,6 +1,7 @@
 package com.example.toaccountornot.ui.chart;
 
 import com.example.toaccountornot.R;
+import com.example.toaccountornot.utils.Accounts;
 import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.ArrayList;
@@ -13,22 +14,24 @@ public class RvList {
         this.myList = myList;
     }
 
-    public List<income> choice(int i) {
-        if(i == 0)  initincome();
+    public List<income> choice(int i, List<Accounts> accounts) {
+        if(i == 0)  initincome(accounts);
         if(i == 1)  initoutcome();
         if(i == 2)  initpeople();
         return myList;
     }
 
     // 饼状图收入的流水展示
-    private void initincome() {
+    private void initincome(List<Accounts> accounts) {
         myList.clear();
-        income income1 = new income("工资",100f,R.drawable.salary);
-        myList.add(income1);
-        income income2 = new income("兼职",100f,R.drawable.parttime);
-        myList.add(income2);
-        income income3 = new income("礼金",100f,R.drawable.gift);
-        myList.add(income3);
+        for(int i = 0;i < accounts.size();i++) {
+            if(accounts.get(i).getInorout() == "in") {
+                String first = accounts.get(i).getFirst();
+                double price = accounts.get(i).getPrice();
+                income income = new income(first,price,R.drawable.salary);
+                myList.add(income);
+            }
+        }
     }
 
     // 饼状图支出的流水展示
