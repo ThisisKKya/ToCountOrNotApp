@@ -117,7 +117,8 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="182dp"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                />
 
 
         </LinearLayout>

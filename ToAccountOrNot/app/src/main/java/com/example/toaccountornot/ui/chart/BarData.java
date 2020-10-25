@@ -91,8 +91,8 @@ public class BarData {
         float xA = 0f;
         float[] x = new float[]{1f,4f,7f};
         for(int i = 0 ; i < Member_out.size() ; i++) {
-            Log.d("hello",Member_out.get(i));
-            Log.d("hello", String.valueOf(out.get(i)));
+            //Log.d("hello",Member_out.get(i));
+            //Log.d("hello", String.valueOf(out.get(i)));
             switch (Member_out.get(i))
             {
                 case"我":
@@ -100,7 +100,7 @@ public class BarData {
                     //float xY = i;
                     break;
                 case "爸爸":
-                    Log.d("hello","bababa");
+                    //Log.d("hello","bababa");
                     xA = 4f;
                     //float xY = i;
                     break;
