@@ -7,10 +7,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:contentInsetStart="0dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20sp"
+                android:paddingStart="24sp"
+                android:text="chart"
+                android:textSize="30sp" />
+
+        </androidx.appcompat.widget.Toolbar>
 
 
         <LinearLayout
@@ -22,6 +43,7 @@
             android:layout_weight="1"
             android:paddingBottom="10dp"
             android:paddingTop="20dp">
+
 
             <LinearLayout
                 android:orientation="vertical"
@@ -190,7 +212,6 @@
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-
             android:background="@drawable/chart_menu"
             android:textColor="@color/white"
             android:textSize="24sp" />

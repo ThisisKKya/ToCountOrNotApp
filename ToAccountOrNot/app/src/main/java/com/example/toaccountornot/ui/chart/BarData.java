@@ -29,39 +29,53 @@ public class BarData {
     public List<Double> in;
     public List<Double> out;
 
-    public BarData() {
-        String year;
-        String month;
+    public BarData(String time) {
         Member_in = new ArrayList<>();
         Member_out = new ArrayList<>();
         in = new ArrayList<>();
         out = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        year = String.valueOf(calendar.get(Calendar.YEAR));
-        month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        Cursor cursor = LitePal.findBySQL("select member,sum(price) from Accounts where date_year=?" +
-                        "and date_month=? and inorout=? group by member order by member desc",
-                year,
-                month,
-                "out");
+
+        CursorManager cursorManager = new CursorManager();
+        Cursor cursor = cursorManager.initCur_mem("out");
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_mem_day("out");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_mem_year("out");
+                break;
+            default:
+                break;
+        }
         if (cursor.moveToFirst()) {
             do {
                 String member = cursor.getString(0);
                 Member_out.add(member);
-                Log.d("hello_mem",member);
+                //Log.d("hello_mem",member);
                 double total = cursor.getDouble(1);
                 out.add(total);
-                Log.d("hello_mem", String.valueOf(total));
+                //Log.d("hello_mem", String.valueOf(total));
                 // 设置饼状图
             } while (cursor.moveToNext());
         }
 
         // 按照“in”查找数据获得成员所有收入
-        Cursor cursor_in = LitePal.findBySQL("select member,sum(price) from Accounts where date_year=?" +
-                        "and date_month=? and inorout=? group by member order by member desc",
-                year,
-                month,
-                "in");
+        //CursorManager cursorManager = new CursorManager();
+        Cursor cursor_in = cursorManager.initCur_mem("in");
+        switch (time)
+        {
+            case "天":
+                cursor_in = cursorManager.initCur_mem_day("in");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor_in = cursorManager.initCur_mem_year("in");
+                break;
+            default:
+                break;
+        }
         if (cursor_in.moveToFirst()) {
             do {
                 String member = cursor_in.getString(0);

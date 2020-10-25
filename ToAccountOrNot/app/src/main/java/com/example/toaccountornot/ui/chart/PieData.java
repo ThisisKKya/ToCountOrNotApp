@@ -20,13 +20,25 @@ public class PieData {
     public PieData() {}
 
     // 显示一级收入饼状图
-    public List<PieEntry> income() {
+    public List<PieEntry> income(String time) {
         int all = 0;
         List<String> first = new ArrayList<>();
         List<Double> price = new ArrayList<>();
 
         CursorManager cursorManager = new CursorManager();
-        Cursor cursor = cursorManager.initCur_one("in");
+        Cursor cursor = cursorManager.initCur_one("in");;
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_one_day("in");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_one_year("in");
+                break;
+            default:
+                break;
+        }
         if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(0);
@@ -50,7 +62,7 @@ public class PieData {
 
 
     // 显示一级支出饼状图
-    public  List<PieEntry> outcome() {
+    public  List<PieEntry> outcome(String time) {
         int all = 0;
         List<String> first = new ArrayList<>();
         List<Double> price = new ArrayList<>();
@@ -58,6 +70,18 @@ public class PieData {
 
         CursorManager cursorManager = new CursorManager();
         Cursor cursor = cursorManager.initCur_one("out");
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_one_day("out");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_one_year("out");
+                break;
+            default:
+                break;
+        }
         if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(0);

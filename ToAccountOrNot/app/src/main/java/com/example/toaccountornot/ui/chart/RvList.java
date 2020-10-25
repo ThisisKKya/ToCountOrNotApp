@@ -20,15 +20,16 @@ public class RvList {
         this.myList = myList;
     }
 
-    public List<income> choice(int i, List<Accounts> accounts,String cate) {
-        if(i == 0)  initincome(accounts,cate);
-        if(i == 1)  initoutcome(accounts,cate);
+    public List<income> choice(int i, List<Accounts> accounts,String cate,String time) {
+
+        if(i == 0)  initincome(accounts,cate,time);
+        if(i == 1)  initoutcome(accounts,cate,time);
         if(i == 2)  initpeople();
         return myList;
     }
 
     // 饼状图收入的流水展示
-    private void initincome(List<Accounts> accounts,String cate) {
+    private void initincome(List<Accounts> accounts,String cate,String time) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<Double> price = new ArrayList<>();
@@ -38,6 +39,18 @@ public class RvList {
 
         CursorManager cursorManager = new CursorManager();
         Cursor cursor = cursorManager.initCur_one("in");
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_one_day("in");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_one_year("in");
+                break;
+            default:
+                break;
+        }
         if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(0);
@@ -53,6 +66,18 @@ public class RvList {
             int first_name = Integer.parseInt(cate);
             Log.d("hello", String.valueOf(first_name));
             Cursor cursor2 = cursorManager.initCur_two("in",first.get(first_name));
+            switch (time)
+            {
+                case "天":
+                    cursor = cursorManager.initCur_two_day("in");
+                    break;
+                case "年" :
+                    //Log.d("hello","11111");
+                    cursor = cursorManager.initCur_two_year("in");
+                    break;
+                default:
+                    break;
+            }
             //Log.d("hello","111111");
             if (cursor2.moveToFirst()) {
                 do {
@@ -80,7 +105,7 @@ public class RvList {
     }
 
     // 饼状图支出的流水展示
-    private void initoutcome(List<Accounts> accounts,String cate) {
+    private void initoutcome(List<Accounts> accounts,String cate,String time) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<String> second = new ArrayList<>();
@@ -88,6 +113,19 @@ public class RvList {
         List<Double> price_second = new ArrayList<>();
         CursorManager cursorManager = new CursorManager();
         Cursor cursor = cursorManager.initCur_one("out");
+
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_one_day("out");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_one_year("out");
+                break;
+            default:
+                break;
+        }
         if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(0);
@@ -102,6 +140,18 @@ public class RvList {
             int first_name = Integer.parseInt(cate);
             Log.d("hello", String.valueOf(first_name));
             Cursor cursor2 = cursorManager.initCur_two("out",first.get(first_name));
+            switch (time)
+            {
+                case "天":
+                    cursor = cursorManager.initCur_two_day("out");
+                    break;
+                case "年" :
+                    //Log.d("hello","11111");
+                    cursor = cursorManager.initCur_two_year("out");
+                    break;
+                default:
+                    break;
+            }
             if (cursor2.moveToFirst()) {
                 do {
                     String title = cursor2.getString(0);
