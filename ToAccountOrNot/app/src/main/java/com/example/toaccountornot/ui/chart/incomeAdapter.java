@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.R;
+import com.example.toaccountornot.utils.Utils;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -52,7 +53,7 @@ public class incomeAdapter extends RecyclerView.Adapter<incomeAdapter.ViewHolder
         holder.incomeName.setText(income.getName());
         DecimalFormat df = new DecimalFormat("#.##");
         holder.incomePrice.setText(df.format(income.getPrice()));
-
+        Utils.imageSwitch(income.getName(),holder.incomeImage);
     }
 
     @Override

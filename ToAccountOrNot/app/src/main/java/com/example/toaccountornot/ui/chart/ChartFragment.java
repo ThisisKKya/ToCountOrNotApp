@@ -53,6 +53,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ogaclejapan.arclayout.ArcLayout;
 
+import org.litepal.LitePal;
+import org.litepal.tablemanager.Connector;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,13 +66,11 @@ public class ChartFragment extends Fragment{
     private PieChart pieChart;
     private BarChart barChart;
     private RecyclerView recyclerView;
-    private Button button;
     private List<income> myList = new ArrayList<>();
     private View fab;
     private View menuLayout;
     private ArcLayout arcLayout;
     private List<Accounts> accounts = new ArrayList<>();
-    private List<PieEntry> counts = new ArrayList<>();
 
     @Nullable
     @Override
@@ -88,12 +89,12 @@ public class ChartFragment extends Fragment{
         people = (ImageView) getActivity().findViewById(R.id.people);
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
         pieChart = (PieChart) getActivity().findViewById(R.id.pc);
-        button = (Button) getActivity().findViewById(R.id.menu);
         barChart = (BarChart) getActivity().findViewById(R.id.bc);
         barChart.setNoDataText("");
+        pieChart.setNoDataText("");
         initaccouts();
         initPieChart_income("一");
-        initRV(1);
+        initRV(1,"一");
 
 
 
@@ -104,9 +105,12 @@ public class ChartFragment extends Fragment{
 
         // 菜单的点击事件
         for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
+            final int finalI = i;
             arcLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Log.d("hello", String.valueOf(finalI));
+                    // finalI(天):0
                     hideMenu();
                 }
             });
@@ -128,18 +132,19 @@ public class ChartFragment extends Fragment{
                 barChart.setVisibility(View.GONE);
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_income("一");
-                initRV(1);      // 收入的流水一级展示
+                initRV(1,"一");      // 收入的流水一级展示
             }
         });
+
 
         one_pei_outcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("hello" ,"click outcome");
                 barChart.setVisibility(View.GONE);      // 隐藏柱状图
-                pieChart.setVisibility(View.VISIBLE);   // 显示饼状图
+                pieChart.setVisibility(View.VISIBLE);
                 initPieChart_outcome("一");
-                initRV(2);
+                initRV(2,"一");      // 支出的一级流水展示
             }
         });
 
@@ -149,24 +154,47 @@ public class ChartFragment extends Fragment{
                 pieChart.setVisibility(View.GONE);
                 barChart.setVisibility(View.VISIBLE);
                 initBarchart();
-                initRV(3);
+                initRV(3,"一");      // 柱状图的流水展示
             }
         });
+
+
 //        pieChart.setonCh
         // 饼状图的点击事件
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-//                for (int i = 0; i < counts.size(); i++) {
-//                    float x = counts.get(ee';     // 获得饼状图百分比
-//                    if (x == e.getY()) {
-//                        Log.d("hello", h.getDataIndex(););
-//                        //break;
-//                    }
-//                }
-
+                /*for (int i = 0; i < counts.size(); i++) {
+                    float x = counts.get(i).getValue();     // 获得饼状图百分比
+                    if (x == e.getY()) {
+                        Log.d("hello", String.valueOf(h.getX()));
+                        //break;
+                    }
+                }*/
                 Log.d("hello", String.valueOf(h.getX()));
+                Log.d("hello",accounts.get((int) h.getX()).getFirst());
+                initRV(2,String.valueOf(h.getX()));
 
+            }
+            @Override
+            public void onNothingSelected () {
+
+            }
+        });
+
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                /*for (int i = 0; i < counts.size(); i++) {
+                    float x = counts.get(i).getValue();     // 获得饼状图百分比
+                    if (x == e.getY()) {
+                        Log.d("hello", String.valueOf(h.getX()));
+                        //break;
+                    }
+                }*/
+                Log.d("hello", String.valueOf(h.getX()));
+                Log.d("hello",accounts.get((int) h.getX()).getFirst());
+                //initRV(2,String.valueOf(h.getX()));
 
             }
             @Override
@@ -186,11 +214,10 @@ public class ChartFragment extends Fragment{
         // 获取饼状图收入数据
         PieData pieData = new PieData();
         List<PieEntry> yVals = pieData.income(accounts,cate);
-        counts = yVals;
 
         // 饼状图颜色获取
         PieColor pieColor = new PieColor();
-        List<Integer> colors = pieColor.initcolor(accounts,"in");
+        List<Integer> colors = pieColor.initcolor(accounts,"in",yVals.size());
 
         PieChartManager pieChartManager = new PieChartManager(pieChart);
         pieChartManager.showSolidPieChart(yVals,colors);
@@ -204,7 +231,7 @@ public class ChartFragment extends Fragment{
         List<PieEntry> yVals = pieData.outcome(accounts,cate);
 
         PieColor pieColor = new PieColor();
-        List<Integer> colors = pieColor.initcolor(accounts,"out");
+        List<Integer> colors = pieColor.initcolor(accounts,"out",yVals.size());
 
         PieChartManager pieChartManager = new PieChartManager(pieChart);
         pieChartManager.showSolidPieChart(yVals,colors);
@@ -216,8 +243,8 @@ public class ChartFragment extends Fragment{
     void initBarchart() {
         //填充数据
         BarData barData = new BarData();
-        List<BarEntry> barEntry1 = barData.income() ;  //成员的收入
-        List<BarEntry> barEntry2 = barData.outcome() ;  //成员的支出
+        List<BarEntry> barEntry1 = barData.income(accounts) ;  //成员的收入
+        List<BarEntry> barEntry2 = barData.outcome(accounts) ;  //成员的支出
 
         BarChartManager barChartManager = new BarChartManager(barChart);
         barChartManager.showBarChart(barEntry1,barEntry2);
@@ -227,11 +254,13 @@ public class ChartFragment extends Fragment{
 
 
     // 流水展示
-    private void initRV(int i) {
+    // int i:1(income),2(outcome),3(people)
+    // cate:"一"，"二"
+    private void initRV(int i,String cate) {
         RvList rvList = new RvList(myList);
-        if(i == 1)    myList = rvList.choice(0,accounts);        // 流水展示饼状图收入类
-        else if (i == 2)    myList = rvList.choice(1,accounts);  // 流水展示饼状图支出类
-        else    myList = rvList.choice(2,accounts);              // 流水展示柱状图
+        if(i == 1)    myList = rvList.choice(0,accounts,cate);        // 流水展示饼状图收入类
+        else if (i == 2)    myList = rvList.choice(1,accounts,cate);  // 流水展示饼状图支出类
+        else    myList = rvList.choice(2,accounts,cate);              // 流水展示柱状图
         LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(layoutManager);
         incomeAdapter adapter = new incomeAdapter(myList);

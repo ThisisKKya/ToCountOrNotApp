@@ -12,12 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/menu"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            />
-
 
         <LinearLayout
             android:id="@+id/linearLayout"
