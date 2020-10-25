@@ -16,7 +16,7 @@
         android:layout_height="80dp"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
-        android:text="+  添加资产"
+        android:text="+  新建账户"
         android:textSize="20sp"
         android:textStyle="bold"
 
