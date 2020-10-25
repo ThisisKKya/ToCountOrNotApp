@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,12 +16,17 @@ import android.widget.Toast;
 
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayAdapter;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopupext.listener.TimePickerListener;
+import com.lxj.xpopupext.popup.TimePickerPopup;
 
 import org.litepal.LitePal;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.litepal.LitePalApplication.getContext;
@@ -38,6 +44,7 @@ public class CardDetailActivity extends AppCompatActivity {
     private RecyclerView rec_day;
     private List<Day> dayList = new ArrayList<>();
     private String cardname;
+    private BasePopupView datePicker;
 
     @Override
     protected void onResume(){
@@ -52,9 +59,7 @@ public class CardDetailActivity extends AppCompatActivity {
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         initView();
-        //Bundle bundle = this.getIntent().getExtras();
-        //cardname = bundle.getString("name");
-        //Toast.makeText(CardDetailActivity.this, cardname, Toast.LENGTH_LONG).show();
+        initPicker();
     }
     void initView() {
         Bundle bundle = this.getIntent().getExtras();
@@ -64,17 +69,18 @@ public class CardDetailActivity extends AppCompatActivity {
         label_month = findViewById(R.id.label_month);
         label_out = findViewById(R.id.label_out);
         label_in = findViewById(R.id.label_in);
-        choose_date = findViewById(R.id.choose_date);
+        choose_date = findViewById(R.id.choose_date2);
         rec_day = findViewById(R.id.mainlist);
         label.setText(cardname);
         label_year.setText(year);
         label_month.setText(month);
-        rec_day.setLayoutManager(new LinearLayoutManager(getContext()));
+        rec_day.setLayoutManager(new LinearLayoutManager(CardDetailActivity.this));
 
         choose_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 待补充 使用DatePicker
+                datePicker.show();
+                Toast.makeText(CardDetailActivity.this,"你点击了按钮",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -90,7 +96,7 @@ public class CardDetailActivity extends AppCompatActivity {
             do {
                 String date = cursor.getString(0);
                 dayList.add(new Day(date));
-                DayAdapter dayAdapter = new DayAdapter(dayList, getContext());
+                DayAdapter dayAdapter = new DayAdapter(dayList, CardDetailActivity.this);
                 rec_day.setAdapter(dayAdapter);
             } while (cursor.moveToNext());
 
@@ -105,10 +111,33 @@ public class CardDetailActivity extends AppCompatActivity {
                 label_in.setText(String.valueOf(df.format(income)));
             }
         } else {
-            DayAdapter dayAdapter = new DayAdapter(dayList, getContext());
+            DayAdapter dayAdapter = new DayAdapter(dayList, CardDetailActivity.this);
             rec_day.setAdapter(dayAdapter);
             label_out.setText("0");
             label_in.setText("0");
         }
+    }
+    private void initPicker() {
+        TimePickerPopup timePickerPopup = new TimePickerPopup(CardDetailActivity.this)
+                .setTimePickerListener(new TimePickerListener() {
+                    @Override
+                    public void onTimeChanged(Date date) {
+
+                    }
+
+                    @Override
+                    public void onTimeConfirm(Date date, View view) {
+                        Toast.makeText(CardDetailActivity.this, "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        year = String.valueOf(calendar.get(Calendar.YEAR));
+                        month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                        label_year.setText(year);
+                        label_month.setText(month);
+                        initDaylist();
+                    }
+                });
+        timePickerPopup.setMode(TimePickerPopup.Mode.YM);
+        datePicker = new XPopup.Builder(CardDetailActivity.this).asCustom(timePickerPopup);
     }
 }
