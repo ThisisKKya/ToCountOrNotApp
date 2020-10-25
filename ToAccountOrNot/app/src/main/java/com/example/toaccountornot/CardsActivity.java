@@ -21,11 +21,17 @@ import java.util.List;
 
 public class CardsActivity extends AppCompatActivity {
     private List<Cards> cardlist = new ArrayList<>();
+    private CardsAdapter adapter;
 
     @Override
     protected void onResume(){
         super.onResume();
         initCards();
+    }
+    protected void onPause(){
+        if(adapter!=null)
+            adapter.notifyDataSetChanged();
+        super.onPause();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +70,7 @@ public class CardsActivity extends AppCompatActivity {
             }
         });
         
-        CardsAdapter adapter = new CardsAdapter(CardsActivity.this,
+        adapter = new CardsAdapter(CardsActivity.this,
                 R.layout.cards_list_item, cardlist);
         ListView listView = (ListView) findViewById(R.id.listview);//在视图中找到ListView
         listView.setAdapter(adapter);
@@ -134,9 +140,6 @@ public class CardsActivity extends AppCompatActivity {
         }
     }
     private void initCards() {
-        Cards c = new Cards();
-        c.setIncome(19);
-        c.updateAll("card=?","支付宝");
         List<Cards> list = LitePal.findAll(Cards.class);
         for (Cards card:list) {
             Cards extra = new Cards();
