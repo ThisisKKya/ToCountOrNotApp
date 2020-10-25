@@ -2,7 +2,6 @@ package com.example.toaccountornot;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.toaccountornot.utils.Accounts;
+import com.example.toaccountornot.utils.Utils;
 
 import org.litepal.LitePal;
 
@@ -41,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         initView();
-        initClicklistener();
+        initClickListener();
     }
 
     void initView() {
@@ -66,7 +66,7 @@ public class DetailActivity extends AppCompatActivity {
         card = bundle.getString("card");
         member = bundle.getString("member");
 
-        imageSwitch(first, imageProperty);
+        Utils.imageSwitch(first, imageProperty);
         textFirst.setText(first);
         textSecond.setText(second);
         textPrice.setText(String.valueOf(price));
@@ -75,70 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         textMember.setText(member);
     }
 
-    void imageSwitch(String first, ImageView imageProperty) {
-        switch (first)
-        {
-            case"餐饮":
-                imageProperty.setImageResource(R.drawable.food);
-                break;
-            case "购物":
-                imageProperty.setImageResource(R.drawable.shopping);
-                break;
-            case "日用":
-                imageProperty.setImageResource(R.drawable.daily);
-                break;
-            case "学习":
-                imageProperty.setImageResource(R.drawable.study);
-                break;
-            case "交通":
-                imageProperty.setImageResource(R.drawable.transport);
-                break;
-            case "水果":
-                imageProperty.setImageResource(R.drawable.fruit);
-                break;
-            case "零食":
-                imageProperty.setImageResource(R.drawable.snacks);
-                break;
-            case "运动":
-                imageProperty.setImageResource(R.drawable.sport);
-                break;
-            case "娱乐":
-                imageProperty.setImageResource(R.drawable.entertainment);
-                break;
-            case "住房":
-                imageProperty.setImageResource(R.drawable.house);
-                break;
-            case "聚会":
-                imageProperty.setImageResource(R.drawable.dating);
-                break;
-            case "旅行":
-                imageProperty.setImageResource(R.drawable.travel);
-                break;
-            case "医疗":
-                imageProperty.setImageResource(R.drawable.doctor);
-                break;
-            case "宠物":
-                imageProperty.setImageResource(R.drawable.pet);
-                break;
-            case "工资":
-                imageProperty.setImageResource(R.drawable.salary);
-                break;
-            case "兼职":
-                imageProperty.setImageResource(R.drawable.parttime);
-                break;
-            case "礼金":
-                imageProperty.setImageResource(R.drawable.gift);
-                break;
-            case "转账":
-                imageProperty.setImageResource(R.drawable.transfer);
-                break;
-            default:
-                imageProperty.setImageResource(R.drawable.setting);
-                break;
-        }
-    }
-
-    void initClicklistener() {
+    void initClickListener() {
         return_bar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

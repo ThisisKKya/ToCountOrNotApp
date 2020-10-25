@@ -17,6 +17,20 @@ public class Accounts extends LitePalSupport {
     private String date_year;
     private String date_month;
     private String inorout; //收入支出类型
+    /*
+    public Accounts(long id,String first,String second,double price,String card,
+                    String member,String date,String date_year,String date_month,String inorout) {
+        this.id = id;
+        this.first = first;
+        this.second = second;
+        this.price = price;
+        this.card = card;
+        this.member = member;
+        this.date = date;
+        this.date_year = date_year;
+        this.date_month = date_month;
+        this.inorout = inorout;
+    }*/
 
     public String getDate_year() {
         return date_year;
