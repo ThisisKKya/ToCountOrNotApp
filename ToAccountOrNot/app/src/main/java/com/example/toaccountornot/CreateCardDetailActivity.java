@@ -39,7 +39,6 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                     else
                         card.setCard(bankname.getText().toString() + "(" + cardnumber.getText().toString() + ")");
                     card.setRemark(remark.getText().toString());
-                    card.setCardtype(type);
                     switch (type) {
                         case 0:
                             card.setCardid(R.drawable.bankcard);
@@ -48,9 +47,6 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                             card.setCardid(R.drawable.creditcard);
                             break;
                     }
-                    card.setIncome(0);
-                    card.setOutcome(0);
-                    card.setSurplus(0);
                     card.save();
                 }
             }
