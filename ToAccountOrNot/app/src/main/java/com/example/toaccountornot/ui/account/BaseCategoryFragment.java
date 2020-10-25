@@ -23,6 +23,7 @@ import com.example.toaccountornot.R;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
 import com.example.toaccountornot.utils.Accounts;
+import com.example.toaccountornot.utils.Cards;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
@@ -40,11 +41,12 @@ public class BaseCategoryFragment extends Fragment   {
     public List<Category> categoryList = new ArrayList<>();
     public List<String> cardString = new ArrayList<>();
     public List<String> memberString = new ArrayList<>();
+    public String minorout;
     String mfirstCategory;
-    Date mtime;
-    String msecondCategory;
-    String mcard;
-    String mmember;
+    Date mtime = null;
+    String msecondCategory = "无";
+    String mcard = "微信";
+    String mmember = "我";
     TextView tvSecond,tvCard,tvmember;
     EditText etInput;
     LinearLayout llKeborad;
@@ -140,9 +142,10 @@ public class BaseCategoryFragment extends Fragment   {
     public void initCategory() {
     }
     public void initStringList() {
-        cardString.add("现金");
-        cardString.add("支付宝");
-        cardString.add("微信");
+        List<Cards> list = LitePal.findAll(Cards.class);    //从数据库读账户
+        for (Cards card:list) {
+            cardString.add(card.getCard());
+        }
         memberString.add("爸爸");
         memberString.add("妈妈");
         memberString.add("我");
@@ -192,18 +195,19 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setFirst(mfirstCategory);
 //                accounts.setTime(mtime);
                 accounts.setCard(mcard);
+                accounts.setInorout(minorout);
                 accounts.setMember(mmember);
                 accounts.setSecond(msecondCategory);
                 accounts.setPrice(tvinput);
-                // 流水测试用
                 Calendar calendar = Calendar.getInstance();
+                if (mtime == null) {
+                    mtime = calendar.getTime();
+                }
                 calendar.setTime(mtime);
-                accounts.setInorout("out");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 accounts.setDate(simpleDateFormat.format(mtime));
                 accounts.setDate_year(String.valueOf(calendar.get(Calendar.YEAR)));
                 accounts.setDate_month(String.valueOf(calendar.get(Calendar.MONTH) + 1));
-
                 accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);

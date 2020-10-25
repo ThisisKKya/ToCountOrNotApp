@@ -23,5 +23,31 @@
         app:normalTextColor="@color/colorPrimaryDark"
         app:pressedTextColor="@color/colorPrimaryDark"
         app:unableTextColor="@color/colorPrimaryDark" />
+    <com.deadline.statebutton.StateButton
+        android:id="@+id/delete_card"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:text="delete all(for test)"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:normalTextColor="@color/colorPrimaryDark"
+        app:pressedTextColor="@color/colorPrimaryDark"
+        app:unableTextColor="@color/colorPrimaryDark" />
+    <com.deadline.statebutton.StateButton
+        android:id="@+id/query_card"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:text="query(for test)"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:normalTextColor="@color/colorPrimaryDark"
+        app:pressedTextColor="@color/colorPrimaryDark"
+        app:unableTextColor="@color/colorPrimaryDark" />
 
 </LinearLayout>
