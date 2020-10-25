@@ -24,22 +24,21 @@ public class CardsActivity extends AppCompatActivity {
     private List<Cards> cardlist = new ArrayList<>();
     private CardsAdapter adapter;
 
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        //initCards();
-//    }
-//    protected void onPause(){
-//        if(adapter!=null)
-//            adapter.notifyDataSetChanged();
-//        super.onPause();
-//    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(adapter != null){
+            cardlist.clear();
+            initCards();
+            adapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_view);
         initcarddata();
-        initCards();
         Button createcard = findViewById(R.id.create_card);
         createcard.setOnClickListener(new View.OnClickListener() {
            @Override

@@ -28,7 +28,8 @@
             android:label="添加账户" />
         <activity
             android:name=".CardsActivity"
-            android:label="账户" />
+            android:label="账户"
+            android:launchMode="singleTask"/>
         <activity android:name=".DatabaseActivity" />
         <activity
             android:name=".PinLockActivity"

@@ -1,17 +1,22 @@
 package com.example.toaccountornot;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.toaccountornot.utils.Accounts;
+import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayCardAdapter;
 import com.lxj.xpopup.XPopup;
@@ -41,6 +46,8 @@ public class CardDetailActivity extends AppCompatActivity {
     private List<Day> dayList = new ArrayList<>();
     private String cardname;
     private BasePopupView datePicker;
+    private ImageView return_bar;
+    private ImageView delete_bar;
 
     @Override
     protected void onResume(){
@@ -56,6 +63,7 @@ public class CardDetailActivity extends AppCompatActivity {
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         initView();
         initPicker();
+        initClickListener();
     }
     void initView() {
         Bundle bundle = this.getIntent().getExtras();
@@ -67,6 +75,8 @@ public class CardDetailActivity extends AppCompatActivity {
         label_in = findViewById(R.id.label_in);
         choose_date = findViewById(R.id.choose_date2);
         rec_day = findViewById(R.id.mainlist);
+        return_bar = findViewById(R.id.return_bar);
+        delete_bar = findViewById(R.id.delete_bar);
         label.setText(cardname);
         label_year.setText(year);
         label_month.setText(month);
@@ -77,6 +87,31 @@ public class CardDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 datePicker.show();
                 Toast.makeText(CardDetailActivity.this,"你点击了按钮",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    void initClickListener() {
+        return_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        delete_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(CardDetailActivity.this)
+                        .setTitle("警告")
+                        .setMessage("确定删除吗？(删除后将删除该账户的所有账款条目)")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LitePal.deleteAll(Cards.class,"card = ?",cardname);
+                                LitePal.deleteAll(Accounts.class,"card = ?",cardname);
+                                finish();
+                            }
+                        }).setNegativeButton("取消", null)
+                        .create().show();
             }
         });
     }
