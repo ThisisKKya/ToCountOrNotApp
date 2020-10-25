@@ -24,6 +24,7 @@ public class IncomeFragment extends BaseCategoryFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        minorout = "收入";
         super.onCreate(savedInstanceState);
     }
     @Override
