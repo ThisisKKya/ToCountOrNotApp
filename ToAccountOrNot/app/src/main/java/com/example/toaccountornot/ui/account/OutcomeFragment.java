@@ -18,6 +18,7 @@ import java.util.List;
 public class OutcomeFragment extends BaseCategoryFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        minorout = "支出";
         super.onCreate(savedInstanceState);
     }
     @Override
