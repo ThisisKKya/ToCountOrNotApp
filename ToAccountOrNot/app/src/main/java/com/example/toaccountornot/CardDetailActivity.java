@@ -4,18 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.toaccountornot.utils.Day;
-import com.example.toaccountornot.utils.DayAdapter;
+import com.example.toaccountornot.utils.DayCardAdapter;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopupext.listener.TimePickerListener;
@@ -28,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static org.litepal.LitePalApplication.getContext;
 
 public class CardDetailActivity extends AppCompatActivity {
 
@@ -87,17 +83,20 @@ public class CardDetailActivity extends AppCompatActivity {
     void initDaylist() {
         dayList.clear();
         // 因为LitePal不支持group by, 故使用SQL语句查询
-        Cursor cursor = LitePal.findBySQL("select date from Accounts where card = ?"+"and date_year=?" +
+        Cursor cursor = LitePal.findBySQL("select card,date from Accounts where card = ?"+"and date_year=?" +
                         "and date_month=? group by date order by date desc",
                 label.getText().toString(),
                 label_year.getText().toString(),
                 label_month.getText().toString());
         if (cursor.moveToFirst()) {
             do {
-                String date = cursor.getString(0);
-                dayList.add(new Day(date));
-                DayAdapter dayAdapter = new DayAdapter(dayList, CardDetailActivity.this);
-                rec_day.setAdapter(dayAdapter);
+                String card = cursor.getString(0);
+                String date = cursor.getString(1);
+                Log.d("DatabaseActivity", "card" + card);
+                Log.d("DatabaseActivity", "date" + date);
+                dayList.add(new Day(date,card));
+                DayCardAdapter Adapter = new DayCardAdapter(dayList, CardDetailActivity.this);
+                rec_day.setAdapter(Adapter);
             } while (cursor.moveToNext());
 
             double outcome = 0;
@@ -111,8 +110,8 @@ public class CardDetailActivity extends AppCompatActivity {
                 label_in.setText(String.valueOf(df.format(income)));
             }
         } else {
-            DayAdapter dayAdapter = new DayAdapter(dayList, CardDetailActivity.this);
-            rec_day.setAdapter(dayAdapter);
+            DayCardAdapter Adapter = new DayCardAdapter(dayList, CardDetailActivity.this);
+            rec_day.setAdapter(Adapter);
             label_out.setText("0");
             label_in.setText("0");
         }
