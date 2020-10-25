@@ -11,8 +11,10 @@ public class Single {
     private String second;
     private double price;
     private String date;
+    private String card;
+    private String member;
 
-    public Single(long id, String inorout, String first, String second, double price, String date){
+    public Single(long id, String inorout, String first, String second, double price, String date, String card, String member){
 
         this.id = id;
         this.inorout = inorout;
@@ -20,7 +22,8 @@ public class Single {
         this.second = second;
         this.price = price;
         this.date = date;
-
+        this.card = card;
+        this.member = member;
     }
 
     public long getId() {
@@ -47,8 +50,12 @@ public class Single {
         return first;
     }
 
-    public void setFirst(String first) {
-        this.first = first;
+    public String getCard() {
+        return card;
+    }
+
+    public String getMember() {
+        return member;
     }
 
 }
