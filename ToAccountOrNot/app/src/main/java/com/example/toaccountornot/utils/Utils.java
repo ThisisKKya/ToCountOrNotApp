@@ -98,6 +98,15 @@ public class Utils {
             case "转账":
                 imageProperty.setImageResource(R.drawable.transfer);
                 break;
+            case "爸爸":
+                imageProperty.setImageResource(R.drawable.father);
+                break;
+            case "妈妈":
+                imageProperty.setImageResource(R.drawable.mother);
+                break;
+            case "我":
+                imageProperty.setImageResource(R.drawable.me);
+                break;
             default:
                 imageProperty.setImageResource(R.drawable.setting);
                 break;
