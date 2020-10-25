@@ -13,8 +13,10 @@
         <activity
             android:name=".CardDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".CardCustomizeActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".CardCustomizeActivity"></activity>
         <activity
             android:name=".CreateCardDetailActivity"
             android:label="添加账户明细" />
@@ -38,6 +40,10 @@
         <activity
             android:name=".PatternLockActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+        <activity
+            android:name=".ui.chart.DemoLikePathActivity"
+            android:label="@string/app_name"
+            />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">

@@ -57,5 +57,5 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.niniloveyou:StateButton:v1.0.0'
     implementation 'com.baoyz.swipemenulistview:library:1.3.0'
-    implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
 }

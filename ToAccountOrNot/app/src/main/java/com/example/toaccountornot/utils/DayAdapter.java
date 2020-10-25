@@ -79,6 +79,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         String first;
         String second;
         double price = 0;
+        String card;
+        String member;
 
         List<Accounts> list = LitePal.where("date=?", date)
                 .order("id desc")
@@ -89,8 +91,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
             first = accounts.getFirst();
             second = accounts.getSecond();
             price = accounts.getPrice();
+            card = accounts.getCard();
+            member = accounts.getMember();
 
-            singleList.add(new Single(id, inorout, first, second, price, date));
+            singleList.add(new Single(id, inorout, first, second, price, date, card, member));
         }
 
         return singleList;
