@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class First extends LitePalSupport {
     private String name;
     private int image;
-    private ArrayList<String> second;
+    private ArrayList<String> second = new ArrayList<>();
+    private String inorout;
 
     public String getName() {
         return name;
@@ -31,6 +32,14 @@ public class First extends LitePalSupport {
 
     public void setSecond(String extra){
         second.add(extra);
+    }
+
+    public String getInorout() {
+        return inorout;
+    }
+
+    public void setInorout(String inorout) {
+        this.inorout = inorout;
     }
 }
 
