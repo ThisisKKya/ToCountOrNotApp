@@ -56,11 +56,6 @@ public class CardDetailActivity extends AppCompatActivity {
     private ImageView return_bar;
     private ImageView delete_bar;
 
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +63,9 @@ public class CardDetailActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        initPicker_Y();
         initView();
+        initPicker_YM();
+        initDaylist();
         initClickListener();
     }
     void initView() {
@@ -88,11 +84,11 @@ public class CardDetailActivity extends AppCompatActivity {
         rec_day = findViewById(R.id.mainlist);
         return_bar = findViewById(R.id.return_bar);
         delete_bar = findViewById(R.id.delete_bar);
-        viewchoice.setText("年");
+        viewchoice.setText("月");
         label.setText(cardname);
         label_year.setText(year);
-        label_month.setText("");
-        label_time2.setText("");
+        label_month.setText(month);
+        label_time2.setText("-");
         rec_day.setLayoutManager(new LinearLayoutManager(CardDetailActivity.this));
 
         choose_date.setOnClickListener(new View.OnClickListener() {
@@ -114,16 +110,16 @@ public class CardDetailActivity extends AppCompatActivity {
                                     viewchoice.setText(text);
                                     switch(viewchoice.getText().toString()){
                                         case "年":
-                                            initPicker_Y();
-                                            initMonthlist();
                                             label_time2.setText("");
                                             label_month.setText("");
+                                            initPicker_Y();
+                                            initMonthlist();
                                             break;
                                         case "月":
-                                            initPicker_YM();
-                                            initDaylist();
                                             label_time2.setText("-");
                                             label_month.setText(month);
+                                            initPicker_YM();
+                                            initDaylist();
                                     }
 
                                 }
@@ -273,7 +269,7 @@ public class CardDetailActivity extends AppCompatActivity {
                         label_year.setText(year);
                         label_month.setText("");
                         label_time2.setText("");
-                        initDaylist();
+                        initMonthlist();
                     }
                 });
         timePickerPopup.setMode(TimePickerPopup.Mode.Y);
