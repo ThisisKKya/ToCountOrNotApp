@@ -1,6 +1,7 @@
 package com.example.toaccountornot;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,10 +78,9 @@ public class CardsActivity extends AppCompatActivity {
             }
         });
         
-        adapter = new CardsAdapter(CardsActivity.this,
-                R.layout.cards_list_item, cardlist);
-        ListView listView = (ListView) findViewById(R.id.listview);//在视图中找到ListView
-        listView.setAdapter(adapter);
+        adapter = new CardsAdapter(CardsActivity.this,cardlist);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);//在视图中找到ListView
+        recyclerView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
