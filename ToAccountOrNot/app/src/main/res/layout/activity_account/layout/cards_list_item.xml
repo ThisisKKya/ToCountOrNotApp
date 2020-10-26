@@ -1,95 +1,115 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="0dp">
 
-    <RelativeLayout
-        android:id="@+id/ll_view"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="7dp"
+        android:gravity="right">
+
         <ImageView
             android:id="@+id/account_image"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/wechat"/>
 
-        <TextView
-            android:id="@+id/account_card"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_toRightOf="@+id/account_image"
-            android:layout_toEndOf="@+id/account_image"
-            android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/account_remark"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/account_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:text="微信"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/account_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="6dp"
+                android:textSize="14sp"
+                android:textColor="@color/greyish"
+                android:text="备注" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/account_card"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_toRightOf="@+id/account_image"
-            android:layout_toEndOf="@+id/account_image"
-            android:layout_marginTop="10dp"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/account_sur"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:textColor="?attr/colorPrimary"
+                android:text="+3.22"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/account_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="end"
+                    android:textColor="@color/greyish"
+                    android:text="-9.80"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/account_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="end"
+                    android:textColor="@color/greyish"
+                    android:text="+1.52"
+                    android:textSize="16dp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/card_return"
-            android:layout_centerVertical="true"
-            android:gravity="end"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
-
-        <TextView
-            android:id="@+id/account_sur"
-            android:gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/card_return"
-            android:layout_toStartOf="@+id/card_return"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/account_in"
-            android:layout_toLeftOf="@+id/card_return"
-            android:layout_toStartOf="@+id/card_return"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_below="@+id/account_sur"
-            android:layout_marginTop="10dp"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/account_out"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:gravity="end"
-            android:layout_below="@+id/account_sur"
-            android:layout_marginTop="10dp"
-            android:paddingRight="10dp"
-            android:layout_toStartOf="@+id/account_in"
-            android:layout_toLeftOf="@+id/account_in"
-            android:textSize="17sp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/returnsignal"/>
 
 
+    </LinearLayout>
 
-    </RelativeLayout>
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
