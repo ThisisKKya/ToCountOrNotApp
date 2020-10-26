@@ -72,33 +72,6 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         return mMonthList.size();
     }
 
-//    public List<Single> initSinglelist(String date,String card) {
-//        List<Single>singleList = new ArrayList<>();
-//
-//        long id;
-//        String inorout;
-//        String first;
-//        String second;
-//        double price = 0;
-//        String member;
-//
-//        List<Accounts> list = LitePal.where("date_month=? and card=?", date,card)
-//                .order("id desc")
-//                .find(Accounts.class);
-//        for (Accounts accounts : list) {
-//            id = accounts.getId();
-//            inorout = accounts.getInorout();
-//            first = accounts.getFirst();
-//            second = accounts.getSecond();
-//            price = accounts.getPrice();
-//            card = accounts.getCard();
-//            member = accounts.getMember();
-//
-//            singleList.add(new Single(id, inorout, first, second, price, date, card, member));
-//        }
-//
-//        return singleList;
-//    }
     public List<Single> initSinglelist(String year, String month, String card) {
         List<Single>singleList = new ArrayList<>();
 
@@ -108,6 +81,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         String second;
         double price = 0;
         String member;
+        String day;
 
         List<Accounts> list = LitePal.where("date_year=? and date_month=? and card=?", year, month, card)
                 .order("id desc")
@@ -120,8 +94,9 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
             price = accounts.getPrice();
             card = accounts.getCard();
             member = accounts.getMember();
+            day = accounts.getDate();
 
-            singleList.add(new Single(id, inorout, first, second, price, year+"-"+month, card, member));
+            singleList.add(new Single(id, inorout, first, second, price, day, card, member));
         }
 
         return singleList;
