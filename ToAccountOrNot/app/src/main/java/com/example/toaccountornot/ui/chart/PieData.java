@@ -1,11 +1,15 @@
 package com.example.toaccountornot.ui.chart;
 
+import android.database.Cursor;
 import android.util.Log;
 
 import com.example.toaccountornot.utils.Accounts;
 import com.github.mikephil.charting.data.PieEntry;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,60 +19,87 @@ public class PieData {
 
     public PieData() {}
 
-    public List<PieEntry> income(List<Accounts> accounts,String category) {
-
-        int len = accounts.size();
+    // 显示一级收入饼状图
+    public List<PieEntry> income(String time) {
         int all = 0;
         List<String> first = new ArrayList<>();
-        List<String> second = new ArrayList<>();
         List<Double> price = new ArrayList<>();
-        for(int i = 0;i < len;i++) {
-            if(accounts.get(i).getInorout() == "in") {
-                first.add(accounts.get(i).getFirst());
-                second.add(accounts.get(i).getSecond());
-                price.add(accounts.get(i).getPrice());
-                all += accounts.get(i).getPrice();
-            }
-        }
-        data = new ArrayList<>();
-        if(category == "一") {
-            len = first.size();
-        }
-        else len = second.size();
-        //  赋值饼状图
 
+        CursorManager cursorManager = new CursorManager();
+        Cursor cursor = cursorManager.initCur_one("in");;
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_one_day("in");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_one_year("in");
+                break;
+            default:
+                break;
+        }
+        if (cursor.moveToFirst()) {
+            do {
+                String title = cursor.getString(0);
+                //Log.d("hello_li",title);
+                first.add(title);
+                double total = cursor.getDouble(1);
+                //Log.d("hello", String.valueOf(total));
+                price.add(total);
+                all += total;
+                // 设置饼状图
+            } while (cursor.moveToNext());
+        }
+        int len = first.size();
+        //  赋值饼状图
+        data = new ArrayList<>();
         for (int i = 0; i < len; i++) {
-            if(category == "一")     data.add(new PieEntry((float) (price.get(i)/all),first.get(i)));
-            else data.add(new PieEntry((float) (price.get(i)/all),second.get(i)));
+            data.add(new PieEntry((float) (price.get(i)/all),first.get(i)));
         }
         return data;
     }
 
-    public  List<PieEntry> outcome(List<Accounts> accounts,String category) {
-        int len = accounts.size();
+
+    // 显示一级支出饼状图
+    public  List<PieEntry> outcome(String time) {
         int all = 0;
         List<String> first = new ArrayList<>();
-        List<String> second = new ArrayList<>();
         List<Double> price = new ArrayList<>();
-        for(int i = 0;i < len;i++) {
-            if(accounts.get(i).getInorout() == "out") {
-                first.add(accounts.get(i).getFirst());
-                second.add(accounts.get(i).getSecond());
-                price.add(accounts.get(i).getPrice());
-                all += accounts.get(i).getPrice();
-            }
+
+
+        CursorManager cursorManager = new CursorManager();
+        Cursor cursor = cursorManager.initCur_one("out");
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_one_day("out");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_one_year("out");
+                break;
+            default:
+                break;
+        }
+        if (cursor.moveToFirst()) {
+            do {
+                String title = cursor.getString(0);
+                //Log.d("hello_li",title);
+                first.add(title);
+                double total = cursor.getDouble(1);
+                //Log.d("hello", String.valueOf(total));
+                price.add(total);
+                all += total;
+                // 设置饼状图
+            } while (cursor.moveToNext());
         }
 
-        data = new ArrayList<>();
-        if(category == "一") {
-            len = first.size();
-        }
-        else len = second.size();
-        Log.d("hello_out", String.valueOf(len));
+        int len = first.size();
         //  赋值饼状图
+        data = new ArrayList<>();
         for (int i = 0; i < len; i++) {
-            if(category == "一")     data.add(new PieEntry((float) (price.get(i)/all),first.get(i)));
-            else data.add(new PieEntry((float) (price.get(i)/all),second.get(i)));
+            data.add(new PieEntry((float) (price.get(i)/all),first.get(i)));
         }
         return data;
     }
