@@ -24,6 +24,7 @@ import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
+import com.example.toaccountornot.utils.First;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
@@ -41,6 +42,7 @@ public class BaseCategoryFragment extends Fragment   {
     public List<Category> categoryList = new ArrayList<>();
     public List<String> cardString = new ArrayList<>();
     public List<String> memberString = new ArrayList<>();
+    public List<String> secondString = new ArrayList<>();
     public String minorout;
     String mfirstCategory;
     Date mtime = null;
@@ -103,7 +105,8 @@ public class BaseCategoryFragment extends Fragment   {
             @Override
             public void onClick(View v) {
                 new XPopup.Builder(getContext())
-                        .asBottomList("请选择一项", new String[]{"子类1"},
+                        .asBottomList("请选择一项", //new String[]{"子类1"},//
+                                 secondString.toArray(new String[secondString.size()]),
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
@@ -128,6 +131,7 @@ public class BaseCategoryFragment extends Fragment   {
             @Override
             public void callKeyboard(String firstCategory) {
                 mfirstCategory = firstCategory;
+                initsecondstring();
 //                Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
                 if (llKeborad.getVisibility() == View.GONE){
                     llKeborad.setVisibility(View.VISIBLE);
@@ -141,7 +145,18 @@ public class BaseCategoryFragment extends Fragment   {
     }
     public void initCategory() {
     }
+    public void initsecondstring(){
+        Log.d("hello",mfirstCategory);
+        List<First> firsts = LitePal.where("name = ?",mfirstCategory).find(First.class);
+        for(First first:firsts){
+            for(int i=0; i<first.getSecond().size();i++){
+                Log.d("hello",first.getSecond().get(i).toString());
+                secondString.add(first.getSecond().get(i).toString());
+            }
+        }
+    }
     public void initStringList() {
+
         List<Cards> list = LitePal.findAll(Cards.class);    //从数据库读账户
         for (Cards card:list) {
             cardString.add(card.getCard());
