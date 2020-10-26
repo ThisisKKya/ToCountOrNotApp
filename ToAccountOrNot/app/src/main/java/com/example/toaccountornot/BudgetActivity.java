@@ -18,5 +18,7 @@ public class BudgetActivity extends AppCompatActivity {
         textDate = findViewById(R.id.text_date);
         Intent intent = getIntent();
         textDate.setText(intent.getStringExtra("outcome"));
+
     }
+
 }

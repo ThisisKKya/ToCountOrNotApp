@@ -74,9 +74,9 @@ public class BarChartManager{
 
         // x轴标签
         List<String> xAxisValue = new ArrayList<>();
-        xAxisValue.add("me");
-        xAxisValue.add("baba");
-        xAxisValue.add("mama");
+        xAxisValue.add("爸爸");
+        xAxisValue.add("我");
+        xAxisValue.add("妈妈");
         //xAxisValue.add("didi");
         XAxis xAxis=barChart.getXAxis();
         xAxis.setLabelCount(xAxisValue.size());     //设置x轴显示的标签个数

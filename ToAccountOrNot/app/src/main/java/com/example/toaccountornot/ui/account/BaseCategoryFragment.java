@@ -26,6 +26,7 @@ import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.First;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
 import com.lxj.xpopupext.popup.TimePickerPopup;
@@ -133,11 +134,25 @@ public class BaseCategoryFragment extends Fragment   {
                 mfirstCategory = firstCategory;
                 initsecondstring();
 //                Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
-                if (llKeborad.getVisibility() == View.GONE){
-                    llKeborad.setVisibility(View.VISIBLE);
-                }
-                else {
-                    llKeborad.setVisibility(View.GONE);
+                if (mfirstCategory == "自定义") {
+                    new XPopup.Builder(getContext()).asInputConfirm("添加自定义类别", "请输入内容。",
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    First first = new First();
+                                    first.setName(text);
+                                    first.setInorout(minorout);
+                                    first.save();
+                                }
+                            })
+                            .show();
+                } else {
+                    if (llKeborad.getVisibility() == View.GONE){
+                        llKeborad.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        llKeborad.setVisibility(View.GONE);
+                    }
                 }
             }
         });
