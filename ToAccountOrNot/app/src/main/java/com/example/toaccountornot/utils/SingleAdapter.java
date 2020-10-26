@@ -3,6 +3,7 @@ package com.example.toaccountornot.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
 
     private Context mContext;
     private List<Single> singleList;
-    private String mday;
     List<LinearLayout>hide = new ArrayList<>();
     Button button;
     boolean isHide = true;
@@ -32,11 +32,6 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
     public SingleAdapter(List<Single> singleList, Context context) {
         mContext = context;
         this.singleList = singleList;
-    }
-    public SingleAdapter(List<Single> singleList, Context context, String day) {
-        mContext = context;
-        this.singleList = singleList;
-        mday = day;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,7 +53,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             clickItem = itemView.findViewById(R.id.click_item);
             single_all = itemView.findViewById(R.id.single_all);
             button_lookmore = itemView.findViewById(R.id.button_lookmore);
-            daytext = itemView.findViewById(R.id.day);
+            daytext = itemView.findViewById(R.id.single_day);
         }
     }
 
@@ -75,7 +70,13 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         Single single = singleList.get(position);
         holder.first.setText(single.getFirst());
         holder.second.setText(single.getSecond());
-        holder.daytext.setText(mday);
+        //Log.d("test",single.getDate());
+        String date_day = single.getDate().substring(single.getDate().length() -2);
+        holder.daytext.setText(date_day);
+        if(single.getShowday()==1)
+            holder.daytext.setVisibility(View.VISIBLE);
+        else
+            holder.daytext.setVisibility(View.GONE);
         switch (single.getInorout())
         {
             case "in":

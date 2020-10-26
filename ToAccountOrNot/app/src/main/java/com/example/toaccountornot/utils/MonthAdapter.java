@@ -84,7 +84,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         String day;
 
         List<Accounts> list = LitePal.where("date_year=? and date_month=? and card=?", year, month, card)
-                .order("id desc")
+                .order("date desc")
                 .find(Accounts.class);
         for (Accounts accounts : list) {
             id = accounts.getId();
@@ -96,7 +96,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
             member = accounts.getMember();
             day = accounts.getDate();
 
-            singleList.add(new Single(id, inorout, first, second, price, day, card, member));
+            singleList.add(new Single(id, inorout, first, second, price, day, card, member,1));//1=showday
         }
 
         return singleList;

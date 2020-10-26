@@ -102,7 +102,7 @@ public class CardDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             new XPopup.Builder(CardDetailActivity.this)
-                    .asBottomList("请选择展示的时间单位", new String[]{"年","月","日"},
+                    .asBottomList("请选择展示的时间单位", new String[]{"年","月"},
                             new OnSelectListener() {
                                 @Override
                                 public void onSelect(int position, String text) {
@@ -195,7 +195,7 @@ public class CardDetailActivity extends AppCompatActivity {
         Log.d("test","monthlist");
         // 因为LitePal不支持group by, 故使用SQL语句查询
         Cursor cursor = LitePal.findBySQL("select card, date_month ,date_year from Accounts where card = ?"+"and date_year=?" +
-                        "group by date_month order by date_month desc",
+                        "group by date_month order by date_month asc",
                 label.getText().toString(),
                 label_year.getText().toString());
         if (cursor.moveToFirst()) {
