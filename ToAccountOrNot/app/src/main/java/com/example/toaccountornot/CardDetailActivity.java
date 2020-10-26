@@ -19,6 +19,8 @@ import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayCardAdapter;
+import com.example.toaccountornot.utils.Month;
+import com.example.toaccountornot.utils.MonthAdapter;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.interfaces.OnSelectListener;
@@ -48,7 +50,7 @@ public class CardDetailActivity extends AppCompatActivity {
     private LinearLayout choose_view;
     private RecyclerView rec_day;
     private List<Day> dayList = new ArrayList<>();
-    //private List
+    private List<Month> monthList = new ArrayList<>();
     private String cardname;
     private BasePopupView datePicker;
     private ImageView return_bar;
@@ -58,7 +60,6 @@ public class CardDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        initDaylist();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +115,13 @@ public class CardDetailActivity extends AppCompatActivity {
                                     switch(viewchoice.getText().toString()){
                                         case "年":
                                             initPicker_Y();
+                                            initMonthlist();
                                             label_time2.setText("");
                                             label_month.setText("");
                                             break;
                                         case "月":
                                             initPicker_YM();
+                                            initDaylist();
                                             label_time2.setText("-");
                                             label_month.setText(month);
                                     }
@@ -155,6 +158,7 @@ public class CardDetailActivity extends AppCompatActivity {
         });
     }
     void initDaylist() {
+        Log.d("test","daylist");
         dayList.clear();
         // 因为LitePal不支持group by, 故使用SQL语句查询
         Cursor cursor = LitePal.findBySQL("select card,date from Accounts where card = ?"+"and date_year=?" +
@@ -191,9 +195,44 @@ public class CardDetailActivity extends AppCompatActivity {
         }
     }
     void initMonthlist(){
+        monthList.clear();
+        Log.d("test","monthlist");
+        // 因为LitePal不支持group by, 故使用SQL语句查询
+        Cursor cursor = LitePal.findBySQL("select card, date_month ,date_year from Accounts where card = ?"+"and date_year=?" +
+                        "group by date_month order by date_month desc",
+                label.getText().toString(),
+                label_year.getText().toString());
+        if (cursor.moveToFirst()) {
+            do {
+                String card = cursor.getString(0);
+                String month = cursor.getString(1);
+                String year = cursor.getString(2);
+                Log.d("test",card);
+                Log.d("test",month);
+                Log.d("test",year);
+                monthList.add(new Month(year,month,card));
+                MonthAdapter Adapter = new MonthAdapter(monthList, CardDetailActivity.this);
+                rec_day.setAdapter(Adapter);
+            } while (cursor.moveToNext());
 
+            double outcome = 0;
+            double income = 0;
+            for (Month month : monthList) {
+                outcome += month.getOutcome_month();
+                income += month.getIncome_month();
+                DecimalFormat df = new DecimalFormat("#.##");
+
+                label_out.setText(String.valueOf(df.format(outcome)));
+                label_in.setText(String.valueOf(df.format(income)));
+            }
+        } else {
+            MonthAdapter Adapter = new MonthAdapter(monthList, CardDetailActivity.this);
+            rec_day.setAdapter(Adapter);
+            label_out.setText("0");
+            label_in.setText("0");
+        }
     }
-    private void initPicker_YM() {
+    private void initPicker_YM() {//年
         TimePickerPopup timePickerPopup = new TimePickerPopup(CardDetailActivity.this)
                 .setTimePickerListener(new TimePickerListener() {
                     @Override
