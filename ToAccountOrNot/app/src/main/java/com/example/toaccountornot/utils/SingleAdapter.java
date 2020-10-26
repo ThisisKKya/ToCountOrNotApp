@@ -24,6 +24,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
 
     private Context mContext;
     private List<Single> singleList;
+    private String mday;
     List<LinearLayout>hide = new ArrayList<>();
     Button button;
     boolean isHide = true;
@@ -32,11 +33,17 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         mContext = context;
         this.singleList = singleList;
     }
+    public SingleAdapter(List<Single> singleList, Context context, String day) {
+        mContext = context;
+        this.singleList = singleList;
+        mday = day;
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView first;
         TextView second;
         TextView money;
+        TextView daytext;
         ImageView image_property;
         LinearLayout clickItem;
         LinearLayout single_all;
@@ -51,6 +58,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             clickItem = itemView.findViewById(R.id.click_item);
             single_all = itemView.findViewById(R.id.single_all);
             button_lookmore = itemView.findViewById(R.id.button_lookmore);
+            daytext = itemView.findViewById(R.id.day);
         }
     }
 
@@ -67,6 +75,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         Single single = singleList.get(position);
         holder.first.setText(single.getFirst());
         holder.second.setText(single.getSecond());
+        holder.daytext.setText(mday);
         switch (single.getInorout())
         {
             case "in":
