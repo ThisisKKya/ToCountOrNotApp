@@ -16,7 +16,9 @@ public class Accounts extends LitePalSupport {
     private String date;
     private String date_year;
     private String date_month;
+    private String date_week;
     private String inorout; //收入支出类型
+
     /*
     public Accounts(long id,String first,String second,double price,String card,
                     String member,String date,String date_year,String date_month,String inorout) {
@@ -31,6 +33,14 @@ public class Accounts extends LitePalSupport {
         this.date_month = date_month;
         this.inorout = inorout;
     }*/
+
+    public String getDate_week() {
+        return date_week;
+    }
+
+    public void setDate_week(String date_week) {
+        this.date_week = date_week;
+    }
 
     public String getDate_year() {
         return date_year;
