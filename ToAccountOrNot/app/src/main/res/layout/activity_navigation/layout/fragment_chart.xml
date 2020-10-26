@@ -23,13 +23,67 @@
             android:theme="?attr/actionBarTheme"
             app:contentInsetStart="0dp">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="20sp"
-                android:paddingStart="24sp"
-                android:text="chart"
-                android:textSize="30sp" />
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="20sp"
+                    android:paddingStart="24sp"
+                    android:text="chart"
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/lab_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" year"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/lab_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/lab_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="month"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/lab_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/lab_weekORday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="week or day"
+                        android:textSize="16sp"/>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -210,6 +264,24 @@
             android:background="@drawable/chart_menu"
             android:textColor="@color/white"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/left"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/left"
+            android:layout_toLeftOf="@+id/fab1"
+            android:layout_marginBottom="2dp"
+            android:layout_alignParentBottom="true"/>
+
+        <ImageView
+            android:id="@+id/right"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/right"
+            android:layout_toRightOf="@+id/fab1"
+            android:layout_marginBottom="2dp"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 

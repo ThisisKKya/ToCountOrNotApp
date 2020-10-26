@@ -28,14 +28,17 @@ public class BarData {
     public List<String> Member_out;
     public List<Double> in;
     public List<Double> out;
+    public CursorManager cursorManager = new CursorManager();
 
-    public BarData(String time) {
+    public BarData(String time,int flag) {
         Member_in = new ArrayList<>();
         Member_out = new ArrayList<>();
         in = new ArrayList<>();
         out = new ArrayList<>();
 
-        CursorManager cursorManager = new CursorManager();
+        if(flag != 0)  {
+            cursorManager.change_cur(flag,time);
+        }
         Cursor cursor = cursorManager.initCur_mem("out");
         switch (time)
         {
@@ -94,65 +97,138 @@ public class BarData {
         }
     }
 
+
     //  Barchart成员收入
     public List<BarEntry> income(List<Accounts> accounts) {
         data = new ArrayList<>();
-        float xA = 0f;
-        float[] x = new float[]{1f,4f,7f};
-        for(int i = 0 ; i < Member_in.size() ; i++) {
-            //Log.d("hello",Member_out.get(i));
-            //Log.d("hello", String.valueOf(out.get(i)));
-            switch (Member_in.get(i))
-            {
-                case"我":
-                    xA = 1f;
-                    //float xY = i;
-                    break;
-                case "爸爸":
-                    //Log.d("hello","bababa");
-                    xA = 4f;
-                    //float xY = i;
-                    break;
-                case "妈妈":
-                    xA = 7f;
-                    //float xY = i;
-                    break;
-            }
-            DecimalFormat df = new DecimalFormat("#.##");
-            BarEntry y = new BarEntry(xA , Float.parseFloat(df.format(in.get(i))));
-            data.add(y);
+        int father = find_mem_in("爸爸");
+        int mather = find_mem_in("妈妈");
+        int me = find_mem_in("我");
+
+        Log.d("hello_mem_father", String.valueOf(father));
+        Log.d("hello_mem_mather", String.valueOf(mather));
+        Log.d("hello_mem_me", String.valueOf(me));
+        if(father == -1) {
+            BarEntry   y1 = new BarEntry(1f,0);
+            data.add(y1);
         }
+        else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry   y1 = new BarEntry(1f , Float.parseFloat(df.format(in.get(father))));
+            data.add(y1);
+        }
+
+        if(me == -1) {
+            BarEntry   y1 = new BarEntry(4f , 0);
+            data.add(y1);
+        }
+        else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry   y1 = new BarEntry(4f , Float.parseFloat(df.format(in.get(me))));
+            data.add(y1);
+        }
+        if(mather == -1) {
+            BarEntry  y1 = new BarEntry(7f , 0);
+            data.add(y1);
+        }
+        else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry   y1 = new BarEntry(7f , Float.parseFloat(df.format(in.get(mather))));
+            data.add(y1);
+        }
+
+
         return data;
     }
 
     //  Barchart成员支出
     public List<BarEntry> outcome(List<Accounts> accounts) {
         data = new ArrayList<>();
-        float xA = 0f;
+        int father = find_mem_out("爸爸");
+        int mather = find_mem_out("妈妈");
+        int me = find_mem_out("我");
+
+        if(father == -1) {
+            BarEntry y1 = new BarEntry(2f , 0);
+            data.add(y1);
+        }
+        else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry   y1 = new BarEntry(2f , Float.parseFloat(df.format(out.get(father))));
+            data.add(y1);
+        }
+        if(me == -1) {
+            BarEntry   y1 = new BarEntry(5f , 0);
+            data.add(y1);
+        }
+        else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry   y1 = new BarEntry(5f , Float.parseFloat(df.format(out.get(me))));
+            data.add(y1);
+        }
+        if(mather == -1) {
+            BarEntry  y1 = new BarEntry(8f , 0);
+            data.add(y1);
+        }
+        else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            BarEntry   y1 = new BarEntry(8f , Float.parseFloat(df.format(out.get(mather))));
+            data.add(y1);
+        }
+
+
+        /*float xA = 0f;
         float[] x = new float[]{1f,4f,7f};
         for(int i = 0 ; i < Member_out.size() ; i++) {
-            //Log.d("hello",Member_out.get(i));
-            //Log.d("hello", String.valueOf(out.get(i)));
+            DecimalFormat df = new DecimalFormat("#.##");
             switch (Member_out.get(i))
             {
                 case"我":
-                    xA = 1f;
-                    //float xY = i;
+                    BarEntry y1 = new BarEntry(2f , Float.parseFloat(df.format(out.get(i))));
+                    data.add(y1);
                     break;
                 case "爸爸":
-                    //Log.d("hello","bababa");
-                    xA = 4f;
+                    BarEntry y2 = new BarEntry(5f , Float.parseFloat(df.format(out.get(i))));
+                    data.add(y2);
                     //float xY = i;
                     break;
                 case "妈妈":
-                    xA = 7f;
-                    //float xY = i;
+                    BarEntry y3 = new BarEntry(8f, Float.parseFloat(df.format(out.get(i))));
+                    data.add(y3);
                     break;
             }
-            DecimalFormat df = new DecimalFormat("#.##");
-            BarEntry y = new BarEntry(xA , Float.parseFloat(df.format(out.get(i))));
-            data.add(y);
-        }
+
+        }*/
         return data;
+    }
+
+    // 找不到成员返回-1
+    private int find_mem_in(String name) {
+        int i;
+        int flag = 0;
+        for(i = 0 ; i < Member_in.size();i++) {
+            Log.d("hello_member",Member_in.get(i));
+            Log.d("hello_member",name);
+            if(name.equals(Member_in.get(i))) {
+                Log.d("hello_member","getin");
+                flag = 1;
+                return i;
+            }
+        }
+        if(flag == 1)   return i;
+        else return -1;
+    }
+
+    private int find_mem_out(String name) {
+        int i;
+        int flag = 0;
+        for(i = 0 ; i < Member_out.size();i++) {
+            if(name.equals(Member_out.get(i))) {
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 1)   return i;
+        else return -1;
     }
 }

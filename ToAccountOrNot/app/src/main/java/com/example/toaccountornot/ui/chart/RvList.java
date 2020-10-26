@@ -15,21 +15,22 @@ import java.util.List;
 
 public class RvList {
     public List<income> myList = new ArrayList<>();
+    public  CursorManager cursorManager = new CursorManager();
 
     public RvList (List<income> myList) {
         this.myList = myList;
     }
 
-    public List<income> choice(int i, List<Accounts> accounts,String cate,String time) {
+    public List<income> choice(int i, List<Accounts> accounts,String cate,String time,int flag) {
 
-        if(i == 0)  initincome(accounts,cate,time);
-        if(i == 1)  initoutcome(accounts,cate,time);
-        if(i == 2)  initpeople();
+        if(i == 0)  initincome(accounts,cate,time,flag);
+        if(i == 1)  initoutcome(accounts,cate,time,flag);
+        if(i == 2)  initpeople(time,flag);
         return myList;
     }
 
     // 饼状图收入的流水展示
-    private void initincome(List<Accounts> accounts,String cate,String time) {
+    private void initincome(List<Accounts> accounts,String cate,String time,int flag) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<Double> price = new ArrayList<>();
@@ -37,7 +38,9 @@ public class RvList {
         List<Double> price_second = new ArrayList<>();
 
 
-        CursorManager cursorManager = new CursorManager();
+        if(flag != 0)  {
+            cursorManager.change_cur(flag,time);
+        }
         Cursor cursor = cursorManager.initCur_one("in");
         switch (time)
         {
@@ -111,13 +114,17 @@ public class RvList {
     }
 
     // 饼状图支出的流水展示
-    private void initoutcome(List<Accounts> accounts,String cate,String time) {
+    private void initoutcome(List<Accounts> accounts,String cate,String time,int flag) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<String> second = new ArrayList<>();
         List<Double> price = new ArrayList<>();
         List<Double> price_second = new ArrayList<>();
-        CursorManager cursorManager = new CursorManager();
+
+        if(flag != 0)  {
+            cursorManager.change_cur(flag,time);
+        }
+        //CursorManager cursorManager = new CursorManager();
         Cursor cursor = cursorManager.initCur_one("out");
 
         switch (time)
@@ -147,7 +154,7 @@ public class RvList {
         if(!cate.equals("一")) {
             //Log.d("hello",cate);
             int first_name = Integer.parseInt(cate);
-            Log.d("hello", String.valueOf(first_name));
+            //Log.d("hello", String.valueOf(first_name));
             Cursor cursor2 = cursorManager.initCur_two("out",first.get(first_name));
             switch (time)
             {
@@ -189,55 +196,107 @@ public class RvList {
     }
 
     // 柱状图成员流水展示
-    private void initpeople() {
-        myList.clear();/*
-        String year;
-        String month;
+    private void initpeople(String time,int flag) {
+        myList.clear();
         List<String>Member_in = new ArrayList<>();
         List<String>Member_out = new ArrayList<>();
         List<Double>in = new ArrayList<>();
         List<Double>out = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        year = String.valueOf(calendar.get(Calendar.YEAR));
-        month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        Cursor cursor = LitePal.findBySQL("select member,sum(price) from Accounts where date_year=?" +
-                        "and date_month=? and inorout=? group by member order by member desc",
-                year,
-                month,
-                "out");
+
+        if(flag != 0)  {
+            cursorManager.change_cur(flag,time);
+        }
+
+        Cursor cursor = cursorManager.initCur_mem("out");
+        switch (time)
+        {
+            case "天":
+                cursor = cursorManager.initCur_mem_day("out");
+                break;
+            case "周":
+                cursor = cursorManager.initCur_mem_week("out");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor = cursorManager.initCur_mem_year("out");
+                break;
+            default:
+                break;
+        }
         if (cursor.moveToFirst()) {
             do {
-                String member = cursor.getString(0);
-                Member_out.add(member);
-                Log.d("hello_mem",member);
+                String title = cursor.getString(0);
+                Member_out.add(title);
                 double total = cursor.getDouble(1);
                 out.add(total);
-                Log.d("hello_mem", String.valueOf(total));
-                // 设置饼状图
             } while (cursor.moveToNext());
         }
 
-        // 按照“in”查找数据获得成员所有收入
-        Cursor cursor_in = LitePal.findBySQL("select member,sum(price) from Accounts where date_year=?" +
-                        "and date_month=? and inorout=? group by member order by member desc",
-                year,
-                month,
-                "in");
+        Cursor cursor_in = cursorManager.initCur_mem("in");
+        switch (time)
+        {
+            case "天":
+                cursor_in = cursorManager.initCur_mem_day("in");
+                break;
+            case "周":
+                cursor_in = cursorManager.initCur_mem_week("in");
+                break;
+            case "年" :
+                //Log.d("hello","11111");
+                cursor_in = cursorManager.initCur_mem_year("in");
+                break;
+            default:
+                break;
+        }
         if (cursor_in.moveToFirst()) {
             do {
-                String member = cursor_in.getString(0);
-                Member_in.add(member);
+                String title = cursor_in.getString(0);
+                Member_in.add(title);
                 double total = cursor_in.getDouble(1);
-                Log.d("hello_mem", String.valueOf(total));
                 in.add(total);
-                // 设置饼状图
             } while (cursor_in.moveToNext());
-        }*/
-        income income1 = new income("我", 100f, R.drawable.me);
+        }
+
+        float me = 0f;
+        float fath  = 0f;
+        float math = 0f;
+        for(int i = 0;i < Member_in.size() ; i++) {
+            switch (Member_in.get(i))
+            {
+                case "我" :
+                    me = (float) (me + in.get(i));
+                    break;
+                case "爸爸" :
+                    fath = (float) (fath + in.get(i));
+                    break;
+                case "妈妈" :
+                    math = (float) (math + in.get(i));
+                    break;
+                default:
+                    break;
+            }
+        }
+        for(int i = 0;i < Member_out.size() ; i++) {
+            switch (Member_out.get(i))
+            {
+                case "我" :
+                    me = (float) (me - out.get(i));
+                    break;
+                case "爸爸" :
+                    fath = (float) (fath - out.get(i));
+                    break;
+                case "妈妈" :
+                    math = (float) (math - out.get(i));
+                    break;
+                default:
+                    break;
+            }
+        }
+        income income1 = new income("我", me, R.drawable.me);
         myList.add(income1);
-        income income2 = new income("爸爸", 100f, R.drawable.father);
+        income income2 = new income("爸爸", fath, R.drawable.father);
         myList.add(income2);
-        income income3 = new income("妈妈", 100f, R.drawable.mother);
+        income income3 = new income("妈妈", math, R.drawable.mother);
         myList.add(income3);
     }
 }
