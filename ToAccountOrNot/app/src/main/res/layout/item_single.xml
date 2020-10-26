@@ -20,14 +20,6 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="visible">
-        
-        <TextView
-            android:id="@+id/day"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:textSize="22dp"
-            android:paddingLeft="8dp"
-            android:text="26" />
 
         <ImageView
             android:id="@+id/property_image"
