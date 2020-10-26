@@ -25,7 +25,7 @@
             android:id="@+id/single_day"
             android:layout_width="35dp"
             android:layout_height="33dp"
-            android:textColor="@color/greyish"
+            android:textColor="@android:color/black"
             android:textSize="22dp"
             android:paddingLeft="10dp"
             android:text="26" />

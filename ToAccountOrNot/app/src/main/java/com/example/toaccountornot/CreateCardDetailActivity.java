@@ -41,10 +41,10 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                     card.setRemark(remark.getText().toString());
                     switch (type) {
                         case 0:
-                            card.setCardid(R.drawable.bankcard);
+                            card.setImage(R.drawable.bankcard);
                             break;
                         case 1:
-                            card.setCardid(R.drawable.creditcard);
+                            card.setImage(R.drawable.creditcard);
                             break;
                     }
                     card.save();
