@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         TextView day_income;
         TextView date;
 
-        public ViewHolder(View itemView) {
+        private ViewHolder(View itemView) {
             super(itemView);
             itemList = itemView.findViewById(R.id.list_everyday);
             day_outcome = itemView.findViewById(R.id.day_outcome);
@@ -42,11 +43,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         }
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_day,parent,false);
-        final ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         DecimalFormat df = new DecimalFormat("#.##");
         Day day = mDayList.get(position);
 
-        singleList = initSinglelist(day.getDate());
+        singleList = initSingleList(day.getDate());
 
         holder.day_outcome.setText(df.format(day.getOutcome_day()));
         holder.day_income.setText(df.format(day.getIncome_day()));
@@ -71,14 +72,14 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         return mDayList.size();
     }
 
-    public List<Single> initSinglelist(String date) {
+    private List<Single> initSingleList(String date) {
         List<Single>singleList = new ArrayList<>();
 
         long id;
         String inorout;
         String first;
         String second;
-        double price = 0;
+        double price;
         String card;
         String member;
 
