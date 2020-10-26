@@ -42,6 +42,9 @@ public class BarData {
             case "天":
                 cursor = cursorManager.initCur_mem_day("out");
                 break;
+            case "周":
+                cursor = cursorManager.initCur_mem_week("out");
+                break;
             case "年" :
                 //Log.d("hello","11111");
                 cursor = cursorManager.initCur_mem_year("out");
@@ -68,6 +71,9 @@ public class BarData {
         {
             case "天":
                 cursor_in = cursorManager.initCur_mem_day("in");
+                break;
+            case "周":
+                cursor_in = cursorManager.initCur_mem_week("in");
                 break;
             case "年" :
                 //Log.d("hello","11111");

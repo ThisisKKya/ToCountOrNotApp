@@ -44,6 +44,9 @@ public class RvList {
             case "天":
                 cursor = cursorManager.initCur_one_day("in");
                 break;
+            case "周":
+                cursor = cursorManager.initCur_one_week("in");
+                break;
             case "年" :
                 //Log.d("hello","11111");
                 cursor = cursorManager.initCur_one_year("in");
@@ -69,16 +72,19 @@ public class RvList {
             switch (time)
             {
                 case "天":
-                    cursor = cursorManager.initCur_two_day("in");
+                    Log.d("hello_day","1111");
+                    cursor2 = cursorManager.initCur_two_day("in",first.get(first_name));
+                    break;
+                case "周":
+                    cursor2 = cursorManager.initCur_two_week("in",first.get(first_name));
                     break;
                 case "年" :
                     //Log.d("hello","11111");
-                    cursor = cursorManager.initCur_two_year("in");
+                    cursor2 = cursorManager.initCur_two_year("in",first.get(first_name));
                     break;
                 default:
                     break;
             }
-            //Log.d("hello","111111");
             if (cursor2.moveToFirst()) {
                 do {
                     String title = cursor2.getString(0);
@@ -119,6 +125,9 @@ public class RvList {
             case "天":
                 cursor = cursorManager.initCur_one_day("out");
                 break;
+            case "周":
+                cursor = cursorManager.initCur_one_week("out");
+                break;
             case "年" :
                 //Log.d("hello","11111");
                 cursor = cursorManager.initCur_one_year("out");
@@ -143,11 +152,14 @@ public class RvList {
             switch (time)
             {
                 case "天":
-                    cursor = cursorManager.initCur_two_day("out");
+                    cursor2 = cursorManager.initCur_two_day("out",first.get(first_name));
+                    break;
+                case "周":
+                    cursor2 = cursorManager.initCur_two_week("out",first.get(first_name));
                     break;
                 case "年" :
                     //Log.d("hello","11111");
-                    cursor = cursorManager.initCur_two_year("out");
+                    cursor2 = cursorManager.initCur_two_year("out",first.get(first_name));
                     break;
                 default:
                     break;

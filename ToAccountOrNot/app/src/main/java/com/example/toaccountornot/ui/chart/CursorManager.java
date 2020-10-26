@@ -10,6 +10,7 @@ import java.util.Calendar;
 public class CursorManager {
     public String year;
     public String month;
+    public String week;
     public String date;
     public Calendar calendar;
 
@@ -17,6 +18,7 @@ public class CursorManager {
         calendar = Calendar.getInstance();
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+        week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         date = simpleDateFormat.format(calendar.getTime());
     }
@@ -49,6 +51,14 @@ public class CursorManager {
         return cursor;
     }
 
+    public Cursor initCur_one_week(String inorout) {
+        Cursor cursor = LitePal.findBySQL("select first,sum(price) from Accounts where date_week=?" +
+                        "and inorout=? group by first order by first desc",
+                week,
+                inorout);
+        return cursor;
+    }
+
     // by the month
     // use by RV.two
     public Cursor initCur_two(String inorout,String first_name) {
@@ -62,19 +72,30 @@ public class CursorManager {
         return cursor;
     }
 
-    public Cursor initCur_two_year(String inorout) {
+    public Cursor initCur_two_year(String inorout,String first_name) {
         Cursor cursor = LitePal.findBySQL("select second,sum(price) from Accounts where date_year=?" +
-                        "and inorout=? group by first order by first desc",
+                        "and inorout=? and first=? group by first order by first desc",
                 year,
-                inorout);
+                inorout,
+                first_name);
         return cursor;
     }
 
-    public Cursor initCur_two_day(String inorout) {
-        Cursor cursor = LitePal.findBySQL("select first,sum(price) from Accounts where date=?" +
-                        "and inorout=? group by first order by first desc",
+    public Cursor initCur_two_day(String inorout,String first_name) {
+        Cursor cursor = LitePal.findBySQL("select second,sum(price) from Accounts where date=?" +
+                        "and inorout=? and first=? group by first order by first desc",
                 date,
-                inorout);
+                inorout,
+                first_name);
+        return cursor;
+    }
+
+    public Cursor initCur_two_week(String inorout,String first_name) {
+        Cursor cursor = LitePal.findBySQL("select second,sum(price) from Accounts where date_week=?" +
+                        "and inorout=? and first=? group by first order by first desc",
+                week,
+                inorout,
+                first_name);
         return cursor;
     }
 
@@ -103,4 +124,11 @@ public class CursorManager {
         return cursor;
     }
 
+    public Cursor initCur_mem_week(String inorout) {
+        Cursor cursor = LitePal.findBySQL("select member,sum(price) from Accounts where date_week=?" +
+                        "and inorout=? group by member order by member desc",
+                week,
+                inorout);
+        return cursor;
+    }
 }

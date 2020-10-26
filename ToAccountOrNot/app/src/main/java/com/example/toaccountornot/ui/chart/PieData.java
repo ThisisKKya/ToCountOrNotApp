@@ -32,6 +32,9 @@ public class PieData {
             case "天":
                 cursor = cursorManager.initCur_one_day("in");
                 break;
+            case "周":
+                cursor = cursorManager.initCur_one_week("in");
+                break;
             case "年" :
                 //Log.d("hello","11111");
                 cursor = cursorManager.initCur_one_year("in");
@@ -74,6 +77,9 @@ public class PieData {
         {
             case "天":
                 cursor = cursorManager.initCur_one_day("out");
+                break;
+            case "周":
+                cursor = cursorManager.initCur_one_week("out");
                 break;
             case "年" :
                 //Log.d("hello","11111");
