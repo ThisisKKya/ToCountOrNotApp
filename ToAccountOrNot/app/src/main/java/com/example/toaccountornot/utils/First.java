@@ -8,7 +8,7 @@ public class First extends LitePalSupport {
     private String name;
     private int image;
     private ArrayList<String> second = new ArrayList<>();
-    private String inorout;
+    private String inorout;//转账trans，收入in，支出out，通用all(如自定义)
 
     public String getName() {
         return name;

@@ -3,6 +3,7 @@ package com.example.toaccountornot.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         TextView first;
         TextView second;
         TextView money;
+        TextView daytext;
         ImageView image_property;
         LinearLayout clickItem;
         LinearLayout single_all;
@@ -52,6 +54,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             clickItem = itemView.findViewById(R.id.click_item);
             single_all = itemView.findViewById(R.id.single_all);
             button_lookmore = itemView.findViewById(R.id.button_lookmore);
+            daytext = itemView.findViewById(R.id.single_day);
         }
     }
 
@@ -68,6 +71,13 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         Single single = singleList.get(position);
         holder.first.setText(single.getFirst());
         holder.second.setText(single.getSecond());
+        //Log.d("test",single.getDate());
+        String date_day = single.getDate().substring(single.getDate().length() -2);
+        holder.daytext.setText(date_day);
+        if(single.getShowday()==1)
+            holder.daytext.setVisibility(View.VISIBLE);
+        else
+            holder.daytext.setVisibility(View.GONE);
         switch (single.getInorout())
         {
             case "in":

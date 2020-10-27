@@ -10,26 +10,30 @@ import java.util.List;
 public class Cards extends LitePalSupport {
     private String card;    //账户名
     private String remark;  //备注
-    private int cardid;     //卡的id
+    private int image;     //图片
     private double income;     //收入
     private double outcome;    //支出
     private double surplus;    //结余
 
-    public void setCards(String card, String remark, int cardid, double income, double outcome, double surplus) {
+    public void setCards(String card, String remark, int image, double income, double outcome, double surplus) {
         this.card = card;
         this.remark = remark;
-        this.cardid = cardid;
+        this.image = image;
         this.income = income;
         this.outcome = outcome;
         this.surplus = surplus;
     }
 
-    public String getCard() {
-        return card;
+    public int getImage() {
+        return image;
     }
 
-    public int getCardid() {
-        return cardid;
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public String getCard() {
+        return card;
     }
 
     public double getIncome() {
@@ -59,10 +63,6 @@ public class Cards extends LitePalSupport {
 
     public void setCard(String card) {
         this.card = card;
-    }
-
-    public void setCardid(int cardid) {
-        this.cardid = cardid;
     }
 
     public String getRemark() {
