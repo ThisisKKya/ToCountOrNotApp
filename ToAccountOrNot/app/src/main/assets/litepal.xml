@@ -3,7 +3,7 @@
 
     <dbname value="accountlist" />  //数据库名称
 
-    <version value="11" />   //数据库版本
+    <version value="12" />   //数据库版本
 
     <list>
         <mapping class="com.example.toaccountornot.utils.Accounts"></mapping>

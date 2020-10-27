@@ -15,9 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.toaccountornot.CreateFirstCategoryActivity;
 import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardHelper;
@@ -55,6 +57,8 @@ public class BaseCategoryFragment extends Fragment   {
     LinearLayout llKeborad;
     MyKeyboardView keyboard_temp;
     MyKeyboardHelper helper;
+    RecyclerView recyclerView;
+    CategoryAdapter adapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +66,31 @@ public class BaseCategoryFragment extends Fragment   {
         initStringList();
     }
 
+    private static final String TAG = "kk";
     @Override
     public void onResume() {
         super.onResume();
+        initCategory();
+        initRecycler();
+        Log.d(TAG, "onResume: running");
+    }
+
+    @Override
+    public void onPause() {
+        Log.d(TAG, "onPause: ");
+        super.onPause();
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart: ");
+        super.onStart();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_basecategory,container,false);
         etInput = view.findViewById(R.id.etInput);
         tvSecond = view.findViewById(R.id.secondCategory);
@@ -110,15 +131,24 @@ public class BaseCategoryFragment extends Fragment   {
         tvSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                initsecondstring();
                 new XPopup.Builder(getContext())
                         .asBottomList("请选择一项", //new String[]{"子类1"},//
                                  secondString.toArray(new String[secondString.size()]),
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
-                                        tvSecond.setText("分类:"+text);
-                                        msecondCategory = text;
-                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                        if (text.equals("添加自定义")) {
+                                            Intent intent = new Intent();
+                                            intent.putExtra("FirstOrSecond","second");
+                                            intent.putExtra("FirstName",mfirstCategory);
+                                            intent.setClass(getContext(), CreateFirstCategoryActivity.class);
+                                            startActivity(intent);
+                                        }else {
+                                            tvSecond.setText("分类:"+text);
+                                            msecondCategory = text;
+                                            Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 })
                         .show();
@@ -126,34 +156,29 @@ public class BaseCategoryFragment extends Fragment   {
         });
         keyboard_temp = view.findViewById(R.id.keyboard_temp);
         llKeborad = view.findViewById(R.id.llKeborad);
-        initKey();
-//        initCategory();
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView = view.findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
         recyclerView.setLayoutManager(layoutManager);
-        final CategoryAdapter adapter = new CategoryAdapter(categoryList);
+        initKey();
+        initRecycler();
+
+        return view;
+    }
+    public  void initRecycler() {
+        adapter = new CategoryAdapter(categoryList);
         recyclerView.setAdapter(adapter);
         adapter.setMyViewClickListener(new CategoryAdapter.MyViewClickListener() {
             @Override
             public void callKeyboard(String firstCategory) {
                 mfirstCategory = firstCategory;
                 initsecondstring();
-
                 if (mfirstCategory.equals("自定义") ) {
 //                    Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
-                    new XPopup.Builder(getContext()).asInputConfirm("添加自定义类别", "请输入内容。",
-                            new OnInputConfirmListener() {
-                                @Override
-                                public void onConfirm(String text) {
-                                    First first = new First();
-                                    first.setName(text);
-                                    first.setImage(R.drawable.setting);
-                                    first.setInorout(minorout);
-                                    first.save();
-                                }
-                            })
-                            .show();
+                    Intent intent = new Intent();
+                    intent.putExtra("FirstOrSecond","first");
+                    intent.putExtra("inorout",minorout);
+                    intent.setClass(getContext(), CreateFirstCategoryActivity.class);
+                    startActivity(intent);
                 } else {
                     if (llKeborad.getVisibility() == View.GONE){
                         llKeborad.setVisibility(View.VISIBLE);
@@ -164,13 +189,13 @@ public class BaseCategoryFragment extends Fragment   {
                 }
             }
         });
-        return view;
     }
     public void initCategory() {
     }
     public void initsecondstring(){
         Log.d("hello",mfirstCategory);
         List<First> firsts = LitePal.where("name = ?",mfirstCategory).find(First.class);
+        secondString.clear();
         for(First first:firsts){
             for(int i=0; i<first.getSecond().size();i++){
                 Log.d("hello",first.getSecond().get(i).toString());
