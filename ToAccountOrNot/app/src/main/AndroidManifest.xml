@@ -19,17 +19,13 @@
         <activity
             android:name=".DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CardCustomizeActivity" />
         <activity
             android:name=".CreateCardDetailActivity"
-            android:label="添加账户明细" />
-        <activity
-            android:name=".CreateCardActivity"
-            android:label="添加账户" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CardsActivity"
-            android:label="账户"
-            android:launchMode="singleTask" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"/>
         <activity android:name=".DatabaseActivity" />
         <activity
             android:name=".PinLockActivity"

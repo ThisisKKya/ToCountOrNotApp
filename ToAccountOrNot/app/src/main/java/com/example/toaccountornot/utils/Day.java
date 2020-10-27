@@ -35,17 +35,13 @@ public class Day {
 
     public Day(String date) {
         this.date = date;
-        Double sum_out = LitePal.where("inorout=? and date=?", "out", date).sum(Accounts.class, "price", Double.TYPE);
-        this.outcome_day = sum_out;
-        Double sum_in = LitePal.where("inorout=? and date=?", "in", date).sum(Accounts.class, "price", Double.TYPE);
-        this.income_day = sum_in;
+        this.outcome_day = LitePal.where("inorout=? and date=?", "out", date).sum(Accounts.class, "price", Double.TYPE);
+        this.income_day = LitePal.where("inorout=? and date=?", "in", date).sum(Accounts.class, "price", Double.TYPE);
     }
     public Day(String date,String card) {
         this.date = date;
-        Double sum_out = LitePal.where("inorout=? and date=?", "out", date).sum(Accounts.class, "price", Double.TYPE);
-        this.outcome_day = sum_out;
-        Double sum_in = LitePal.where("inorout=? and date=?", "in", date).sum(Accounts.class, "price", Double.TYPE);
-        this.income_day = sum_in;
+        this.outcome_day = LitePal.where("inorout=? and date=?", "out", date).sum(Accounts.class, "price", Double.TYPE);
+        this.income_day = LitePal.where("inorout=? and date=?", "in", date).sum(Accounts.class, "price", Double.TYPE);
         this.card = card;
     }
 }

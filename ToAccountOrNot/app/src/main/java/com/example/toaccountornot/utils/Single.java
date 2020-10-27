@@ -13,6 +13,7 @@ public class Single {
     private String date;
     private String card;
     private String member;
+    private int showday;//是否展示
 
     public Single(long id, String inorout, String first, String second, double price, String date, String card, String member){
 
@@ -24,6 +25,18 @@ public class Single {
         this.date = date;
         this.card = card;
         this.member = member;
+    }
+    public Single(long id, String inorout, String first, String second, double price, String date, String card, String member, int showday){
+
+        this.id = id;
+        this.inorout = inorout;
+        this.first = first;
+        this.second = second;
+        this.price = price;
+        this.date = date;
+        this.card = card;
+        this.member = member;
+        this.showday = showday;
     }
 
     public long getId() {
@@ -56,6 +69,10 @@ public class Single {
 
     public String getMember() {
         return member;
+    }
+
+    public int getShowday() {
+        return showday;
     }
 
 }

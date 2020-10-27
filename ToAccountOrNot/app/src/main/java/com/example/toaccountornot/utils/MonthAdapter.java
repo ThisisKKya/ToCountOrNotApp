@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,36 +17,36 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
+public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Day> mDayList;
+    private List<Month> mMonthList;
 
-    public DayAdapter(List<Day> dayList, Context context){
+    public MonthAdapter(List<Month> MonthList, Context context){
         mContext = context;
-        mDayList = dayList;
+        mMonthList = MonthList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView itemList;
-        TextView day_outcome;
-        TextView day_income;
+        TextView month_outcome;
+        TextView month_income;
         TextView date;
 
-        private ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             itemList = itemView.findViewById(R.id.list_everyday);
-            day_outcome = itemView.findViewById(R.id.day_outcome);
-            day_income = itemView.findViewById(R.id.day_income);
+            month_outcome = itemView.findViewById(R.id.day_outcome);
+            month_income = itemView.findViewById(R.id.day_income);
             date = itemView.findViewById(R.id.title_date);
         }
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_day,parent,false);
-        return new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -55,13 +54,14 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         List<Single> singleList;
         SingleAdapter singleAdapter;
         DecimalFormat df = new DecimalFormat("#.##");
-        Day day = mDayList.get(position);
+        Month month = mMonthList.get(position);
 
-        singleList = initSingleList(day.getDate());
+        singleList = initSinglelist(month.getYear(),month.getMonth(),month.getCard());
 
-        holder.day_outcome.setText(df.format(day.getOutcome_day()));
-        holder.day_income.setText(df.format(day.getIncome_day()));
-        holder.date.setText(String.valueOf(day.getDate()));
+        String date = month.getYear()+"-"+month.getMonth();
+        holder.month_outcome.setText(df.format(month.getOutcome_month()));
+        holder.month_income.setText(df.format(month.getIncome_month()));
+        holder.date.setText(date);
         holder.itemList.setLayoutManager(new LinearLayoutManager(mContext));
         singleAdapter = new SingleAdapter(singleList, mContext);
         holder.itemList.setAdapter(singleAdapter);
@@ -69,22 +69,22 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mDayList.size();
+        return mMonthList.size();
     }
 
-    private List<Single> initSingleList(String date) {
+    public List<Single> initSinglelist(String year, String month, String card) {
         List<Single>singleList = new ArrayList<>();
 
         long id;
         String inorout;
         String first;
         String second;
-        double price;
-        String card;
+        double price = 0;
         String member;
+        String day;
 
-        List<Accounts> list = LitePal.where("date=?", date)
-                .order("id desc")
+        List<Accounts> list = LitePal.where("date_year=? and date_month=? and card=?", year, month, card)
+                .order("date desc")
                 .find(Accounts.class);
         for (Accounts accounts : list) {
             id = accounts.getId();
@@ -94,8 +94,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
             price = accounts.getPrice();
             card = accounts.getCard();
             member = accounts.getMember();
+            day = accounts.getDate();
 
-            singleList.add(new Single(id, inorout, first, second, price, date, card, member));
+            singleList.add(new Single(id, inorout, first, second, price, day, card, member,1));//1=showday
         }
 
         return singleList;

@@ -3,6 +3,7 @@ package com.example.toaccountornot.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.DetailActivity;
@@ -24,9 +26,9 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
 
     private Context mContext;
     private List<Single> singleList;
-    List<LinearLayout>hide = new ArrayList<>();
-    Button button;
-    boolean isHide = true;
+    private List<LinearLayout>hide = new ArrayList<>();
+    private Button button;
+    private boolean isHide = true;
 
     public SingleAdapter(List<Single> singleList, Context context) {
         mContext = context;
@@ -37,12 +39,13 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         TextView first;
         TextView second;
         TextView money;
+        TextView daytext;
         ImageView image_property;
         LinearLayout clickItem;
         LinearLayout single_all;
         Button button_lookmore;
 
-        public ViewHolder(View itemView) {
+        private ViewHolder(View itemView) {
             super(itemView);
             first = itemView.findViewById(R.id.text_first);
             second = itemView.findViewById(R.id.text_second);
@@ -51,14 +54,15 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             clickItem = itemView.findViewById(R.id.click_item);
             single_all = itemView.findViewById(R.id.single_all);
             button_lookmore = itemView.findViewById(R.id.button_lookmore);
+            daytext = itemView.findViewById(R.id.single_day);
         }
     }
 
+    @NonNull
     @Override
-    public SingleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_single,parent,false);
-        final SingleAdapter.ViewHolder holder = new SingleAdapter.ViewHolder(view);
-        return holder;
+        return new SingleAdapter.ViewHolder(view);
     }
 
     @Override
@@ -67,13 +71,20 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         Single single = singleList.get(position);
         holder.first.setText(single.getFirst());
         holder.second.setText(single.getSecond());
+        //Log.d("test",single.getDate());
+        String date_day = single.getDate().substring(single.getDate().length() -2);
+        holder.daytext.setText(date_day);
+        if(single.getShowday()==1)
+            holder.daytext.setVisibility(View.VISIBLE);
+        else
+            holder.daytext.setVisibility(View.GONE);
         switch (single.getInorout())
         {
             case "in":
                 holder.money.setText(df.format(single.getPrice()));
                 break;
             case "out":
-                holder.money.setText("-"+df.format(single.getPrice()));
+                holder.money.setText(df.format(-single.getPrice()));
                 break;
         }
         Utils.imageSwitch(single.getFirst(), holder.image_property);
@@ -96,7 +107,7 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
         return singleList.size();
     }
 
-    void initClickListener(final ViewHolder holder, final Single single) {
+    private void initClickListener(final ViewHolder holder, final Single single) {
         holder.clickItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,20 +132,20 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
                     for (int j = 0; j < hide.size(); j++) {
                         setVisibility(true, hide.get(j));
                     }
-                    button.setText("收起");
+                    button.setText(R.string.btn_hide);
                     isHide = false;
                 } else {
                     for (int j = 0; j < hide.size(); j++) {
                         setVisibility(false, hide.get(j));
                     }
-                    button.setText("查看更多");
+                    button.setText(R.string.btn_more);
                     isHide = true;
                 }
             }
         });
     }
 
-    public void setVisibility(boolean isVisible,LinearLayout itemView){
+    private void setVisibility(boolean isVisible,LinearLayout itemView){
         RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
         if (isVisible){
             param.height = LinearLayout.LayoutParams.WRAP_CONTENT;

@@ -20,9 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-/**
- * 初始化数据库
- */
+
         initDateBase();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -34,6 +32,10 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1500);
     }
+
+    /**
+     * 初始化数据库
+     */
     public void initDateBase() {
         /**
          * 修改需要初始化的类目后需要将下方使用删除所有First库中内容，才能初始化

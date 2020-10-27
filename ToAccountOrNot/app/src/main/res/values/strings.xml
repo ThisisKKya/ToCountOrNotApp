@@ -14,8 +14,19 @@
     <string name="lock_retry">请重新设置密码</string>
     <string name="lock_wrong">密码错误，请重新输入</string>
     <string name="toast_not_same">两次密码不一致</string>
+    <string name="no_card_name">未输入%1$s信息</string>
+    <string name="cardnumber_wrong">请输入四位卡号</string>
     <string name="lock_pin">使用文本密码</string>
     <string name="lock_pattern">使用图形密码</string>
+    <string name="btn_hide">收起</string>
+    <string name="btn_more">查看更多</string>
+    <string name="warning">警告</string>
+    <string name="msg_delete">确定删除吗？</string>
+    <string name="btn_positive">确定</string>
+    <string name="btn_negative">取消</string>
+    <string name="reminding">提示</string>
+    <string name="quitout">退出</string>
+    <string name="returnback">返回</string>
 
     <string name="app_name_1">ArcLayout</string>
     <string name="app_license">License</string>

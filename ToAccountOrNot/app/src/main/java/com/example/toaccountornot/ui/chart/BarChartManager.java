@@ -49,6 +49,7 @@ public class BarChartManager{
 
         barChart.setScaleEnabled(false);// 是否可以缩放
         barChart.getDescription().setEnabled(false);//隐藏右下角英文
+        barChart.animateY(700);
     }
 
     // 显示
