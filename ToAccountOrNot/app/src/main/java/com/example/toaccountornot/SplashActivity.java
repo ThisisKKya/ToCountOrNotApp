@@ -15,7 +15,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+/**
+ * 初始化数据库
+ */
         initDateBase();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -27,10 +29,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1500);
     }
-
-    /**
-     * 初始化数据库
-     */
     public void initDateBase() {
 
     }

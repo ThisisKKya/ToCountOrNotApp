@@ -26,7 +26,9 @@ import com.example.toaccountornot.utils.Utils;
 public class PinLockActivity extends AppCompatActivity {
 
     private TextView mTextTitle;
+    private Button mButtonPattern;
     private PinLockView mPinLockView;
+    private IndicatorDots mIndicatorDots;
 
     private static final String PREFERENCES = "com.example.toaccountornot";
     private static final String KEY_PIN = "pin";
@@ -63,10 +65,10 @@ public class PinLockActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pin_lock);
 
-        mTextTitle = findViewById(R.id.title);
-        Button mButtonPattern = findViewById(R.id.change_mode_button);
-        mPinLockView = findViewById(R.id.pin_lock_view);
-        IndicatorDots mIndicatorDots = findViewById(R.id.indicator_dots);
+        mTextTitle = (TextView) findViewById(R.id.title);
+        mButtonPattern = (Button) findViewById(R.id.change_mode_button);
+        mPinLockView = (PinLockView) findViewById(R.id.pin_lock_view);
+        mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
 
         mPinLockView.attachIndicatorDots(mIndicatorDots);
         mPinLockView.setPinLockListener(mPinLockListener);
@@ -107,7 +109,7 @@ public class PinLockActivity extends AppCompatActivity {
     }
 
     private void shake() {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mPinLockView, "translationX",
+        ObjectAnimator objectAnimator = new ObjectAnimator().ofFloat(mPinLockView, "translationX",
                 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).setDuration(1000);
         objectAnimator.start();
     }

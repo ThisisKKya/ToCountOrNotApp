@@ -238,7 +238,6 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setDate(simpleDateFormat.format(mtime));
                 accounts.setDate_year(String.valueOf(calendar.get(Calendar.YEAR)));
                 accounts.setDate_month(String.valueOf(calendar.get(Calendar.MONTH) + 1));
-                accounts.setDate_week(String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR)));
                 accounts.save();
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);

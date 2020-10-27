@@ -23,6 +23,8 @@ public class DetailActivity extends AppCompatActivity {
     String second;
     double price;
     String date;
+    private String card;
+    private String member;
 
     ImageView imageProperty;
     TextView textFirst;
@@ -61,8 +63,8 @@ public class DetailActivity extends AppCompatActivity {
         second = bundle.getString("second");
         price = bundle.getDouble("price");
         date = bundle.getString("date");
-        String card = bundle.getString("card");
-        String member = bundle.getString("member");
+        card = bundle.getString("card");
+        member = bundle.getString("member");
 
         Utils.imageSwitch(first, imageProperty);
         textFirst.setText(first);
@@ -84,15 +86,15 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(DetailActivity.this)
-                        .setTitle(R.string.warning)
-                        .setMessage(R.string.msg_delete)
-                        .setPositiveButton(R.string.btn_positive, new DialogInterface.OnClickListener() {
+                        .setTitle("警告")
+                        .setMessage("确定删除吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 LitePal.delete(Accounts.class, id);
                                 finish();
                             }
-                        }).setNegativeButton(R.string.btn_negative, null)
+                        }).setNegativeButton("取消", null)
                         .create().show();
             }
         });
