@@ -71,9 +71,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
         Cards card = mcardlist.get(position);
         holder.name.setText(card.getCard());
         holder.remark.setText(card.getRemark());
-        Log.d("card",""+card.getType());
-        //   holder.headImage.setImageResource(card.getImage());
-        chooseimage(holder,card.getType());
+        Log.d("card",""+card.getImage());
+        holder.headImage.setImageResource(card.getImage());
         holder.card_return.setImageResource(R.drawable.returnsignal);
         String income = "+" + card.getIncome();
         holder.in.setText(income);
@@ -87,34 +86,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return mcardlist.size();
-    }
-
-    void chooseimage(ViewHolder holder,String type){
-        if(type!=null){
-            switch (type){
-                case "微信":
-                    holder.headImage.setImageResource(R.drawable.wechat);
-                    break;
-                case "支付宝":
-                    holder.headImage.setImageResource(R.drawable.alipay);
-                    break;
-                case "现金":
-                    holder.headImage.setImageResource(R.drawable.cash);
-                    break;
-                case "储蓄卡":
-                    holder.headImage.setImageResource(R.drawable.bankcard);
-                    break;
-                case "信用卡":
-                    holder.headImage.setImageResource(R.drawable.creditcard);
-                    break;
-                case "自定义":
-                    holder.headImage.setImageResource(R.drawable.customize);
-                    break;
-                default:
-                    holder.headImage.setImageResource(R.drawable.customize);
-                    break;
-            }
-        }
     }
 
     void initClickListener(final CardsAdapter.ViewHolder holder, final Cards card) {
