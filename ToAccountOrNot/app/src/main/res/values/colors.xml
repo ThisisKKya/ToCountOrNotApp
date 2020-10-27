@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#5c7f96</color>
+    <color name="colorPrimaryDark">#4e6c80</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="path_primary">#E62F17</color>
@@ -21,5 +21,8 @@
     <color name="teal_500">#009688</color>
     <color name="green_500">#4CAF50</color>
     <color name="light_green_500">#8BC34A</color>
+
+    <color name="bg_light">#edeef2</color>
+    <color name="text_light">#f4f4f4</color>
 
 </resources>
