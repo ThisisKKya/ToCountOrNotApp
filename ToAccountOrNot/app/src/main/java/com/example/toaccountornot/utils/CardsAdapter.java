@@ -72,7 +72,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
         holder.name.setText(card.getCard());
         holder.remark.setText(card.getRemark());
         Log.d("card",""+card.getImage());
-        holder.headImage.setImageResource(card.getImage());
+        if(String.valueOf(card.getImage())!=null)
+            holder.headImage.setImageResource(card.getImage());
         holder.card_return.setImageResource(R.drawable.returnsignal);
         String income = "+" + card.getIncome();
         holder.in.setText(income);
