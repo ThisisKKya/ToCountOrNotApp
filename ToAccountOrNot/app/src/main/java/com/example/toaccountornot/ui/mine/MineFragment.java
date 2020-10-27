@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.toaccountornot.AboutActivity;
 import com.example.toaccountornot.CardsActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.utils.Accounts;
@@ -48,6 +49,14 @@ public class MineFragment extends Fragment {
                 startActivity(intent);
             }
 
+        });
+        Button about = view.findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+            }
         });
         return view;
     }

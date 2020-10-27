@@ -26,4 +26,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/analyze_account"
         android:text="账户"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/about"
+        android:text="关于"
+        app:layout_constraintTop_toBottomOf="@+id/analyze_account"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
