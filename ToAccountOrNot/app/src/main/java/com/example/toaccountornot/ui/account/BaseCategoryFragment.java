@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.List;
 
 public class BaseCategoryFragment extends Fragment   {
-    public List<Category> categoryList = new ArrayList<>();
+    public List<First> categoryList = new ArrayList<>();
     public List<String> cardString = new ArrayList<>();
     public List<String> memberString = new ArrayList<>();
     public List<String> secondString = new ArrayList<>();

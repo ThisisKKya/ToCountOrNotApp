@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.toaccountornot.R;
+import com.example.toaccountornot.utils.First;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +32,14 @@ public class IncomeFragment extends BaseCategoryFragment {
     }
     @Override
     public void initCategory() {
-        Category salary = new Category("工资", R.drawable.salary);
-        categoryList.add(salary);
-        Category parttime = new Category("兼职",R.drawable.parttime);
-        categoryList.add(parttime);
-        Category gift = new Category("礼金",R.drawable.gift);
-        categoryList.add(gift);
-        Category setting = new Category("自定义",R.drawable.setting);
-        categoryList.add(setting);
+        categoryList = LitePal.where("inorout = ?","in").find(First.class);
+//        Category salary = new Category("工资", R.drawable.salary);
+//        categoryList.add(salary);
+//        Category parttime = new Category("兼职",R.drawable.parttime);
+//        categoryList.add(parttime);
+//        Category gift = new Category("礼金",R.drawable.gift);
+//        categoryList.add(gift);
+//        Category setting = new Category("自定义",R.drawable.setting);
+//        categoryList.add(setting);
     }
 }
