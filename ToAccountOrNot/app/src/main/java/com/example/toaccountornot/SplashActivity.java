@@ -39,8 +39,9 @@ public class SplashActivity extends AppCompatActivity {
     public void initDateBase() {
         /**
          * 修改需要初始化的类目后需要将下方使用删除所有First库中内容，才能初始化
+         * 修改完成后注释掉
          */
-//        LitePal.deleteAll(First.class);
+        LitePal.deleteAll(First.class);//这一句
         First firstFirst = LitePal.findFirst(First.class);
         //数据库未初始化
         if (firstFirst == null) {
@@ -65,6 +66,12 @@ public class SplashActivity extends AppCompatActivity {
             wechart.setImage(R.drawable.transfer);
             wechart.setInorout("trans");
             wechart.save();
+            //通用
+            First custom = new First();
+            custom.setName("自定义");
+            custom.setImage(R.drawable.setting);
+            custom.setInorout("all");
+            custom.save();
         }
     }
 

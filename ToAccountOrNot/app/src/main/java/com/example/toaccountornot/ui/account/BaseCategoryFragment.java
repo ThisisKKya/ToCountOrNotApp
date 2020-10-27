@@ -62,6 +62,11 @@ public class BaseCategoryFragment extends Fragment   {
         initStringList();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -122,6 +127,7 @@ public class BaseCategoryFragment extends Fragment   {
         keyboard_temp = view.findViewById(R.id.keyboard_temp);
         llKeborad = view.findViewById(R.id.llKeborad);
         initKey();
+//        initCategory();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -133,14 +139,16 @@ public class BaseCategoryFragment extends Fragment   {
             public void callKeyboard(String firstCategory) {
                 mfirstCategory = firstCategory;
                 initsecondstring();
-//                Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
-                if (mfirstCategory == "自定义") {
+
+                if (mfirstCategory.equals("自定义") ) {
+//                    Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
                     new XPopup.Builder(getContext()).asInputConfirm("添加自定义类别", "请输入内容。",
                             new OnInputConfirmListener() {
                                 @Override
                                 public void onConfirm(String text) {
                                     First first = new First();
                                     first.setName(text);
+                                    first.setImage(R.drawable.setting);
                                     first.setInorout(minorout);
                                     first.save();
                                 }
