@@ -146,10 +146,7 @@ public class BaseCategoryFragment extends Fragment   {
                             new OnInputConfirmListener() {
                                 @Override
                                 public void onConfirm(String text) {
-                                    First first = new First();
-                                    first.setName(text);
-                                    first.setImage(R.drawable.setting);
-                                    first.setInorout(minorout);
+                                    First first = new First(text,R.drawable.setting,minorout);
                                     first.save();
                                 }
                             })
@@ -172,6 +169,7 @@ public class BaseCategoryFragment extends Fragment   {
         Log.d("hello",mfirstCategory);
         List<First> firsts = LitePal.where("name = ?",mfirstCategory).find(First.class);
         for(First first:firsts){
+            secondString.clear();
             for(int i=0; i<first.getSecond().size();i++){
                 Log.d("hello",first.getSecond().get(i).toString());
                 secondString.add(first.getSecond().get(i).toString());

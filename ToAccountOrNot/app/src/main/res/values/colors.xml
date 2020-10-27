@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryLight">#93cdf3</color>
+    <color name="colorPrimary">#55768b</color>
+    <color name="colorPrimaryDark">#4e6c80</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="light_blue_500">#03A9F4</color>
@@ -29,5 +30,8 @@
     <color name="piecolor20">#FADCE4</color>
 
 
+
+    <color name="bg_light">#edeef2</color>
+    <color name="text_light">#f4f4f4</color>
 
 </resources>
