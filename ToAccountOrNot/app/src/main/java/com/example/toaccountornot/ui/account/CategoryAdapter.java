@@ -11,11 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.R;
+import com.example.toaccountornot.utils.First;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    private List<Category> mFruitList;
+    private List<First> mFruitList;
     private MyViewClickListener myViewClickListener;
     static class ViewHolder extends RecyclerView.ViewHolder {
         View fruitView;
@@ -30,7 +31,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(List<Category> categoryList) {
+    public CategoryAdapter(List<First> categoryList) {
         mFruitList = categoryList;
     }
 
@@ -45,7 +46,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             public void onClick(View v) {
                 if (myViewClickListener != null) {
                     int position = holder.getAdapterPosition();
-                    Category category = mFruitList.get(position);
+                    First category = mFruitList.get(position);
                     myViewClickListener.callKeyboard(category.getName());
                 }
             }
@@ -55,9 +56,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category fruit = mFruitList.get(position);
+        First fruit = mFruitList.get(position);
         holder.fruitName.setText(fruit.getName());
-        holder.fruitImage.setImageResource(fruit.getImageId());
+        holder.fruitImage.setImageResource(fruit.getImage());
     }
 
 

@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.List;
 
 public class BaseCategoryFragment extends Fragment   {
-    public List<Category> categoryList = new ArrayList<>();
+    public List<First> categoryList = new ArrayList<>();
     public List<String> cardString = new ArrayList<>();
     public List<String> memberString = new ArrayList<>();
     public List<String> secondString = new ArrayList<>();
@@ -60,6 +60,11 @@ public class BaseCategoryFragment extends Fragment   {
         super.onCreate(savedInstanceState);
         initCategory();
         initStringList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Nullable
@@ -122,6 +127,7 @@ public class BaseCategoryFragment extends Fragment   {
         keyboard_temp = view.findViewById(R.id.keyboard_temp);
         llKeborad = view.findViewById(R.id.llKeborad);
         initKey();
+//        initCategory();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -133,14 +139,16 @@ public class BaseCategoryFragment extends Fragment   {
             public void callKeyboard(String firstCategory) {
                 mfirstCategory = firstCategory;
                 initsecondstring();
-//                Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
-                if (mfirstCategory == "自定义") {
+
+                if (mfirstCategory.equals("自定义") ) {
+//                    Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
                     new XPopup.Builder(getContext()).asInputConfirm("添加自定义类别", "请输入内容。",
                             new OnInputConfirmListener() {
                                 @Override
                                 public void onConfirm(String text) {
                                     First first = new First();
                                     first.setName(text);
+                                    first.setImage(R.drawable.setting);
                                     first.setInorout(minorout);
                                     first.save();
                                 }
