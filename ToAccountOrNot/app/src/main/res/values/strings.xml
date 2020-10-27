@@ -22,6 +22,18 @@
     <string name="msg_delete">确定删除吗？</string>
     <string name="btn_positive">确定</string>
     <string name="btn_negative">取消</string>
+    <string name="card_content">这是半糖去冰不加盐开发的爱记不记App\n\n
+        爱记不记是一款记账App，主要包含功能：记账、明细、图表\n\n
+        支持：\n
+        按收入、支出、转账记账\n
+        按一级、二级分类记账\n
+        按成员和账户记账\n
+        按月份查看流水\n
+        按收入、支出查看图表\n
+        按成员查看图表\n
+        按年、月、周、天查看图表\n
+        查看各账户统计信息
+    </string>
 
     <string name="app_name_1">ArcLayout</string>
     <string name="app_license">License</string>
