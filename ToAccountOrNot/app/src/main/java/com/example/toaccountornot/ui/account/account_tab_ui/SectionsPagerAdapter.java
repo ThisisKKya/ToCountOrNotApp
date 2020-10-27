@@ -2,6 +2,7 @@ package com.example.toaccountornot.ui.account.account_tab_ui;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         mContext = context;
     }
+
 
     @Override
     public Fragment getItem(int position) {

@@ -11,11 +11,15 @@ import com.example.toaccountornot.utils.First;
 
 import org.litepal.LitePal;
 
+
+import java.util.ArrayList;
+
 import com.example.toaccountornot.utils.Cards;
 
 import org.litepal.LitePal;
 
 import java.util.List;
+
 
 /**
  * 启动页
@@ -54,12 +58,17 @@ public class SplashActivity extends AppCompatActivity {
         if (firstFirst == null) {
             //Toast.makeText(SplashActivity.this, "未初始化", Toast.LENGTH_LONG).show();
            //支出
-            First food = new First("餐饮",R.drawable.food,"out");
-            food.setSecond("早餐");
-            food.setSecond("午餐");
-            food.setSecond("晚餐");
-            food.setSecond("下午茶");
-            food.setSecond("自定义");
+
+            First food = new First();
+            food.setName("餐饮");
+            food.setImage(R.drawable.food);
+            food.setInorout("out");
+            ArrayList<String> foodList = new ArrayList<String>();
+            foodList.add("早饭");
+            foodList.add("中饭");
+            foodList.add("晚饭");
+            foodList.add("添加自定义");
+            food.setSecond(foodList);
             food.save();
             First shopping = new First("购物",R.drawable.shopping,"out");
             shopping.setSecond("服饰");
@@ -114,10 +123,14 @@ public class SplashActivity extends AppCompatActivity {
             sport.save();
 
             //收入
-            First salary = new First("工资",R.drawable.salary,"in");
-            salary.setSecond("月薪");
-            salary.setSecond("奖金");
-            salary.setSecond("自定义");
+
+            First salary = new First();
+            salary.setName("工资");
+            salary.setImage(R.drawable.salary);
+            salary.setInorout("in");
+            ArrayList<String> salaryList = new ArrayList<String>();
+            salaryList.add("添加自定义");
+            salary.setSecond(salaryList);
             salary.save();
             First parttime = new First("兼职",R.drawable.parttime,"in");
             parttime.setSecond("自定义");

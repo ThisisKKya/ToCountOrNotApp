@@ -28,7 +28,7 @@ public class TranscomeFragment extends BaseCategoryFragment {
 
     @Override
     public void initCategory() {
-        categoryList = LitePal.where("inorout = ?","trans").find(First.class);
+        categoryList = LitePal.where("inorout = ? or inorout = ?","trans","all").find(First.class);
 //        Category transfer = new Category("转账",R.drawable.transfer);
 ////        categoryList.add(transfer);
     }

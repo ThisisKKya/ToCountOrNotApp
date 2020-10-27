@@ -35,8 +35,8 @@ public class First extends LitePalSupport {
         return second;
     }
 
-    public void setSecond(String extra){
-        second.add(extra);
+    public void setSecond(ArrayList<String> second){
+        this.second = second;
     }
 
     public String getInorout() {
