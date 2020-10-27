@@ -39,7 +39,7 @@
         app:dotAnimationDuration="150"
         app:dotCount="3"
         app:normalStateColor="@color/white"
-        app:correctStateColor="@android:color/holo_green_dark"
+        app:correctStateColor="@color/colorPrimaryLight"
         app:wrongStateColor="@color/pomegranate"
         app:dotSelectedSize="50dp"
         />

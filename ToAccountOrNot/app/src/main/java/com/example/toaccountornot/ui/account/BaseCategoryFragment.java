@@ -146,10 +146,7 @@ public class BaseCategoryFragment extends Fragment   {
                             new OnInputConfirmListener() {
                                 @Override
                                 public void onConfirm(String text) {
-                                    First first = new First();
-                                    first.setName(text);
-                                    first.setImage(R.drawable.setting);
-                                    first.setInorout(minorout);
+                                    First first = new First(text,R.drawable.setting,minorout);
                                     first.save();
                                 }
                             })
