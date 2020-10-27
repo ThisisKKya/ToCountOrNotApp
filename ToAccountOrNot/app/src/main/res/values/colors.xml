@@ -4,22 +4,30 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="path_primary">#E62F17</color>
-    <color name="path_orange">#FF9500</color>
-    <color name="path_blue">#1774E6</color>
-    <color name="path_black">#403B36</color>
-    <color name="path_green">#5FB336</color>
-    <color name="path_purple">#49098A</color>
-
-    <color name="primary">#3c515c</color>
-    <color name="white">#FFFFFF</color>
-    <color name="scrim">#42000000</color>
+    <color name="light_blue_500">#03A9F4</color>
     <color name="pressed">#33000000</color>
 
-    <color name="light_blue_500">#03A9F4</color>
-    <color name="cyan_500">#00BCD4</color>
-    <color name="teal_500">#009688</color>
-    <color name="green_500">#4CAF50</color>
-    <color name="light_green_500">#8BC34A</color>
+    <color name="piecolor1">#d8e2dc</color>
+    <color name="piecolor2">#ffe5d9</color>
+    <color name="piecolor3">#ffcad4</color>
+    <color name="piecolor4">#A8DEE0</color>
+    <color name="piecolor5">#F9E2AE</color>
+    <color name="piecolor6">#FBC78D</color>
+    <color name="piecolor7">#A7D676</color>
+    <color name="piecolor8">#A0C3E2</color>
+    <color name="piecolor9">#EABEBF</color>
+    <color name="piecolor10">#75CCE8</color>
+    <color name="piecolor11">#A5DEE5</color>
+    <color name="piecolor12">#F9E2AE</color>
+    <color name="piecolor13">#C3DBC2</color>
+    <color name="piecolor14">#A7D1DF</color>
+    <color name="piecolor15">#E5C1CD</color>
+    <color name="piecolor16">#A8E0B7</color>
+    <color name="piecolor17">#FFA0A0</color>
+    <color name="piecolor18">#9DC3E2</color>
+    <color name="piecolor19">#9DD2DB</color>
+    <color name="piecolor20">#FADCE4</color>
+
+
 
 </resources>

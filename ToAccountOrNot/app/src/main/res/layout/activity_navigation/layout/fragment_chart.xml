@@ -28,11 +28,13 @@
                 android:layout_height="match_parent" >
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingTop="20sp"
                     android:paddingStart="24sp"
-                    android:text="chart"
+                    android:text="图表分析"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/white"
                     android:textSize="30sp" />
 
                 <LinearLayout
@@ -47,7 +49,8 @@
                         android:id="@+id/lab_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" year"
+                        android:text="year"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"/>
 
                     <TextView
@@ -55,13 +58,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" - "
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"/>
+
 
                     <TextView
                         android:id="@+id/lab_month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="month"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"/>
 
                     <TextView
@@ -69,6 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" - "
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"/>
 
                     <TextView
@@ -76,6 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="week or day"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"/>
 
 
@@ -108,15 +116,23 @@
                 <ImageView
                     android:id="@+id/view_income"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:src="@drawable/piechart_income" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="20dp"
                     android:gravity="center"
                     android:text="收入" />
+
+                <TextView
+                    android:id="@+id/bottom_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#A9A9A9" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -128,15 +144,21 @@
                 <ImageView
                     android:id="@+id/view_outcome"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:src="@drawable/piechart_outcome" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="20dp"
                     android:gravity="center"
                     android:text="支出" />
+
+                <TextView
+                    android:id="@+id/bottom_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#A9A9A9" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,19 +170,30 @@
                 <ImageView
                     android:id="@+id/people"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:src="@drawable/people" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="20dp"
                     android:gravity="center"
                     android:text="成员" />
+
+                <TextView
+                    android:id="@+id/bottom_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#A9A9A9" />
             </LinearLayout>
 
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#F5F5F5">
 
         </LinearLayout>
 
@@ -182,6 +215,14 @@
                 android:layout_height="match_parent" />
 
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#F5F5F5">
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -257,8 +298,8 @@
 
         <Button
             android:id="@+id/fab1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/chart_menu"
@@ -267,8 +308,8 @@
 
         <ImageView
             android:id="@+id/left"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/left"
             android:layout_toLeftOf="@+id/fab1"
             android:layout_marginBottom="2dp"
@@ -276,8 +317,8 @@
 
         <ImageView
             android:id="@+id/right"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/right"
             android:layout_toRightOf="@+id/fab1"
             android:layout_marginBottom="2dp"

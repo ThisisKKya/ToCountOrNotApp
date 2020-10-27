@@ -1,50 +1,132 @@
 package com.example.toaccountornot;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnSelectListener;
+
+import org.litepal.LitePal;
 
 public class CreateCardDetailActivity extends AppCompatActivity {
+    LinearLayout cardnumbershow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_card_detail);
-        Bundle bundle = this.getIntent().getExtras();
-        final int type = bundle.getInt("type");
-        Button save = findViewById(R.id.save);
+        CardView save = findViewById(R.id.save);
+        final TextView cardtype = findViewById(R.id.choose_cardtype);
+        final TextView banknameshow = findViewById(R.id.bankname_show);
         final EditText bankname = findViewById(R.id.bankname);
         final EditText cardnumber = findViewById(R.id.cardnumber);
         final EditText remark = findViewById(R.id.remark);
+        ImageView return_bar = findViewById(R.id.return_bar);
+        return_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        cardnumbershow = findViewById(R.id.cardnumber_show);
+        cardtype.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(CreateCardDetailActivity.this)
+                        .asBottomList("请选择账户类型", new String[]{"储蓄卡","信用卡","自定义"},
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        cardtype.setText(text);
+                                        switch(cardtype.getText().toString()){
+                                            case "自定义":
+                                                banknameshow.setText("账户名称");
+                                                cardnumbershow.setVisibility(View.GONE);
+                                                cardnumber.setText(null);
+                                                break;
+                                            default:
+                                                banknameshow.setText("所在银行");
+                                                cardnumbershow.setVisibility(View.VISIBLE);
+                                                break;
+                                        }
+
+                                    }
+                                })
+                        .show();
+            }
+        });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
-                startActivity(intent);
-                if(TextUtils.isEmpty(bankname.getText()))
-                    Toast.makeText(CreateCardDetailActivity.this,"输入无效",Toast.LENGTH_LONG).show();
+                if(TextUtils.isEmpty(bankname.getText())){
+                    String sInfoFormat = getResources().getString(R.string.no_card_name);
+                    String warning = String.format(sInfoFormat,banknameshow.getText().toString());
+                    new AlertDialog.Builder(CreateCardDetailActivity.this)
+                            .setTitle(R.string.reminding)
+                            .setMessage(warning)
+                            .setPositiveButton(R.string.returnback, null)
+                            .setNegativeButton(R.string.quitout, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent();
+                                    intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .create().show();
+                }
+                else if ((cardnumber.getText().toString().length()!=4)&&(cardnumber.getText().toString().length()!=0)){
+                    new AlertDialog.Builder(CreateCardDetailActivity.this)
+                            .setTitle(R.string.reminding)
+                            .setMessage(R.string.cardnumber_wrong)
+                            .setPositiveButton(R.string.returnback, null)
+                            .setNegativeButton(R.string.quitout, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent();
+                                    intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .create().show();
+                }
                 else{
+                    Intent intent = new Intent();
+                    intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
+                    startActivity(intent);
                     Cards card = new Cards();
                     if (TextUtils.isEmpty(cardnumber.getText()))
                         card.setCard(bankname.getText().toString());
                     else
                         card.setCard(bankname.getText().toString() + "(" + cardnumber.getText().toString() + ")");
                     card.setRemark(remark.getText().toString());
-                    switch (type) {
-                        case 0:
-                            card.setCardid(R.drawable.bankcard);
+                    switch (cardtype.getText().toString()) {
+                        case "储蓄卡":
+                            card.setImage(R.drawable.bankcard);
                             break;
-                        case 1:
-                            card.setCardid(R.drawable.creditcard);
+                        case "信用卡":
+                            card.setImage(R.drawable.creditcard);
+                            break;
+                        default:
+                            card.setImage(R.drawable.customize);
                             break;
                     }
                     card.save();

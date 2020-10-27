@@ -35,22 +35,4 @@
 
     </style>
 
-    <style name="Item.Small">
-        <item name="android:layout_width">@dimen/item_circle_size_small</item>
-        <item name="android:layout_height">@dimen/item_circle_size_small</item>
-        <item name="android:textSize">@dimen/item_font_size_small</item>
-    </style>
-
-    <style name="Item.Medium">
-        <item name="android:layout_width">@dimen/item_circle_size_medium</item>
-        <item name="android:layout_height">@dimen/item_circle_size_medium</item>
-        <item name="android:textSize">@dimen/item_font_size_medium</item>
-    </style>
-
-    <style name="Item.Large">
-        <item name="android:layout_width">@dimen/item_circle_size_large</item>
-        <item name="android:layout_height">@dimen/item_circle_size_large</item>
-        <item name="android:textSize">@dimen/item_font_size_large</item>
-    </style>
-
 </resources>

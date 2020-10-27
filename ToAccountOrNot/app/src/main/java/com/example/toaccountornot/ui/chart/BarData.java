@@ -99,15 +99,12 @@ public class BarData {
 
 
     //  Barchart成员收入
-    public List<BarEntry> income(List<Accounts> accounts) {
+    public List<BarEntry> income() {
         data = new ArrayList<>();
         int father = find_mem_in("爸爸");
         int mather = find_mem_in("妈妈");
         int me = find_mem_in("我");
 
-        Log.d("hello_mem_father", String.valueOf(father));
-        Log.d("hello_mem_mather", String.valueOf(mather));
-        Log.d("hello_mem_me", String.valueOf(me));
         if(father == -1) {
             BarEntry   y1 = new BarEntry(1f,0);
             data.add(y1);
@@ -142,7 +139,7 @@ public class BarData {
     }
 
     //  Barchart成员支出
-    public List<BarEntry> outcome(List<Accounts> accounts) {
+    public List<BarEntry> outcome() {
         data = new ArrayList<>();
         int father = find_mem_out("爸爸");
         int mather = find_mem_out("妈妈");
@@ -177,28 +174,6 @@ public class BarData {
         }
 
 
-        /*float xA = 0f;
-        float[] x = new float[]{1f,4f,7f};
-        for(int i = 0 ; i < Member_out.size() ; i++) {
-            DecimalFormat df = new DecimalFormat("#.##");
-            switch (Member_out.get(i))
-            {
-                case"我":
-                    BarEntry y1 = new BarEntry(2f , Float.parseFloat(df.format(out.get(i))));
-                    data.add(y1);
-                    break;
-                case "爸爸":
-                    BarEntry y2 = new BarEntry(5f , Float.parseFloat(df.format(out.get(i))));
-                    data.add(y2);
-                    //float xY = i;
-                    break;
-                case "妈妈":
-                    BarEntry y3 = new BarEntry(8f, Float.parseFloat(df.format(out.get(i))));
-                    data.add(y3);
-                    break;
-            }
-
-        }*/
         return data;
     }
 
