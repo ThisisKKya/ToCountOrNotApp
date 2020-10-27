@@ -70,7 +70,7 @@ public class PatternLockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pattern_lock);
 
         mTextTitle = findViewById(R.id.title);
-        Button mButtonPin = findViewById(R.id.change_mode_button);
+        TextView mTextPin = findViewById(R.id.change_mode);
 
         mPatternLockView = findViewById(R.id.pattern_lock_view);
         mPatternLockView.addPatternLockListener(mPatternLockViewListener);
@@ -85,7 +85,7 @@ public class PatternLockActivity extends AppCompatActivity {
             }
         }
 
-        mButtonPin.setOnClickListener(new View.OnClickListener() {
+        mTextPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatternLockActivity.this, PinLockActivity.class);

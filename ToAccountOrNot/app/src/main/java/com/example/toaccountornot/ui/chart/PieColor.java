@@ -3,6 +3,7 @@ package com.example.toaccountornot.ui.chart;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.example.toaccountornot.R;
 import com.example.toaccountornot.utils.Accounts;
 
 import java.util.ArrayList;
@@ -14,17 +15,19 @@ public class PieColor {
     public PieColor () {
     }
 
-    public List<Integer> initcolor(List<Accounts> accounts,String cate,int len) {
+    public List<Integer> initcolor(String cate,int len) {
 
-        String[] c = {"#d8e2dc","#ffe5d9","#ffcad4","#A8DEE0","#F9E2AE","#FBC78D","#A7D676"
-                        ,"#D6A3DC","#EABEBF","75CCE8","A5DEE5"};
+        String[] c = {
+                "#d8e2dc","#ffe5d9","#ffcad4","#A8DEE0","#F9E2AE",
+                "#FBC78D","#A7D676","#A0C3E2","#EABEBF","#75CCE8",
+                "#A5DEE5","#F9E2AE","#C3DBC2","#A7D1DF","#E5C1CD",
+                "#A8E0B7","#FFA0A0","#9DC3E2","#9DD2DB","#FADCE4"
+        };
 
         color = new ArrayList<>();
-
+        Log.d("hello",c[0]);
         for(int i = 0;i < len;i++) {
-            //if(cate == accounts.get(i).getInorout()) {
-                color.add(Color.parseColor(c[i]));
-            //}
+            color.add(Color.parseColor(c[i]));
         }
 
         return  color;

@@ -78,34 +78,34 @@ public class CardsActivity extends AppCompatActivity {
                startActivity(intent);
            }
        });
-        Button deletecard = findViewById(R.id.delete_card);
-        deletecard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LitePal.deleteAll(Cards.class);
-                //LitePal.deleteAll(Accounts.class);
-                Intent intenttest = new Intent();
-                intenttest.setClass(CardsActivity.this, CardsActivity.class);
-                startActivity(intenttest);
-            }
-        });
-        Button querycard = findViewById(R.id.query_card);
-        querycard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Cards> cards = LitePal.findAll(Cards.class);
-                for (Cards card:cards) {
-                    Log.d("DatabaseActivity", "name" + card.getCard());
-                    Log.d("DatabaseActivity", "income" + card.getIncome());
-                    Log.d("DatabaseActivity", "outcome" + card.getOutcome());
-                }
-                List<Accounts> accounts = LitePal.findAll(Accounts.class);
-                for (Accounts account:accounts) {
-                    Log.d("DatabaseActivity", "card" + account.getCard());
-                    Log.d("DatabaseActivity", "price" + account.getPrice());
-                }
-            }
-        });
+//        Button deletecard = findViewById(R.id.delete_card);
+//        deletecard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LitePal.deleteAll(Cards.class);
+//                //LitePal.deleteAll(Accounts.class);
+//                Intent intenttest = new Intent();
+//                intenttest.setClass(CardsActivity.this, CardsActivity.class);
+//                startActivity(intenttest);
+//            }
+//        });
+//        Button querycard = findViewById(R.id.query_card);
+//        querycard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                List<Cards> cards = LitePal.findAll(Cards.class);
+//                for (Cards card:cards) {
+//                    Log.d("DatabaseActivity", "name" + card.getCard());
+//                    Log.d("DatabaseActivity", "income" + card.getIncome());
+//                    Log.d("DatabaseActivity", "outcome" + card.getOutcome());
+//                }
+//                List<Accounts> accounts = LitePal.findAll(Accounts.class);
+//                for (Accounts account:accounts) {
+//                    Log.d("DatabaseActivity", "card" + account.getCard());
+//                    Log.d("DatabaseActivity", "price" + account.getPrice());
+//                }
+//            }
+//        });
     }
     private void initcarddata(){
         List<Cards> wechat = LitePal.where("card = ?","微信").find(Cards.class);

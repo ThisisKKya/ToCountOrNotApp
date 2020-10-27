@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".CreateFirstCategoryActivity"></activity>
         <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".CardDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -42,9 +45,6 @@
         <activity
             android:name=".PatternLockActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
-        <activity
-            android:name=".ui.chart.DemoLikePathActivity"
-            android:label="@string/app_name" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">

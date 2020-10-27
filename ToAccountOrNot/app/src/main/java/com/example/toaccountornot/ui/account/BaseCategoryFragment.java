@@ -174,6 +174,7 @@ public class BaseCategoryFragment extends Fragment   {
                 initsecondstring();
                 if (mfirstCategory.equals("自定义") ) {
 //                    Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent();
                     intent.putExtra("FirstOrSecond","first");
                     intent.putExtra("inorout",minorout);
@@ -197,6 +198,7 @@ public class BaseCategoryFragment extends Fragment   {
         List<First> firsts = LitePal.where("name = ?",mfirstCategory).find(First.class);
         secondString.clear();
         for(First first:firsts){
+            secondString.clear();
             for(int i=0; i<first.getSecond().size();i++){
                 Log.d("hello",first.getSecond().get(i).toString());
                 secondString.add(first.getSecond().get(i).toString());

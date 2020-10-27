@@ -64,7 +64,7 @@ public class PinLockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pin_lock);
 
         mTextTitle = findViewById(R.id.title);
-        Button mButtonPattern = findViewById(R.id.change_mode_button);
+        TextView mTextPattern = findViewById(R.id.change_mode);
         mPinLockView = findViewById(R.id.pin_lock_view);
         IndicatorDots mIndicatorDots = findViewById(R.id.indicator_dots);
 
@@ -86,7 +86,7 @@ public class PinLockActivity extends AppCompatActivity {
             }
         }
 
-        mButtonPattern.setOnClickListener(new View.OnClickListener() {
+        mTextPattern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PinLockActivity.this, PatternLockActivity.class);

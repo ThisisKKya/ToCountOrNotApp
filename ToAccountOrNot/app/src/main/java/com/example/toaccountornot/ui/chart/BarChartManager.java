@@ -57,11 +57,11 @@ public class BarChartManager{
         //创建BarDataSet 对象 将数据传入对象中
         BarDataSet set1 = new BarDataSet(income , "收入") ;
         set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set1.setColor(Color.rgb(67,205,128));    //柱体颜色
+        set1.setColor(Color.rgb(208,230,165));    //柱体颜色
 
         BarDataSet set2 = new BarDataSet(outcome , "支出") ;
         set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set2.setColor(Color.rgb(205,51,51));
+        set2.setColor(Color.rgb(255,202,212));
 
         //使用接口IBarDataSet
         List<IBarDataSet> list = new ArrayList<IBarDataSet>() ;
