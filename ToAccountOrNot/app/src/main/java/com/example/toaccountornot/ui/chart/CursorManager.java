@@ -32,8 +32,6 @@ public class CursorManager {
         week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
         mCurrentDate = calendar.getTime();
         date = simpleDateFormat.format(calendar.getTime());
-        //Log.d("hello","new CursorManager");
-        //Toast.makeText(getContext(), date, Toast.LENGTH_SHORT).show();
     }
 
     public void change_cur(int flag,String time) {

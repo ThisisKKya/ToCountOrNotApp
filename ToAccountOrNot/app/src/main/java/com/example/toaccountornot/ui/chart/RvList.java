@@ -2,6 +2,7 @@ package com.example.toaccountornot.ui.chart;
 
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.utils.Accounts;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static org.litepal.LitePalApplication.getContext;
+
 public class RvList {
     public List<income> myList = new ArrayList<>();
     public  CursorManager cursorManager = new CursorManager();
@@ -21,16 +24,16 @@ public class RvList {
         this.myList = myList;
     }
 
-    public List<income> choice(int i, List<Accounts> accounts,String cate,String time,int flag) {
+    public List<income> choice(int i,String cate,String time,int flag) {
 
-        if(i == 0)  initincome(accounts,cate,time,flag);
-        if(i == 1)  initoutcome(accounts,cate,time,flag);
+        if(i == 0)  initincome(cate,time,flag);
+        if(i == 1)  initoutcome(cate,time,flag);
         if(i == 2)  initpeople(time,flag);
         return myList;
     }
 
     // 饼状图收入的流水展示
-    private void initincome(List<Accounts> accounts,String cate,String time,int flag) {
+    private void initincome(String cate,String time,int flag) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<Double> price = new ArrayList<>();
@@ -57,6 +60,10 @@ public class RvList {
             default:
                 break;
         }
+        if (!cursor.moveToFirst()) {
+            Toast.makeText(getContext(),"选择该时间段无收入数据", Toast.LENGTH_SHORT).show();
+        }
+
         if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(0);
@@ -114,7 +121,7 @@ public class RvList {
     }
 
     // 饼状图支出的流水展示
-    private void initoutcome(List<Accounts> accounts,String cate,String time,int flag) {
+    private void initoutcome(String cate,String time,int flag) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<String> second = new ArrayList<>();
@@ -141,6 +148,10 @@ public class RvList {
                 break;
             default:
                 break;
+        }
+
+        if (!cursor.moveToFirst()) {
+            Toast.makeText(getContext(),"选择该时间段无支出数据", Toast.LENGTH_SHORT).show();
         }
         if (cursor.moveToFirst()) {
             do {
@@ -222,6 +233,9 @@ public class RvList {
                 break;
             default:
                 break;
+        }
+        if (!cursor.moveToFirst()) {
+            Toast.makeText(getContext(),"选择该时间段无数据", Toast.LENGTH_SHORT).show();
         }
         if (cursor.moveToFirst()) {
             do {
