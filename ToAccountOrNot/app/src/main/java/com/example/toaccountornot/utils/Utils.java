@@ -6,6 +6,8 @@ import com.example.toaccountornot.R;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 工具类
@@ -111,5 +113,14 @@ public class Utils {
                 imageProperty.setImageResource(R.drawable.setting);
                 break;
         }
+    }
+
+    public static Date getMonthAgo(Date date, int distanceDay) {
+        Calendar calendar = Calendar.getInstance();
+        //calendar.set(2017, 0, 7);
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, distanceDay);
+        Date endDate = calendar.getTime();
+        return endDate;
     }
 }

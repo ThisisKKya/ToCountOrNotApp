@@ -112,6 +112,9 @@ public class PieChartManager  {
         pieData.setValueFormatter(new PercentFormatter());
 //        显示试图
         pieChart.setData(pieData);
+
+        // 设置动画
+        pieChart.animateX(600);
     }
 
 }
