@@ -56,8 +56,10 @@ import com.ogaclejapan.arclayout.ArcLayout;
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ChartFragment extends Fragment{
@@ -74,11 +76,13 @@ public class ChartFragment extends Fragment{
     private TextView date_month;
     private TextView date_lab2;
     private TextView date_weekorday;
+    private TextView bottom1;
+    private TextView bottom2;
+    private TextView bottom3;
     private List<income> myList = new ArrayList<>();
     private View fab;
     private View menuLayout;
     private ArcLayout arcLayout;
-    private List<Accounts> accounts = new ArrayList<>();
     private int num = 1;    // 判断点击哪个饼状图;
     private int click_left = 0;     // 点击
     private String menu_day = "月";    // 保存菜单点击属性
@@ -87,6 +91,7 @@ public class ChartFragment extends Fragment{
     private String my_month;
     private String my_week;
     private String my_day;
+    SimpleDateFormat simpleDateFormat;
 
 
     @Nullable
@@ -114,6 +119,9 @@ public class ChartFragment extends Fragment{
         date_month = (TextView) getActivity().findViewById(R.id.lab_month);
         date_lab2 = (TextView) getActivity().findViewById(R.id.lab_2);
         date_weekorday = (TextView) getActivity().findViewById(R.id.lab_weekORday);
+        bottom1 = (TextView) getActivity().findViewById(R.id.bottom_1);
+        bottom2 = (TextView) getActivity().findViewById(R.id.bottom_2);
+        bottom3 = (TextView) getActivity().findViewById(R.id.bottom_3);
         fab = (View) getActivity().findViewById(R.id.fab1);
         menuLayout = (View) getActivity().findViewById(R.id.menu_layout1);
         arcLayout = (ArcLayout) getActivity().findViewById(R.id.arc_layout1);
@@ -122,15 +130,12 @@ public class ChartFragment extends Fragment{
         barChart.setNoDataText("");
         pieChart.setNoDataText("");
 
-        initaccouts();
         initPieChart_income("一","月",0);
         initRV(1,"一","月",0);
-
-        Calendar calendar = Calendar.getInstance();
-        my_year = String.valueOf(calendar.get(Calendar.YEAR));
-        my_month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        //initdate();
-
+        initdate("月",0);
+        bottom1.setVisibility(View.GONE);
+        bottom2.setVisibility(View.GONE);
+        bottom3.setVisibility(View.GONE);
 
 
         final String[] mytime = new String[]{"天","周","月","年"};
@@ -152,16 +157,19 @@ public class ChartFragment extends Fragment{
                         Log.d("hello","click menu_income");
                         initPieChart_income("一",mytime[finalI],0);
                         initRV(num,"一",mytime[finalI],0);
+                        initdate(mytime[finalI],0);
                     }
                     else if(num ==2) {
                         //Log.d("hello",mytime[finalI]);
                         initPieChart_outcome("一",mytime[finalI],0);
                         initRV(num,"一",mytime[finalI],0);
+                        initdate(mytime[finalI],0);
                     }
                     else {
                         Log.d("hello",mytime[finalI]);
                         initBarchart(mytime[finalI],0);
                         initRV(num,"一",mytime[finalI],0);
+                        initdate(mytime[finalI],0);
                     }
                     hideMenu();
                 }
@@ -181,10 +189,14 @@ public class ChartFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.d("hello","click income");
+                bottom1.setVisibility(View.VISIBLE);
+                bottom2.setVisibility(View.GONE);
+                bottom3.setVisibility(View.GONE);
                 barChart.setVisibility(View.GONE);
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_income("一","月",0);
                 initRV(1,"一","月",0);      // 收入的流水一级展示
+                initdate("月",0);
                 num = 1;
             }
         });
@@ -193,11 +205,15 @@ public class ChartFragment extends Fragment{
         one_pei_outcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom1.setVisibility(View.GONE);
+                bottom2.setVisibility(View.VISIBLE);
+                bottom3.setVisibility(View.GONE);
                 Log.d("hello" ,"click outcome");
                 barChart.setVisibility(View.GONE);      // 隐藏柱状图
                 pieChart.setVisibility(View.VISIBLE);
                 initPieChart_outcome("一","月",0);
                 initRV(2,"一","月",0);      // 支出的一级流水展示
+                initdate("月",0);
                 num = 2;
             }
         });
@@ -205,10 +221,14 @@ public class ChartFragment extends Fragment{
         people.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottom1.setVisibility(View.GONE);
+                bottom2.setVisibility(View.GONE);
+                bottom3.setVisibility(View.VISIBLE);
                 pieChart.setVisibility(View.GONE);
                 barChart.setVisibility(View.VISIBLE);
                 initBarchart("月",0);
                 initRV(3,"一","月",0);      // 柱状图的流水展示
+                initdate("月",0);
                 num = 3;
             }
         });
@@ -236,10 +256,9 @@ public class ChartFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 right.setVisibility(View.VISIBLE);
-
                 click_left = click_left - 1;
-                //Log.d("goodbye", String.valueOf(num));
-                //Toast.makeText(getContext(),"111111",Toast.LENGTH_SHORT).show();
+                initdate(menu_day,click_left);
+
                 if(num == 1) {      // 收入
                     //Log.d("hello","111111");
                     //Toast.makeText(getContext(),"111111",Toast.LENGTH_SHORT).show();
@@ -263,7 +282,10 @@ public class ChartFragment extends Fragment{
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                left.setVisibility(View.VISIBLE);
                 click_left = click_left + 1;
+                initdate(menu_day,click_left);
+
                 if(click_left == 0) right.setVisibility(View.GONE);
 
                 if(num == 1) {      // 收入
@@ -286,6 +308,64 @@ public class ChartFragment extends Fragment{
 
     }
 
+    //  初始化时间栏
+    private void initdate(String time,int click) {
+        Calendar calendar = Calendar.getInstance();
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        switch (time)
+        {
+            case "月" :
+                date_year.setVisibility(View.VISIBLE);
+                date_lab1.setVisibility(View.VISIBLE);
+                date_month.setVisibility(View.VISIBLE);
+                date_lab2.setVisibility(View.GONE);
+                date_weekorday.setVisibility(View.GONE);
+                my_year = String.valueOf(calendar.get(Calendar.YEAR));
+                date_year.setText(my_year);
+                calendar.add(Calendar.MONTH,click);
+                my_month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                date_month.setText(my_month);
+                if(Integer.parseInt(my_month) == 1)  left.setVisibility(View.GONE);
+                break;
+            case "年" :
+                date_year.setVisibility(View.VISIBLE);
+                date_lab1.setVisibility(View.GONE);
+                date_month.setVisibility(View.GONE);
+                date_lab2.setVisibility(View.GONE);
+                date_weekorday.setVisibility(View.GONE);
+                calendar.add(Calendar.YEAR,click);
+                my_year = String.valueOf(calendar.get(Calendar.YEAR));
+                date_year.setText(my_year);
+                if(Integer.parseInt(my_year) == 1)  left.setVisibility(View.GONE);
+                break;
+            case "天" :
+                date_year.setVisibility(View.GONE);
+                date_lab1.setVisibility(View.GONE);
+                date_month.setVisibility(View.GONE);
+                date_lab2.setVisibility(View.GONE);
+                date_weekorday.setVisibility(View.VISIBLE);
+                calendar.add(Calendar.DATE,click);
+                my_day = simpleDateFormat.format(calendar.getTime());
+                date_weekorday.setText(my_day);
+                if(calendar.get(Calendar.DAY_OF_MONTH) == 1)    left.setVisibility(View.GONE);
+                break;
+            case "周":
+                date_year.setVisibility(View.GONE);
+                date_lab1.setVisibility(View.GONE);
+                date_month.setVisibility(View.GONE);
+                date_lab2.setVisibility(View.GONE);
+                date_weekorday.setVisibility(View.VISIBLE);
+//                date_year.setText(my_year);
+//                date_month.setText(my_month);
+                calendar.add(Calendar.WEEK_OF_YEAR, click);
+                my_week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
+                date_weekorday.setText(my_week + "周");
+                if(Integer.parseInt(my_week) == 1)  left.setVisibility(View.GONE);
+                break;
+        }
+
+    }
+
 
 
     // 收入饼状图
@@ -298,7 +378,7 @@ public class ChartFragment extends Fragment{
 
         // 饼状图颜色获取
         PieColor pieColor = new PieColor();
-        List<Integer> colors = pieColor.initcolor(accounts,"in",yVals.size());
+        List<Integer> colors = pieColor.initcolor("in",yVals.size());
 
         PieChartManager pieChartManager = new PieChartManager(pieChart);
         pieChartManager.showSolidPieChart(yVals,colors);
@@ -312,7 +392,7 @@ public class ChartFragment extends Fragment{
         List<PieEntry> yVals = pieData.outcome(time,flag);
 
         PieColor pieColor = new PieColor();
-        List<Integer> colors = pieColor.initcolor(accounts,"out",yVals.size());
+        List<Integer> colors = pieColor.initcolor("out",yVals.size());
 
         PieChartManager pieChartManager = new PieChartManager(pieChart);
         pieChartManager.showSolidPieChart(yVals,colors);
@@ -324,8 +404,8 @@ public class ChartFragment extends Fragment{
     void initBarchart(String time,int flag) {
         //填充数据
         BarData barData = new BarData(time,flag);
-        List<BarEntry> barEntry1 = barData.income(accounts) ;  //成员的收入
-        List<BarEntry> barEntry2 = barData.outcome(accounts) ;  //成员的支出
+        List<BarEntry> barEntry1 = barData.income() ;  //成员的收入
+        List<BarEntry> barEntry2 = barData.outcome() ;  //成员的支出
 
         BarChartManager barChartManager = new BarChartManager(barChart);
         barChartManager.showBarChart(barEntry1,barEntry2);
@@ -339,9 +419,7 @@ public class ChartFragment extends Fragment{
     // cate:"一"，"二"
     private void initRV(int i,String cate,String time,int flag) {
         RvList rvList = new RvList(myList);
-        if(i == 1)    myList = rvList.choice(0,accounts,cate,time,flag);        // 流水展示饼状图收入类
-        else if (i == 2)    myList = rvList.choice(1,accounts,cate,time,flag);  // 流水展示饼状图支出类
-        else    myList = rvList.choice(2,accounts,cate,time,flag);              // 流水展示柱状图
+        myList = rvList.choice(i-1,cate,time,flag);
         LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(layoutManager);
         incomeAdapter adapter = new incomeAdapter(myList);
@@ -440,98 +518,5 @@ public class ChartFragment extends Fragment{
         return anim;
     }
 
-    private void initaccouts() {
-        Accounts x1 = new Accounts();
-        x1.setFirst("工资");
-        x1.setSecond("工资1");
-        x1.setMember("我");
-        x1.setPrice(1000f);
-        x1.setInorout("in");
-        x1.setDate("1");
-        x1.setDate_month("7");
-        x1.setDate_year("2020");
-        Accounts x2 = new Accounts();
-        x2.setFirst("工资");
-        x2.setSecond("工资2");
-        x2.setMember("我");
-        x2.setPrice(1500f);
-        x2.setInorout("in");
-        x2.setDate("2");
-        x2.setDate_month("7");
-        x2.setDate_year("2020");
-        Accounts x9 = new Accounts();
-        x9.setFirst("工资");
-        x9.setSecond("工资2");
-        x9.setMember("我");
-        x9.setPrice(1500f);
-        x9.setInorout("in");
-        x9.setDate("2");
-        x9.setDate_month("7");
-        x9.setDate_year("2020");
-        Accounts x3 = new Accounts();
-        x3.setFirst("兼职");
-        x3.setSecond("兼职1");
-        x3.setMember("妈妈");
-        x3.setPrice(1000f);
-        x3.setInorout("in");
-        x3.setDate("3");
-        x3.setDate_month("7");
-        x3.setDate_year("2020");
-        Accounts x4 = new Accounts();
-        x4.setFirst("礼金");
-        x4.setSecond("礼金1");
-        x4.setMember("爸爸");
-        x4.setPrice(1000f);
-        x4.setInorout("in");
-        x4.setDate("4");
-        x4.setDate_month("7");
-        x4.setDate_year("2020");
-        accounts.add(x1);
-        accounts.add(x2);
-        accounts.add(x3);
-        accounts.add(x4);
-        accounts.add(x9);
-
-        Accounts x5 = new Accounts();
-        x5.setFirst("餐饮");
-        x5.setSecond("餐饮1");
-        x5.setMember("我");
-        x5.setPrice(100f);
-        x5.setInorout("out");
-        x5.setDate("1");
-        x5.setDate_month("7");
-        x5.setDate_year("2020");
-        Accounts x6 = new Accounts();
-        x6.setFirst("餐饮");
-        x6.setSecond("餐饮2");
-        x6.setMember("妈妈");
-        x6.setPrice(300f);
-        x6.setInorout("out");
-        x6.setDate("2");
-        x6.setDate_month("7");
-        x6.setDate_year("2020");
-        Accounts x7 = new Accounts();
-        x7.setFirst("购物");
-        x7.setSecond("购物1");
-        x7.setMember("妈妈");
-        x7.setPrice(200f);
-        x7.setInorout("out");
-        x7.setDate("3");
-        x7.setDate_month("7");
-        x7.setDate_year("2020");
-        Accounts x8 = new Accounts();
-        x8.setFirst("日用");
-        x8.setSecond("日用1");
-        x8.setMember("爸爸");
-        x8.setPrice(500f);
-        x8.setInorout("out");
-        x8.setDate("4");
-        x8.setDate_month("7");
-        x8.setDate_year("2020");
-        accounts.add(x5);
-        accounts.add(x6);
-        accounts.add(x7);
-        accounts.add(x8);
-    }
 
 }
