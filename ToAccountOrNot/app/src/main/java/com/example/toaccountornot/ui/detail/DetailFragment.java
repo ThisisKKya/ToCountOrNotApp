@@ -8,15 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.BudgetActivity;
 import com.example.toaccountornot.R;
-import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayAdapter;
 import com.lxj.xpopup.XPopup;
@@ -39,21 +38,19 @@ import java.util.List;
 public class DetailFragment extends Fragment {
 
     private View view;
-    private TextView label;
     private TextView label_year;
     private TextView label_month;
     private TextView label_out;
     private TextView label_in;
-    private LinearLayout choose_date;
     private RecyclerView rec_day;
     private List<Day> dayList = new ArrayList<>();
     private String year;
     private String month;
     private BasePopupView datePicker;
-    private LinearLayout budget_layout;
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Calendar calendar = Calendar.getInstance();
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
@@ -65,19 +62,19 @@ public class DetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initDaylist();
+        initDayList();
     }
 
-    void initView(LayoutInflater inflater, ViewGroup container) {
+    private void initView(LayoutInflater inflater, ViewGroup container) {
         view = inflater.inflate(R.layout.fragment_detail, container, false);
-        label = view.findViewById(R.id.label);
+
         label_year = view.findViewById(R.id.label_year);
         label_month = view.findViewById(R.id.label_month);
         label_out = view.findViewById(R.id.label_out);
         label_in = view.findViewById(R.id.label_in);
-        choose_date = view.findViewById(R.id.choose_date);
+        LinearLayout choose_date = view.findViewById(R.id.choose_date);
         rec_day = view.findViewById(R.id.mainlist);
-        budget_layout = view.findViewById(R.id.budget_layout);
+        LinearLayout budget_layout = view.findViewById(R.id.budget_layout);
 
         label_year.setText(year);
         label_month.setText(month);
@@ -94,12 +91,12 @@ public class DetailFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), BudgetActivity.class);
                 intent.putExtra("outcome", label_out.getText());
-                getContext().startActivity(intent);
+                startActivity(intent);
             }
         });
     }
 
-    void initDaylist() {
+    private void initDayList() {
         dayList.clear();
         // 因为LitePal不支持group by, 故使用SQL语句查询
         Cursor cursor = LitePal.findBySQL("select date from Accounts where date_year=?" +
@@ -121,8 +118,8 @@ public class DetailFragment extends Fragment {
                 income += day.getIncome_day();
                 DecimalFormat df = new DecimalFormat("#.##");
 
-                label_out.setText(String.valueOf(df.format(outcome)));
-                label_in.setText(String.valueOf(df.format(income)));
+                label_out.setText(df.format(outcome));
+                label_in.setText(df.format(income));
             }
         } else {
             DayAdapter dayAdapter = new DayAdapter(dayList, getContext());
@@ -142,14 +139,13 @@ public class DetailFragment extends Fragment {
 
                     @Override
                     public void onTimeConfirm(Date date, View view) {
-                        Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(date);
                         year = String.valueOf(calendar.get(Calendar.YEAR));
                         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
                         label_year.setText(year);
                         label_month.setText(month);
-                        initDaylist();
+                        initDayList();
                     }
                 });
         timePickerPopup.setMode(TimePickerPopup.Mode.YM);

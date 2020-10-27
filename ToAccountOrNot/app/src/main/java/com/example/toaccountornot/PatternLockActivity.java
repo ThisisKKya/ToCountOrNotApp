@@ -27,7 +27,6 @@ import java.util.List;
 public class PatternLockActivity extends AppCompatActivity {
 
     private TextView mTextTitle;
-    private Button mButtonPin;
     private PatternLockView mPatternLockView;
 
     private static final String PREFERENCES = "com.example.toaccountornot";
@@ -70,10 +69,10 @@ public class PatternLockActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pattern_lock);
 
-        mTextTitle = (TextView) findViewById(R.id.title);
-        mButtonPin = (Button) findViewById(R.id.change_mode_button);
+        mTextTitle = findViewById(R.id.title);
+        Button mButtonPin = findViewById(R.id.change_mode_button);
 
-        mPatternLockView = (PatternLockView) findViewById(R.id.pattern_lock_view);
+        mPatternLockView = findViewById(R.id.pattern_lock_view);
         mPatternLockView.addPatternLockListener(mPatternLockViewListener);
 
         if (mSetPattern) {
@@ -107,7 +106,7 @@ public class PatternLockActivity extends AppCompatActivity {
     }
 
     private void shake() {
-        ObjectAnimator objectAnimator = new ObjectAnimator().ofFloat(mPatternLockView, "translationX",
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mPatternLockView, "translationX",
                 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).setDuration(1000);
         objectAnimator.start();
     }
