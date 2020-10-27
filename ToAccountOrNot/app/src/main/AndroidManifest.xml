@@ -22,7 +22,7 @@
         <activity android:name=".CardCustomizeActivity" />
         <activity
             android:name=".CreateCardDetailActivity"
-            android:label="添加账户明细" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CreateCardActivity"
             android:label="添加账户" />

@@ -19,25 +19,48 @@ android:orientation="vertical">
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="16dp"
-            android:text="账户"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
+                android:text="账户"
+                android:layout_weight="3"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/create_card"
+                android:layout_width="10pt"
+                android:layout_height="10pt"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                app:srcCompat="@drawable/add"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:paddingBottom="5dp"
             android:orientation="horizontal">
 
@@ -45,6 +68,7 @@ android:orientation="vertical">
                 android:id="@+id/label_outshow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_weight="0"
                 android:text="支出  "
                 android:textColor="@android:color/white"
@@ -54,8 +78,8 @@ android:orientation="vertical">
                 android:id="@+id/label_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:layout_weight="0"
+                android:layout_marginRight="10dp"
                 android:text="0"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
@@ -92,8 +116,8 @@ android:orientation="vertical">
                 android:id="@+id/label_sur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
                 android:layout_weight="0"
+                android:layout_marginRight="10dp"
                 android:text="0"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
@@ -109,19 +133,19 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="4"/>
-    <com.deadline.statebutton.StateButton
-        android:id="@+id/create_card"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_weight="1"
-        android:layout_gravity="center_horizontal"
-        android:text="+  新建账户"
-        android:textSize="20sp"
-        android:textStyle="bold"
+<!--    <com.deadline.statebutton.StateButton-->
+<!--        android:id="@+id/create_card"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:text="+  新建账户"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
 
-        app:normalTextColor="@color/colorPrimaryDark"
-        app:pressedTextColor="@color/colorPrimaryDark"
-        app:unableTextColor="@color/colorPrimaryDark" />
+<!--        app:normalTextColor="@color/colorPrimaryDark"-->
+<!--        app:pressedTextColor="@color/colorPrimaryDark"-->
+<!--        app:unableTextColor="@color/colorPrimaryDark" />-->
         <com.deadline.statebutton.StateButton
             android:id="@+id/delete_card"
             android:layout_width="match_parent"

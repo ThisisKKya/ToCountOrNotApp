@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,12 +64,12 @@ public class CardsActivity extends AppCompatActivity {
         label_out.setText(String.valueOf(allout));
         label_sur.setText(String.valueOf(allsur));
 
-        Button createcard = findViewById(R.id.create_card);
+        ImageView createcard = findViewById(R.id.create_card);
         createcard.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent();
-               intent.setClass(CardsActivity.this, CreateCardActivity.class);
+               intent.setClass(CardsActivity.this, CreateCardDetailActivity.class);
                startActivity(intent);
            }
        });
@@ -77,7 +78,7 @@ public class CardsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LitePal.deleteAll(Cards.class);
-                LitePal.deleteAll(Accounts.class);
+                //LitePal.deleteAll(Accounts.class);
                 Intent intenttest = new Intent();
                 intenttest.setClass(CardsActivity.this, CardsActivity.class);
                 startActivity(intenttest);
