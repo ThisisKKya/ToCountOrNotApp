@@ -19,13 +19,9 @@
         <activity
             android:name=".DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CardCustomizeActivity" />
         <activity
             android:name=".CreateCardDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".CreateCardActivity"
-            android:label="添加账户" />
         <activity
             android:name=".CardsActivity"
             android:theme="@style/AppTheme.NoActionBar"
