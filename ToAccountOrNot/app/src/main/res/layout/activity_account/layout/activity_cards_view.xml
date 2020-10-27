@@ -23,12 +23,17 @@ android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/return_bar"
+                android:layout_width="10pt"
+                android:layout_height="10pt"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="6dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/return_bar" />
 
             <TextView
                 android:id="@+id/label"

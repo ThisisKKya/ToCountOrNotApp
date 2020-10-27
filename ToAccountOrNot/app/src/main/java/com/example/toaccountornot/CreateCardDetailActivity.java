@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,13 @@ public class CreateCardDetailActivity extends AppCompatActivity {
         final EditText bankname = findViewById(R.id.bankname);
         final EditText cardnumber = findViewById(R.id.cardnumber);
         final EditText remark = findViewById(R.id.remark);
+        ImageView return_bar = findViewById(R.id.return_bar);
+        return_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         cardnumbershow = findViewById(R.id.cardnumber_show);
         cardtype.setOnClickListener(new View.OnClickListener() {
             @Override

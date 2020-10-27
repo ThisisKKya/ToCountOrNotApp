@@ -38,10 +38,6 @@ public class CardsActivity extends AppCompatActivity {
         if(adapter != null){
             cardlist.clear();
             initCards();
-//            Log.d("card","have finished");
-//            adapter = new CardsAdapter(CardsActivity.this,cardlist);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(CardsActivity.this));
-//            recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
     }
@@ -63,6 +59,15 @@ public class CardsActivity extends AppCompatActivity {
         label_in.setText(String.valueOf(allin));
         label_out.setText(String.valueOf(allout));
         label_sur.setText(String.valueOf(allsur));
+
+
+        ImageView return_bar = findViewById(R.id.return_bar);
+        return_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ImageView createcard = findViewById(R.id.create_card);
         createcard.setOnClickListener(new View.OnClickListener() {
