@@ -106,21 +106,21 @@ public class CardsActivity extends AppCompatActivity {
         if (wechat.size()==0){
             Cards card = new Cards();
             card.setCard("微信");
-            card.setImage(R.drawable.wechat);
+            card.setType("微信");
             card.save();
         }
         List<Cards> alipay  = LitePal.where("card = ?","支付宝").find(Cards.class);
         if (alipay.size()==0){
             Cards card = new Cards();
             card.setCard("支付宝");
-            card.setImage(R.drawable.alipay);
+            card.setType("支付宝");
             card.save();
         }
         List<Cards> cash = LitePal.where("card = ?","现金").find(Cards.class);
         if (cash.size() == 0){
             Cards card = new Cards();
             card.setCard("现金");
-            card.setImage(R.drawable.cash);
+            card.setType("现金");
             card.save();
         }
     }
@@ -137,7 +137,7 @@ public class CardsActivity extends AppCompatActivity {
         List<Cards> list = LitePal.findAll(Cards.class);
         for (Cards card:list) {
             Cards extra = new Cards();
-            extra.setCards(card.getCard(),card.getRemark(),card.getImage(),card.getIncome(),card.getOutcome(),card.getSurplus());
+            extra.setCards(card.getCard(),card.getRemark(),card.getType(),card.getIncome(),card.getOutcome(),card.getSurplus());
             cardlist.add(extra);
             allin += card.getIncome();
             allout += card.getOutcome();

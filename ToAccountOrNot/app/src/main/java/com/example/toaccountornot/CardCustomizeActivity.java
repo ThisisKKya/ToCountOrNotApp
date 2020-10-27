@@ -33,7 +33,7 @@ public class CardCustomizeActivity extends AppCompatActivity {
                     Cards card = new Cards();
                     card.setCard(name.getText().toString());
                     card.setRemark(remark.getText().toString());
-                    card.setImage(R.drawable.customize);
+                    card.setType("自定义");
                     card.save();
                 }
             }
