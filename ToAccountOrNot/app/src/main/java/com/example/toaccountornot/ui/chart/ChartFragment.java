@@ -91,15 +91,25 @@ public class ChartFragment extends Fragment{
     private String my_month;
     private String my_week;
     private String my_day;
-    SimpleDateFormat simpleDateFormat;
+    private View view;
+    private SimpleDateFormat simpleDateFormat;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chart,container,false);
+        //initall(inflater, container);
         return view;
 
+    }
+
+    public void initall(LayoutInflater inflater, ViewGroup container) {
+//        view = inflater.inflate(R.layout.fragment_chart,container,false);
+
+
+//        barChart.setNoDataText("");
+//        pieChart.setNoDataText("");
     }
 
 
@@ -126,14 +136,13 @@ public class ChartFragment extends Fragment{
         menuLayout = (View) getActivity().findViewById(R.id.menu_layout1);
         arcLayout = (ArcLayout) getActivity().findViewById(R.id.arc_layout1);
 
-
         barChart.setNoDataText("");
         pieChart.setNoDataText("");
 
         initPieChart_income("一","月",0);
         initRV(1,"一","月",0);
         initdate("月",0);
-        bottom1.setVisibility(View.GONE);
+        bottom1.setVisibility(View.VISIBLE);
         bottom2.setVisibility(View.GONE);
         bottom3.setVisibility(View.GONE);
 
@@ -189,15 +198,17 @@ public class ChartFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.d("hello","click income");
-                bottom1.setVisibility(View.VISIBLE);
-                bottom2.setVisibility(View.GONE);
-                bottom3.setVisibility(View.GONE);
-                barChart.setVisibility(View.GONE);
-                pieChart.setVisibility(View.VISIBLE);
-                initPieChart_income("一","月",0);
-                initRV(1,"一","月",0);      // 收入的流水一级展示
-                initdate("月",0);
-                num = 1;
+                if(num != 1) {
+                    bottom1.setVisibility(View.VISIBLE);
+                    bottom2.setVisibility(View.GONE);
+                    bottom3.setVisibility(View.GONE);
+                    barChart.setVisibility(View.GONE);
+                    pieChart.setVisibility(View.VISIBLE);
+                    initPieChart_income("一","月",0);
+                    initRV(1,"一","月",0);      // 收入的流水一级展示
+                    initdate("月",0);
+                    num = 1;
+                }
             }
         });
 
@@ -205,31 +216,35 @@ public class ChartFragment extends Fragment{
         one_pei_outcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottom1.setVisibility(View.GONE);
-                bottom2.setVisibility(View.VISIBLE);
-                bottom3.setVisibility(View.GONE);
-                Log.d("hello" ,"click outcome");
-                barChart.setVisibility(View.GONE);      // 隐藏柱状图
-                pieChart.setVisibility(View.VISIBLE);
-                initPieChart_outcome("一","月",0);
-                initRV(2,"一","月",0);      // 支出的一级流水展示
-                initdate("月",0);
-                num = 2;
+                if(num != 2) {
+                    bottom1.setVisibility(View.GONE);
+                    bottom2.setVisibility(View.VISIBLE);
+                    bottom3.setVisibility(View.GONE);
+                    Log.d("hello" ,"click outcome");
+                    barChart.setVisibility(View.GONE);      // 隐藏柱状图
+                    pieChart.setVisibility(View.VISIBLE);
+                    initPieChart_outcome("一","月",0);
+                    initRV(2,"一","月",0);      // 支出的一级流水展示
+                    initdate("月",0);
+                    num = 2;
+                }
             }
         });
 
         people.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottom1.setVisibility(View.GONE);
-                bottom2.setVisibility(View.GONE);
-                bottom3.setVisibility(View.VISIBLE);
-                pieChart.setVisibility(View.GONE);
-                barChart.setVisibility(View.VISIBLE);
-                initBarchart("月",0);
-                initRV(3,"一","月",0);      // 柱状图的流水展示
-                initdate("月",0);
-                num = 3;
+                if(num != 3) {
+                    bottom1.setVisibility(View.GONE);
+                    bottom2.setVisibility(View.GONE);
+                    bottom3.setVisibility(View.VISIBLE);
+                    pieChart.setVisibility(View.GONE);
+                    barChart.setVisibility(View.VISIBLE);
+                    initBarchart("月",0);
+                    initRV(3,"一","月",0);      // 柱状图的流水展示
+                    initdate("月",0);
+                    num = 3;
+                }
             }
         });
 
