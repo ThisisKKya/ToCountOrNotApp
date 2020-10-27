@@ -169,6 +169,7 @@ public class BaseCategoryFragment extends Fragment   {
         Log.d("hello",mfirstCategory);
         List<First> firsts = LitePal.where("name = ?",mfirstCategory).find(First.class);
         for(First first:firsts){
+            secondString.clear();
             for(int i=0; i<first.getSecond().size();i++){
                 Log.d("hello",first.getSecond().get(i).toString());
                 secondString.add(first.getSecond().get(i).toString());
