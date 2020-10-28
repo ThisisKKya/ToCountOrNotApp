@@ -16,7 +16,7 @@
             android:keyLabel="3" />
         <Key
             android:codes="-100000"
-            android:keyLabel="今天" />
+            android:keyLabel="时间" />
     </Row>
     <Row>
         <Key
@@ -56,8 +56,8 @@
             android:keyLabel="0" />
         <Key
             android:codes="-5"
-            android:isRepeatable="true"/>
-<!--            android:keyIcon="@mipmap/joker_icon_delete" />-->
+            android:isRepeatable="true"
+            android:keyLabel="Delete"/>
         <Key
             android:codes="-4"
             android:keyLabel="完成" />
