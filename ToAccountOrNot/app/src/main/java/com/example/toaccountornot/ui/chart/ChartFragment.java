@@ -91,57 +91,93 @@ public class ChartFragment extends Fragment{
     private String my_month;
     private String my_week;
     private String my_day;
-    SimpleDateFormat simpleDateFormat;
+    private View view;
+    private SimpleDateFormat simpleDateFormat;
+    final String[] mytime = new String[]{"天", "周", "月", "年"};
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chart,container,false);
+        Log.d("hello","onCreatView");
+//        View view = inflater.inflate(R.layout.fragment_chart,container,false);
+        initView(inflater,container);
+        initPieChart_income("一", "月", 0);
+        initRV(1, "一", "月", 0);
+        initdate("月", 0);
+
+        initclick();
         return view;
 
     }
 
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        one_pei_income = (ImageView) getActivity().findViewById(R.id.view_income);
-        one_pei_outcome = (ImageView) getActivity().findViewById(R.id.view_outcome);
-        people = (ImageView) getActivity().findViewById(R.id.people);
-        left = (ImageView) getActivity().findViewById(R.id.left);
-        right = (ImageView) getActivity().findViewById(R.id.right);
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
-        pieChart = (PieChart) getActivity().findViewById(R.id.pc);
-        barChart = (BarChart) getActivity().findViewById(R.id.bc);
-        date_year = (TextView) getActivity().findViewById(R.id.lab_year);
-        date_lab1 = (TextView) getActivity().findViewById(R.id.lab_1);
-        date_month = (TextView) getActivity().findViewById(R.id.lab_month);
-        date_lab2 = (TextView) getActivity().findViewById(R.id.lab_2);
-        date_weekorday = (TextView) getActivity().findViewById(R.id.lab_weekORday);
-        bottom1 = (TextView) getActivity().findViewById(R.id.bottom_1);
-        bottom2 = (TextView) getActivity().findViewById(R.id.bottom_2);
-        bottom3 = (TextView) getActivity().findViewById(R.id.bottom_3);
-        fab = (View) getActivity().findViewById(R.id.fab1);
-        menuLayout = (View) getActivity().findViewById(R.id.menu_layout1);
-        arcLayout = (ArcLayout) getActivity().findViewById(R.id.arc_layout1);
+    public void onPause() {
+        super.onPause();
+        Log.d("hello","pause");
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("hello","destroy");
+    }
 
-        barChart.setNoDataText("");
-        pieChart.setNoDataText("");
-
+    @Override
+    public void onResume() {
+        super.onResume();
         initPieChart_income("一","月",0);
         initRV(1,"一","月",0);
         initdate("月",0);
-        bottom1.setVisibility(View.GONE);
+        initclick();
+
+    }
+//
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("hello", "onActivityCreated");
+
+    }
+
+
+    private void initView(LayoutInflater inflater, ViewGroup container) {
+        view = inflater.inflate(R.layout.fragment_chart,container,false);
+        one_pei_income = view.findViewById(R.id.view_income);
+        one_pei_outcome = view.findViewById(R.id.view_outcome);
+        people =  view.findViewById(R.id.people);
+        left = view.findViewById(R.id.left);
+        right = view.findViewById(R.id.right);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        pieChart = view.findViewById(R.id.pc);
+        barChart = view.findViewById(R.id.bc);
+        date_year = view.findViewById(R.id.lab_year);
+        date_lab1 = view.findViewById(R.id.lab_1);
+        date_month = view.findViewById(R.id.lab_month);
+        date_lab2 = view.findViewById(R.id.lab_2);
+        date_weekorday = view.findViewById(R.id.lab_weekORday);
+        bottom1 = view.findViewById(R.id.bottom_1);
+        bottom2 = view.findViewById(R.id.bottom_2);
+        bottom3 = view.findViewById(R.id.bottom_3);
+        fab = view.findViewById(R.id.fab1);
+        menuLayout = view.findViewById(R.id.menu_layout1);
+        arcLayout = view.findViewById(R.id.arc_layout1);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        barChart.setNoDataText("");
+        pieChart.setNoDataText("");
+
+//        Log.d("hello", "bottom");
+        bottom1.setVisibility(View.VISIBLE);
         bottom2.setVisibility(View.GONE);
         bottom3.setVisibility(View.GONE);
-
-
-        final String[] mytime = new String[]{"天","周","月","年"};
-
         right.setVisibility(View.GONE);
 
+    }
+
+
+    private void initclick() {
 
         // 菜单的点击事件
         for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
@@ -189,15 +225,17 @@ public class ChartFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.d("hello","click income");
-                bottom1.setVisibility(View.VISIBLE);
-                bottom2.setVisibility(View.GONE);
-                bottom3.setVisibility(View.GONE);
-                barChart.setVisibility(View.GONE);
-                pieChart.setVisibility(View.VISIBLE);
-                initPieChart_income("一","月",0);
-                initRV(1,"一","月",0);      // 收入的流水一级展示
-                initdate("月",0);
-                num = 1;
+                if(num != 1) {
+                    bottom1.setVisibility(View.VISIBLE);
+                    bottom2.setVisibility(View.GONE);
+                    bottom3.setVisibility(View.GONE);
+                    barChart.setVisibility(View.GONE);
+                    pieChart.setVisibility(View.VISIBLE);
+                    initPieChart_income("一","月",0);
+                    initRV(1,"一","月",0);      // 收入的流水一级展示
+                    initdate("月",0);
+                    num = 1;
+                }
             }
         });
 
@@ -205,31 +243,35 @@ public class ChartFragment extends Fragment{
         one_pei_outcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottom1.setVisibility(View.GONE);
-                bottom2.setVisibility(View.VISIBLE);
-                bottom3.setVisibility(View.GONE);
-                Log.d("hello" ,"click outcome");
-                barChart.setVisibility(View.GONE);      // 隐藏柱状图
-                pieChart.setVisibility(View.VISIBLE);
-                initPieChart_outcome("一","月",0);
-                initRV(2,"一","月",0);      // 支出的一级流水展示
-                initdate("月",0);
-                num = 2;
+                if(num != 2) {
+                    bottom1.setVisibility(View.GONE);
+                    bottom2.setVisibility(View.VISIBLE);
+                    bottom3.setVisibility(View.GONE);
+                    Log.d("hello" ,"click outcome");
+                    barChart.setVisibility(View.GONE);      // 隐藏柱状图
+                    pieChart.setVisibility(View.VISIBLE);
+                    initPieChart_outcome("一","月",0);
+                    initRV(2,"一","月",0);      // 支出的一级流水展示
+                    initdate("月",0);
+                    num = 2;
+                }
             }
         });
 
         people.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottom1.setVisibility(View.GONE);
-                bottom2.setVisibility(View.GONE);
-                bottom3.setVisibility(View.VISIBLE);
-                pieChart.setVisibility(View.GONE);
-                barChart.setVisibility(View.VISIBLE);
-                initBarchart("月",0);
-                initRV(3,"一","月",0);      // 柱状图的流水展示
-                initdate("月",0);
-                num = 3;
+                if(num != 3) {
+                    bottom1.setVisibility(View.GONE);
+                    bottom2.setVisibility(View.GONE);
+                    bottom3.setVisibility(View.VISIBLE);
+                    pieChart.setVisibility(View.GONE);
+                    barChart.setVisibility(View.VISIBLE);
+                    initBarchart("月",0);
+                    initRV(3,"一","月",0);      // 柱状图的流水展示
+                    initdate("月",0);
+                    num = 3;
+                }
             }
         });
 
@@ -304,9 +346,12 @@ public class ChartFragment extends Fragment{
                 }
             }
         });
-
+//*/
 
     }
+
+
+
 
     //  初始化时间栏
     private void initdate(String time,int click) {
@@ -418,10 +463,11 @@ public class ChartFragment extends Fragment{
     // int i:1(income),2(outcome),3(people)
     // cate:"一"，"二"
     private void initRV(int i,String cate,String time,int flag) {
+        Log.d("hello","initRV");
         RvList rvList = new RvList(myList);
         myList = rvList.choice(i-1,cate,time,flag);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
+//        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         incomeAdapter adapter = new incomeAdapter(myList);
         recyclerView.setAdapter(adapter);
     }

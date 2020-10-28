@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="58dp"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
@@ -27,23 +27,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
-                <TextView
+<!--                <TextView-->
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingTop="20sp"
                     android:paddingStart="24sp"
-                    android:text="图表分析"
+                    android:text="图表"
                     android:layout_centerInParent="true"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp" />
+                    android:textSize="24sp" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:paddingRight="10dp">
+                    android:layout_centerInParent="true">
 
                     <TextView
                         android:id="@+id/lab_year"
@@ -51,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:text="year"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="25sp"/>
 
                     <TextView
                         android:id="@+id/lab_1"
@@ -59,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="25sp"/>
 
 
                     <TextView
@@ -68,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:text="month"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="25sp"/>
 
                     <TextView
                         android:id="@+id/lab_2"
@@ -76,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="25sp"/>
 
                     <TextView
                         android:id="@+id/lab_weekORday"
@@ -84,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:text="week or day"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="25sp"/>
 
 
                 </LinearLayout>

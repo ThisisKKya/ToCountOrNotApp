@@ -3,6 +3,7 @@ package com.example.toaccountornot.ui.detail;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +60,11 @@ public class DetailFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("hello","11Resume");
         initDayList();
     }
 
