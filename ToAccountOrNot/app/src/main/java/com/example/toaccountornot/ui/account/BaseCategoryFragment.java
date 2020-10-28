@@ -187,6 +187,7 @@ public class BaseCategoryFragment extends Fragment   {
                     }
                     else {
                         llKeborad.setVisibility(View.GONE);
+                        etInput.setText("");
                     }
                 }
             }
@@ -279,6 +280,7 @@ public class BaseCategoryFragment extends Fragment   {
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
                 Intent intent = new Intent(getContext(), NavigationActivity.class);
+                getActivity().finish();
                 startActivity(intent);
             }
 
