@@ -10,6 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CreateFirstCategoryActivity"></activity>
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".CardDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -21,17 +25,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateCardDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CardsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".DatabaseActivity" />
         <activity
             android:name=".PinLockActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".AccountActivity"
+            android:launchMode="singleTask"
             android:label="@string/title_activity_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

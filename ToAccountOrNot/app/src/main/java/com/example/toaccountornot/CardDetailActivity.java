@@ -86,6 +86,8 @@ public class CardDetailActivity extends AppCompatActivity {
         delete_bar = findViewById(R.id.delete_bar);
         viewchoice.setText("月");
         label.setText(cardname);
+        if(label.getText().toString().equals("微信")||label.getText().toString().equals("支付宝")||label.getText().toString().equals("现金"))
+            delete_bar.setVisibility(View.GONE);
         label_year.setText(year);
         label_month.setText(month);
         label_time2.setText("-");

@@ -19,12 +19,16 @@ import static java.security.AccessController.getContext;
 public class BudgetActivity extends AppCompatActivity {
 
     ImageView editImage;
+    ImageView return_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
+
         editImage = findViewById(R.id.budget_edit);
+        return_bar = findViewById(R.id.return_bar);
+
         editImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +56,13 @@ public class BudgetActivity extends AppCompatActivity {
                                     }
                                 })
                         .show();
+            }
+        });
+
+        return_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

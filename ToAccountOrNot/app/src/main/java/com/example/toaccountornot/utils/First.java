@@ -10,6 +10,12 @@ public class First extends LitePalSupport {
     private ArrayList<String> second = new ArrayList<>();
     private String inorout;//转账trans，收入in，支出out，通用all(如自定义)
 
+    public First(String name,int image,String inorout){
+        this.name = name;
+        this.image = image;
+        this.inorout = inorout;
+    }
+    public First(){}
     public String getName() {
         return name;
     }
@@ -30,8 +36,8 @@ public class First extends LitePalSupport {
         return second;
     }
 
-    public void setSecond(String extra){
-        second.add(extra);
+    public void setSecond(ArrayList<String> second){
+        this.second = second;
     }
 
     public String getInorout() {
