@@ -19,7 +19,7 @@ public class AboutActivity extends AbsAboutActivity {
 
     @Override
     protected void onCreateHeader(@NonNull ImageView icon, @NonNull TextView slogan, @NonNull TextView version) {
-        icon.setImageResource(R.mipmap.ic_launcher);
+        icon.setImageResource(R.drawable.kk);
         slogan.setText("爱记不记");
         version.setText("v" + BuildConfig.VERSION_NAME);
     }
@@ -31,7 +31,7 @@ public class AboutActivity extends AbsAboutActivity {
 
         items.add(new Category("半糖去冰不加盐"));
         items.add(new Contributor(R.drawable.caskr, "caskr", "Developer", "https://github.com/caskr"));
-        items.add(new Contributor(R.drawable.kk, "ThisisKKya", "Developer", "https://github.com/ThisisKKya"));
+        items.add(new Contributor(R.drawable.kk, "ThisisKKya", "Developer & Leader", "https://github.com/ThisisKKya"));
         items.add(new Contributor(R.drawable.linjiatong, "linjiatong", "Developer", "https://github.com/linjiatong"));
         items.add(new Contributor(R.drawable.pegasus, "Pegasus0712", "Developer", "https://github.com/Pegasus0712"));
 
