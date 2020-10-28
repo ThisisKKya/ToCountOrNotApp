@@ -101,10 +101,10 @@ public class PieData {
         if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(0);
-                //Log.d("hello_li",title);
+                Log.d("hello_li",title);
                 first.add(title);
                 double total = cursor.getDouble(1);
-                //Log.d("hello", String.valueOf(total));
+                Log.d("hello_li", String.valueOf(total));
                 price.add(total);
                 all += total;
                 // 设置饼状图

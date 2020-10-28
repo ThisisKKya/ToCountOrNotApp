@@ -49,6 +49,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ogaclejapan.arclayout.ArcLayout;
@@ -103,7 +104,7 @@ public class ChartFragment extends Fragment{
 //        View view = inflater.inflate(R.layout.fragment_chart,container,false);
         initView(inflater,container);
         initPieChart_income("一", "月", 0);
-        initRV(1, "一", "月", 0);
+        initRV(1, "一", "月", 0,"null");
         initdate("月", 0);
 
         initclick();
@@ -111,33 +112,13 @@ public class ChartFragment extends Fragment{
 
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("hello","pause");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("hello","destroy");
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         initPieChart_income("一","月",0);
-        initRV(1,"一","月",0);
+        initRV(1,"一","月",0,"null");
         initdate("月",0);
         initclick();
-
-    }
-//
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d("hello", "onActivityCreated");
 
     }
 
@@ -192,19 +173,19 @@ public class ChartFragment extends Fragment{
                     if(num == 1) {
                         Log.d("hello","click menu_income");
                         initPieChart_income("一",mytime[finalI],0);
-                        initRV(num,"一",mytime[finalI],0);
+                        initRV(num,"一",mytime[finalI],0,"null");
                         initdate(mytime[finalI],0);
                     }
                     else if(num ==2) {
                         //Log.d("hello",mytime[finalI]);
                         initPieChart_outcome("一",mytime[finalI],0);
-                        initRV(num,"一",mytime[finalI],0);
+                        initRV(num,"一",mytime[finalI],0,"null");
                         initdate(mytime[finalI],0);
                     }
                     else {
                         Log.d("hello",mytime[finalI]);
                         initBarchart(mytime[finalI],0);
-                        initRV(num,"一",mytime[finalI],0);
+                        initRV(num,"一",mytime[finalI],0,"null");
                         initdate(mytime[finalI],0);
                     }
                     hideMenu();
@@ -232,7 +213,7 @@ public class ChartFragment extends Fragment{
                     barChart.setVisibility(View.GONE);
                     pieChart.setVisibility(View.VISIBLE);
                     initPieChart_income("一","月",0);
-                    initRV(1,"一","月",0);      // 收入的流水一级展示
+                    initRV(1,"一","月",0,"null");      // 收入的流水一级展示
                     initdate("月",0);
                     num = 1;
                 }
@@ -251,7 +232,7 @@ public class ChartFragment extends Fragment{
                     barChart.setVisibility(View.GONE);      // 隐藏柱状图
                     pieChart.setVisibility(View.VISIBLE);
                     initPieChart_outcome("一","月",0);
-                    initRV(2,"一","月",0);      // 支出的一级流水展示
+                    initRV(2,"一","月",0,"null");      // 支出的一级流水展示
                     initdate("月",0);
                     num = 2;
                 }
@@ -268,7 +249,7 @@ public class ChartFragment extends Fragment{
                     pieChart.setVisibility(View.GONE);
                     barChart.setVisibility(View.VISIBLE);
                     initBarchart("月",0);
-                    initRV(3,"一","月",0);      // 柱状图的流水展示
+                    initRV(3,"一","月",0,"null");      // 柱状图的流水展示
                     initdate("月",0);
                     num = 3;
                 }
@@ -283,12 +264,51 @@ public class ChartFragment extends Fragment{
             public void onValueSelected(Entry e, Highlight h) {
                 int a = (int)h.getX();
                 Log.d("hello",menu_day);
-                initRV(num,String.valueOf(a),menu_day,click_left);
+                initRV(num,String.valueOf(a),menu_day,click_left,"null");
 
             }
             @Override
             public void onNothingSelected () {
-                initRV(num,"一",menu_day,click_left);
+                initRV(num,"一",menu_day,click_left,"null");
+            }
+        });
+
+
+        // 柱状图的点击事件
+        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d("hello_bar", String.valueOf(e.getX()));
+                switch (String.valueOf(e.getX())) {
+                    case "0.26":        // 显示爸爸的收入
+                        initRV(1,"一",menu_day,click_left,"爸爸");
+                        break;
+                    case "0.74" :
+                        initRV(2,"一",menu_day,click_left,"爸爸");
+                        break;
+                    case "1.26" :
+                        initRV(1,"一",menu_day,click_left,"我");
+                        break;
+                    case "1.74" :
+                        initRV(2,"一",menu_day,click_left,"我");
+                        break;
+                    case "2.26" :
+                        initRV(1,"一",menu_day,click_left,"妈妈");
+                        break;
+                    case "2.74" :
+                        initRV(2,"一",menu_day,click_left,"妈妈");
+                        break;
+
+                }
+//                e.getX();       //X轴坐标 记得转 int
+//                e.getY();       //当前柱状图Y轴值
+//                e.getIcon();    //对应 BarEntry(float x, float y, Drawable icon)
+//                e.getData();    //对应 BarEntry(float x, float y, Object data)
+            }
+
+            @Override
+            public void onNothingSelected() {
+                initRV(num,"一",menu_day,click_left,"null");
             }
         });
 
@@ -306,16 +326,16 @@ public class ChartFragment extends Fragment{
                     //Toast.makeText(getContext(),"111111",Toast.LENGTH_SHORT).show();
                     Log.d("hello", String.valueOf(click_left));
                     initPieChart_income("一",menu_day,click_left);
-                    initRV(1,"一",menu_day,click_left);
+                    initRV(1,"一",menu_day,click_left,"null");
                 }
                 else if(num == 2) {     // 支出
                     Log.d("hello", String.valueOf(click_left));
                     initPieChart_outcome("一",menu_day,click_left);
-                    initRV(2,"一",menu_day,click_left);
+                    initRV(2,"一",menu_day,click_left,"null");
                 }
                 else {      // 成员
                     initBarchart(menu_day,click_left);
-                    initRV(3,"一",menu_day,click_left);
+                    initRV(3,"一",menu_day,click_left,"null");
                 }
             }
         });
@@ -334,15 +354,15 @@ public class ChartFragment extends Fragment{
                     //Log.d("hello","111111");
                     Log.d("hello", String.valueOf(click_left));
                     initPieChart_income("一",menu_day,click_left);
-                    initRV(1,"一",menu_day,click_left);
+                    initRV(1,"一",menu_day,click_left,"null");
                 }
                 else if(num == 2) {     // 支出
                     initPieChart_outcome("一",menu_day,click_left);
-                    initRV(2,"一",menu_day,click_left);
+                    initRV(2,"一",menu_day,click_left,"null");
                 }
                 else {      // 成员
                     initBarchart(menu_day,click_left);
-                    initRV(3,"一",menu_day,click_left);
+                    initRV(3,"一",menu_day,click_left,"null");
                 }
             }
         });
@@ -462,10 +482,10 @@ public class ChartFragment extends Fragment{
     // 流水展示
     // int i:1(income),2(outcome),3(people)
     // cate:"一"，"二"
-    private void initRV(int i,String cate,String time,int flag) {
-        Log.d("hello","initRV");
+    private void initRV(int i,String cate,String time,int flag,String member) {
+//        Log.d("hello","initRV");
         RvList rvList = new RvList(myList);
-        myList = rvList.choice(i-1,cate,time,flag);
+        myList = rvList.choice(i-1,cate,time,flag,member);
         //LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
 //        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         incomeAdapter adapter = new incomeAdapter(myList);

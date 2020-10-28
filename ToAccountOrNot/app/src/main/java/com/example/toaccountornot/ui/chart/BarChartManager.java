@@ -41,6 +41,13 @@ public class BarChartManager{
         xAxis.setGranularity(1f);   //设置最小间隔，防止当放大时，出现重复标签。
         barChart.getXAxis().setDrawGridLines(false);  //是否绘制X轴上的网格线（背景里面的竖线）
 
+        YAxis leftAxis = barChart.getAxisLeft();
+//        YAxis rightAxis = barChart.getAxisRight();
+        //保证Y轴从0开始，不然会上移一点
+        leftAxis.setAxisMinimum(0f);
+//        rightAxis.setAxisMinimum(0f);
+
+
         //右侧是否显示Y轴数值
         barChart.getAxisRight().setDrawLabels(false);
         //是否显示最右侧竖线
@@ -50,6 +57,7 @@ public class BarChartManager{
         barChart.setScaleEnabled(false);// 是否可以缩放
         barChart.getDescription().setEnabled(false);//隐藏右下角英文
         barChart.animateY(700);
+//        barChart.setDrawValueAboveBar(false);//柱状图上面的数值是否在柱子上面
     }
 
     // 显示
@@ -58,10 +66,12 @@ public class BarChartManager{
         BarDataSet set1 = new BarDataSet(income , "收入") ;
         set1.setAxisDependency(YAxis.AxisDependency.LEFT);
         set1.setColor(Color.rgb(208,230,165));    //柱体颜色
+        set1.setDrawValues(false);  // 不显示数字
 
         BarDataSet set2 = new BarDataSet(outcome , "支出") ;
         set2.setAxisDependency(YAxis.AxisDependency.LEFT);
         set2.setColor(Color.rgb(255,202,212));
+        set2.setDrawValues(false);
 
         //使用接口IBarDataSet
         List<IBarDataSet> list = new ArrayList<IBarDataSet>() ;

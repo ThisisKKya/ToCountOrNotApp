@@ -107,6 +107,48 @@ public class CursorManager {
         return cursor;
     }
 
+    // 点击柱状图流水展示
+    public Cursor initCur_one_mem(String inorout,String member) {
+        Cursor cursor = LitePal.findBySQL("select first,sum(price) from Accounts where date_year=?" +
+                        "and date_month=? and inorout=? and member=? group by first order by first desc",
+                year,
+                month,
+                inorout,
+                member);
+        if (cursor.moveToFirst()) Log.d("hello","true");
+        return cursor;
+    }
+
+
+    public Cursor initCur_one_year_mem(String inorout,String member) {
+        Cursor cursor = LitePal.findBySQL("select first,sum(price) from Accounts where date_year=?" +
+                        "and inorout=? and member=? group by first order by first desc",
+                year,
+                inorout,
+                member);
+        return cursor;
+    }
+
+    public Cursor initCur_one_day_mem(String inorout,String member) {
+        Cursor cursor = LitePal.findBySQL("select first,sum(price) from Accounts where date=?" +
+                        "and inorout=? and member=? group by first order by first desc",
+                date,
+                inorout,
+                member);
+        return cursor;
+    }
+
+    public Cursor initCur_one_week_mem(String inorout,String member) {
+        Cursor cursor = LitePal.findBySQL("select first,sum(price) from Accounts where date_week=?" +
+                        "and inorout=? and member=? group by first order by first desc",
+                week,
+                inorout,
+                member);
+        return cursor;
+    }
+
+
+
     // by the month
     // use by RV.two
     public Cursor initCur_two(String inorout,String first_name) {

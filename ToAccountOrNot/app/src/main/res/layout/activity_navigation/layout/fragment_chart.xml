@@ -8,11 +8,10 @@
     android:orientation="vertical">
 
 
-
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,23 +24,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-<!--                <TextView-->
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingTop="20sp"
-                    android:paddingStart="24sp"
-                    android:text="图表"
-                    android:layout_centerInParent="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/lab_year"
@@ -49,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:text="year"
                         android:textColor="@android:color/white"
-                        android:textSize="25sp"/>
+                        android:textSize="23sp" />
 
                     <TextView
                         android:id="@+id/lab_1"
@@ -57,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:textColor="@android:color/white"
-                        android:textSize="25sp"/>
+                        android:textSize="23sp" />
 
 
                     <TextView
@@ -66,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:text="month"
                         android:textColor="@android:color/white"
-                        android:textSize="25sp"/>
+                        android:textSize="23sp" />
 
                     <TextView
                         android:id="@+id/lab_2"
@@ -74,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:textColor="@android:color/white"
-                        android:textSize="25sp"/>
+                        android:textSize="23sp" />
 
                     <TextView
                         android:id="@+id/lab_weekORday"
@@ -82,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:text="week or day"
                         android:textColor="@android:color/white"
-                        android:textSize="25sp"/>
+                        android:textSize="23sp" />
 
 
                 </LinearLayout>
@@ -97,19 +86,18 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:orientation="horizontal"
-            tools:ignore="MissingConstraints"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            tools:ignore="MissingConstraints">
 
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/view_income"
@@ -134,10 +122,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/view_outcome"
@@ -160,10 +148,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/people"
@@ -197,9 +185,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:paddingTop="5dp"
-            android:layout_weight="6">
+            android:layout_height="215dp"
+            >
 
 
             <com.github.mikephil.charting.charts.PieChart
@@ -224,19 +211,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="5"
-            android:layout_marginBottom="64dp">
+            android:layout_height="150dp"
+            android:layout_marginBottom="64dp"
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="182dp"
+                android:layout_height="match_parent"
                 android:overScrollMode="never"
 
                 />
-
 
         </LinearLayout>
 

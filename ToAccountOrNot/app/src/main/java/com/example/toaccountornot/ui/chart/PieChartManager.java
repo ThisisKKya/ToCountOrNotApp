@@ -54,7 +54,7 @@ public class PieChartManager  {
         pieChart.setEntryLabelTypeface(Typeface.DEFAULT_BOLD); //描述文字的样式
 
         //图相对于上下左右的偏移
-        pieChart.setExtraOffsets(20, 9, 50, 5);
+        pieChart.setExtraOffsets(10, 0, 10, 2);
         //图标的背景色
         pieChart.setBackgroundColor(Color.TRANSPARENT);
 //        设置pieChart图表转动阻力摩擦系数[0,1]
@@ -62,16 +62,22 @@ public class PieChartManager  {
 
         //获取图例
         Legend legend = pieChart.getLegend();
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);  //设置图例水平显示
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //顶部
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT); //右对其
+//        legend.setOrientation(Legend.LegendOrientation.VERTICAL);  //设置图例水平显示
 
-        legend.setXEntrySpace(7f);//x轴的间距
-        legend.setYEntrySpace(10f); //y轴的间距
-        legend.setYOffset(10f);  //图例的y偏移量
-        legend.setXOffset(10f);  //图例x的偏移量
+// 水平：居中
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //顶部
+//        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT); //右对其
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);  //左下边显示
+        legend.setXEntrySpace(10f);//x轴条目的间距
+        legend.setYEntrySpace(7f); //y轴的间距
+        legend.setYOffset(7f);  //图例的y偏移量
+        legend.setXOffset(7f);  //图例x的偏移量
+        legend.setFormToTextSpace(4f);
         legend.setTextColor(Color.parseColor("#a1a1a1")); //图例文字的颜色
         legend.setTextSize(13);  //图例文字的大小
+        legend.setWordWrapEnabled(true);
+
     }
 
     // 显示实心圆

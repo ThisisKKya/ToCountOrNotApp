@@ -24,41 +24,61 @@ public class RvList {
         this.myList = myList;
     }
 
-    public List<income> choice(int i,String cate,String time,int flag) {
+    public List<income> choice(int i,String cate,String time,int flag,String member) {
 
-        if(i == 0)  initincome(cate,time,flag);
-        if(i == 1)  initoutcome(cate,time,flag);
+        if(i == 0)  initincome(cate,time,flag,member);
+        if(i == 1)  initoutcome(cate,time,flag,member);
         if(i == 2)  initpeople(time,flag);
+        //if(i == 3)  initpeople_first();
         return myList;
     }
 
     // 饼状图收入的流水展示
-    private void initincome(String cate,String time,int flag) {
+    private void initincome(String cate,String time,int flag,String member) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<Double> price = new ArrayList<>();
         List<String> second = new ArrayList<>();
         List<Double> price_second = new ArrayList<>();
 
+        if(flag != 0)  cursorManager.change_cur(flag,time);     // 修改日期
 
-        if(flag != 0)  {
-            cursorManager.change_cur(flag,time);
+        Cursor cursor = null;
+        if(member == "null") {
+            cursor = cursorManager.initCur_one("in");
+            switch (time)
+            {
+                case "天":
+                    cursor = cursorManager.initCur_one_day("in");
+                    break;
+                case "周":
+                    cursor = cursorManager.initCur_one_week("in");
+                    break;
+                case "年" :
+                    //Log.d("hello","11111");
+                    cursor = cursorManager.initCur_one_year("in");
+                    break;
+                default:
+                    break;
+            }
         }
-        Cursor cursor = cursorManager.initCur_one("in");
-        switch (time)
-        {
-            case "天":
-                cursor = cursorManager.initCur_one_day("in");
-                break;
-            case "周":
-                cursor = cursorManager.initCur_one_week("in");
-                break;
-            case "年" :
-                //Log.d("hello","11111");
-                cursor = cursorManager.initCur_one_year("in");
-                break;
-            default:
-                break;
+        else {
+            cursor = cursorManager.initCur_one_mem("in",member);
+            switch (time)
+            {
+                case "天":
+                    cursor = cursorManager.initCur_one_day_mem("in",member);
+                    break;
+                case "周":
+                    cursor = cursorManager.initCur_one_week_mem("in",member);
+                    break;
+                case "年" :
+                    //Log.d("hello","11111");
+                    cursor = cursorManager.initCur_one_year_mem("in",member);
+                    break;
+                default:
+                    break;
+            }
         }
         if (!cursor.moveToFirst()) {
             Toast.makeText(getContext(),"选择该时间段无收入数据", Toast.LENGTH_SHORT).show();
@@ -121,7 +141,7 @@ public class RvList {
     }
 
     // 饼状图支出的流水展示
-    private void initoutcome(String cate,String time,int flag) {
+    private void initoutcome(String cate,String time,int flag,String member) {
         myList.clear();
         List<String> first = new ArrayList<>();
         List<String> second = new ArrayList<>();
@@ -132,22 +152,43 @@ public class RvList {
             cursorManager.change_cur(flag,time);
         }
         //CursorManager cursorManager = new CursorManager();
-        Cursor cursor = cursorManager.initCur_one("out");
+        Cursor cursor = null ;
 
-        switch (time)
-        {
-            case "天":
-                cursor = cursorManager.initCur_one_day("out");
-                break;
-            case "周":
-                cursor = cursorManager.initCur_one_week("out");
-                break;
-            case "年" :
-                //Log.d("hello","11111");
-                cursor = cursorManager.initCur_one_year("out");
-                break;
-            default:
-                break;
+        if(member == "null") {  // 无人员参数
+            cursor = cursorManager.initCur_one("out");
+            switch (time)
+            {
+                case "天":
+                    cursor = cursorManager.initCur_one_day("out");
+                    break;
+                case "周":
+                    cursor = cursorManager.initCur_one_week("out");
+                    break;
+                case "年" :
+                    //Log.d("hello","11111");
+                    cursor = cursorManager.initCur_one_year("out");
+                    break;
+                default:
+                    break;
+            }
+        }
+       else {
+            cursor = cursorManager.initCur_one_mem("out",member);
+            switch (time)
+            {
+                case "天":
+                    cursor = cursorManager.initCur_one_day_mem("out",member);
+                    break;
+                case "周":
+                    cursor = cursorManager.initCur_one_week_mem("out",member);
+                    break;
+                case "年" :
+                    //Log.d("hello","11111");
+                    cursor = cursorManager.initCur_one_year_mem("out",member);
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (!cursor.moveToFirst()) {
@@ -313,4 +354,8 @@ public class RvList {
         income income3 = new income("妈妈", math, R.drawable.mother);
         myList.add(income3);
     }
+
+
 }
+
+

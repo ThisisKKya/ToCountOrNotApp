@@ -49,17 +49,50 @@ public class Utils {
             case"餐饮":
                 imageProperty.setImageResource(R.drawable.food);
                 break;
+            case "早饭" :
+                imageProperty.setImageResource(R.drawable.second_breakfast);
+                break;
+            case "中饭" :
+                imageProperty.setImageResource(R.drawable.second_lunch);
+                break;
+            case "晚饭" :
+                imageProperty.setImageResource(R.drawable.second_dinner);
+                break;
             case "购物":
                 imageProperty.setImageResource(R.drawable.shopping);
                 break;
-            case "日用":
+            case "服饰":
+                imageProperty.setImageResource(R.drawable.second_cloth);
+                break;
+            case "化妆品":
+                imageProperty.setImageResource(R.drawable.second_cosmetics);
+                break;
+            case "日用" :
                 imageProperty.setImageResource(R.drawable.daily);
+                break;
+            case "洗衣液" :
+                imageProperty.setImageResource(R.drawable.second_laundry);
+                break;
+            case "纸巾" :
+                imageProperty.setImageResource(R.drawable.second_paper);
                 break;
             case "学习":
                 imageProperty.setImageResource(R.drawable.study);
                 break;
+            case "课本":
+                imageProperty.setImageResource(R.drawable.second_book);
+                break;
+            case "文具":
+                imageProperty.setImageResource(R.drawable.second_stationery);
+                break;
             case "交通":
                 imageProperty.setImageResource(R.drawable.transport);
+                break;
+            case "地铁":
+                imageProperty.setImageResource(R.drawable.second_metro);
+                break;
+            case "公交":
+                imageProperty.setImageResource(R.drawable.second_bus);
                 break;
             case "水果":
                 imageProperty.setImageResource(R.drawable.fruit);
@@ -67,14 +100,28 @@ public class Utils {
             case "零食":
                 imageProperty.setImageResource(R.drawable.snacks);
                 break;
+            case "饮料":
+                imageProperty.setImageResource(R.drawable.second_drink);
+                break;
             case "运动":
                 imageProperty.setImageResource(R.drawable.sport);
                 break;
+            case "健身房":
+                imageProperty.setImageResource(R.drawable.second_gym);
+                break;
             case "娱乐":
+            case "电影" :
                 imageProperty.setImageResource(R.drawable.entertainment);
                 break;
             case "住房":
+            case "名宿":
                 imageProperty.setImageResource(R.drawable.house);
+                break;
+            case "租金":
+                imageProperty.setImageResource(R.drawable.second_rent);
+                break;
+            case "房贷":
+                imageProperty.setImageResource(R.drawable.second_mortgage);
                 break;
             case "聚会":
                 imageProperty.setImageResource(R.drawable.dating);
@@ -85,8 +132,14 @@ public class Utils {
             case "医疗":
                 imageProperty.setImageResource(R.drawable.doctor);
                 break;
+            case "药":
+                imageProperty.setImageResource(R.drawable.second_medicine);
+                break;
             case "宠物":
                 imageProperty.setImageResource(R.drawable.pet);
+                break;
+            case "食物":
+                imageProperty.setImageResource(R.drawable.second_petfood);
                 break;
             case "工资":
                 imageProperty.setImageResource(R.drawable.salary);
