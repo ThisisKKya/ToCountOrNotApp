@@ -15,6 +15,7 @@ public class First extends LitePalSupport {
         this.image = image;
         this.inorout = inorout;
     }
+    public First(){}
     public String getName() {
         return name;
     }
