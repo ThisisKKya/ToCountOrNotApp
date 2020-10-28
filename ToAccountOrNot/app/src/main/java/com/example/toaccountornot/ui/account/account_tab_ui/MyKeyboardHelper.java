@@ -126,6 +126,7 @@ public class MyKeyboardHelper {
                 case -100000:
                     if (callBack != null) {
                         callBack.dateCallback(getKey(-100000));
+//                        callBack.updateDateCallback();
                     }
                     break;
                 default:
@@ -406,6 +407,7 @@ public class MyKeyboardHelper {
         void doneCallback();
 
         void dateCallback(Keyboard.Key key);
+
 
     }
 

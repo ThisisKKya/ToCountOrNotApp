@@ -47,8 +47,9 @@ public class BaseCategoryFragment extends Fragment   {
     public List<String> memberString = new ArrayList<>();
     public List<String> secondString = new ArrayList<>();
     public String minorout;
+    Double mtvinput = 0.0;
     String mfirstCategory;
-    Date mtime = null;
+    Date mtime = Calendar.getInstance().getTime();
     String msecondCategory = "无";
     String mcard = "微信";
     String mmember = "我";
@@ -187,7 +188,7 @@ public class BaseCategoryFragment extends Fragment   {
                     }
                     else {
                         llKeborad.setVisibility(View.GONE);
-                        etInput.setText("");
+                        etInput.setText("0");
                     }
                 }
             }
@@ -256,8 +257,9 @@ public class BaseCategoryFragment extends Fragment   {
 
             @Override
             public void doneCallback() {
-
-                Double tvinput = Double.valueOf(etInput.getText().toString().trim());
+                if (etInput.length() != 0) {
+                    mtvinput = Double.valueOf(etInput.getText().toString().trim());
+                }
                 Accounts accounts = new Accounts();
                 accounts.setFirst(mfirstCategory);
 //                accounts.setTime(mtime);
@@ -265,7 +267,7 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setInorout(minorout);
                 accounts.setMember(mmember);
                 accounts.setSecond(msecondCategory);
-                accounts.setPrice(tvinput);
+                accounts.setPrice(mtvinput);
                 Calendar calendar = Calendar.getInstance();
                 if (mtime == null) {
                     mtime = calendar.getTime();
@@ -283,6 +285,15 @@ public class BaseCategoryFragment extends Fragment   {
                 getActivity().finish();
                 startActivity(intent);
             }
+
+//            @Override
+//            public void updateDateCallback() {
+//                Keyboard.Key key = helper.getKey(-100000);
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.setTime(mtime);
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                key.label = simpleDateFormat.format(mtime);
+//            }
 
             @Override
             public void dateCallback(final Keyboard.Key key) {
@@ -303,7 +314,12 @@ public class BaseCategoryFragment extends Fragment   {
                             public void onTimeConfirm(Date date, View view) {
                                 //点击确认时间
                                 mtime = date;
-
+                                Keyboard.Key key = helper.getKey(-100000);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(mtime);
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                key.label = simpleDateFormat.format(mtime);
+                                keyboard_temp.invalidate();
 //                                Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
                             }
                         });
