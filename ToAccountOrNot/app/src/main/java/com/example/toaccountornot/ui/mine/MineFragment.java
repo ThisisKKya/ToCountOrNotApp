@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,19 +30,8 @@ public class MineFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        Button button = view.findViewById(R.id.btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Accounts> list = LitePal.findAll(Accounts.class);
-                for (Accounts account : list) {
-                    Toast.makeText(getContext(), "" + account.getPrice(), Toast.LENGTH_SHORT).show();
-                }
-                }
-
-        });
-        Button analyze_account = view.findViewById(R.id.analyze_account);
-        analyze_account.setOnClickListener(new View.OnClickListener() {
+        LinearLayout card = view.findViewById(R.id.card);
+        card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -50,7 +40,7 @@ public class MineFragment extends Fragment {
             }
 
         });
-        Button about = view.findViewById(R.id.about);
+        LinearLayout about = view.findViewById(R.id.about);
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
