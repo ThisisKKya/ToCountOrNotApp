@@ -250,7 +250,7 @@ public class BaseCategoryFragment extends Fragment   {
                     if (code ==-4) {
                         Keyboard.Key key = helper.getKey(-4);
                         key.label = "完成";
-                        Log.i("=--coed ",code+"   "+ key.label );
+//                        Log.i("=--coed ",code+"   "+ key.label );
                     }}
             }
 
@@ -303,7 +303,8 @@ public class BaseCategoryFragment extends Fragment   {
                             public void onTimeConfirm(Date date, View view) {
                                 //点击确认时间
                                 mtime = date;
-                                Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+
+//                                Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
