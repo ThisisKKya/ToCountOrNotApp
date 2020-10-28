@@ -145,7 +145,7 @@ public class BaseCategoryFragment extends Fragment   {
                                             intent.setClass(getContext(), CreateFirstCategoryActivity.class);
                                             startActivity(intent);
                                         }else {
-                                            tvSecond.setText("分类:"+text);
+                                            tvSecond.setText(mfirstCategory+"("+text+")");
                                             msecondCategory = text;
                                             Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
                                         }
@@ -182,10 +182,12 @@ public class BaseCategoryFragment extends Fragment   {
                     startActivity(intent);
                 } else {
                     if (llKeborad.getVisibility() == View.GONE){
+                        tvSecond.setText(mfirstCategory+"(无)");
                         llKeborad.setVisibility(View.VISIBLE);
                     }
                     else {
                         llKeborad.setVisibility(View.GONE);
+                        etInput.setText("");
                     }
                 }
             }
@@ -278,6 +280,7 @@ public class BaseCategoryFragment extends Fragment   {
                 Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
                 Intent intent = new Intent(getContext(), NavigationActivity.class);
+                getActivity().finish();
                 startActivity(intent);
             }
 
