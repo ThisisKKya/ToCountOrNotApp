@@ -25,7 +25,6 @@ public class PieColor {
         };
 
         color = new ArrayList<>();
-        Log.d("hello",c[0]);
         for(int i = 0;i < len;i++) {
             color.add(Color.parseColor(c[i]));
         }
