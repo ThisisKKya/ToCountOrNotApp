@@ -97,7 +97,7 @@ public class CardDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datePicker.show();
-                Toast.makeText(CardDetailActivity.this,"你点击了按钮",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CardDetailActivity.this,"你点击了按钮",Toast.LENGTH_SHORT).show();
             }
         });
         choose_view.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class CardDetailActivity extends AppCompatActivity {
                             new OnSelectListener() {
                                 @Override
                                 public void onSelect(int position, String text) {
-                                    Toast.makeText(CardDetailActivity.this,"你点击了"+text,Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(CardDetailActivity.this,"你点击了"+text,Toast.LENGTH_SHORT).show();
                                     viewchoice.setText(text);
                                     switch(viewchoice.getText().toString()){
                                         case "年":
@@ -240,7 +240,7 @@ public class CardDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onTimeConfirm(Date date, View view) {
-                        Toast.makeText(CardDetailActivity.this, "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(CardDetailActivity.this, "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(date);
                         year = String.valueOf(calendar.get(Calendar.YEAR));
@@ -264,7 +264,7 @@ public class CardDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onTimeConfirm(Date date, View view) {
-                        Toast.makeText(CardDetailActivity.this, "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(CardDetailActivity.this, "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(date);
                         year = String.valueOf(calendar.get(Calendar.YEAR));

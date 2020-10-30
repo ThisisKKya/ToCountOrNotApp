@@ -122,7 +122,7 @@ public class BaseCategoryFragment extends Fragment   {
                                     public void onSelect(int position, String text) {
                                         tvmember.setText("成员:"+text);
                                         mmember = text;
-                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
                                     }
                                 })
                         .show();
@@ -147,7 +147,7 @@ public class BaseCategoryFragment extends Fragment   {
                                         }else {
                                             tvSecond.setText(mfirstCategory+"("+text+")");
                                             msecondCategory = text;
-                                            Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 })
@@ -277,7 +277,7 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setDate_month(String.valueOf(calendar.get(Calendar.MONTH) + 1));
                 accounts.setDate_week(String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR)));
                 accounts.save();
-                Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
                 Intent intent = new Intent(getContext(), NavigationActivity.class);
                 getActivity().finish();
@@ -303,7 +303,7 @@ public class BaseCategoryFragment extends Fragment   {
                             public void onTimeConfirm(Date date, View view) {
                                 //点击确认时间
                                 mtime = date;
-                                Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), "选择的时间："+date.toLocaleString(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
