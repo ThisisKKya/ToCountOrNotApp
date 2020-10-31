@@ -107,7 +107,7 @@ public class BaseCategoryFragment extends Fragment   {
                                     public void onSelect(int position, String text) {
                                         tvCard.setText("账户:"+text);
                                         mcard = text;
-                                        Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
                                     }
                                 })
                         .show();
@@ -183,7 +183,10 @@ public class BaseCategoryFragment extends Fragment   {
                     startActivity(intent);
                 } else {
                     if (llKeborad.getVisibility() == View.GONE){
-                        tvSecond.setText(mfirstCategory+"(无)");
+                        if(minorout == "trans")
+                            tvSecond.setText("转入账户:");
+                        else
+                            tvSecond.setText(mfirstCategory+"(无)");
                         llKeborad.setVisibility(View.VISIBLE);
                     }
                     else {
@@ -263,10 +266,16 @@ public class BaseCategoryFragment extends Fragment   {
                 Accounts accounts = new Accounts();
                 accounts.setFirst(mfirstCategory);
 //                accounts.setTime(mtime);
-                accounts.setCard(mcard);
+                if(minorout == "trans"){
+                    accounts.setCard(mcard+","+msecondCategory);    //  mcard转出账户 msecond转入账户
+                    accounts.setSecond(mcard+"->"+msecondCategory);
+                }
+                else{
+                    accounts.setCard(mcard);
+                    accounts.setSecond(msecondCategory);
+                }
                 accounts.setInorout(minorout);
                 accounts.setMember(mmember);
-                accounts.setSecond(msecondCategory);
                 accounts.setPrice(mtvinput);
                 Calendar calendar = Calendar.getInstance();
                 if (mtime == null) {
