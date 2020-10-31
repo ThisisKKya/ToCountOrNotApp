@@ -261,6 +261,10 @@ public class BaseCategoryFragment extends Fragment   {
                     mtvinput = Double.valueOf(etInput.getText().toString().trim());
                 }
                 Accounts accounts = new Accounts();
+                First oldFirst = LitePal.where("name = ?",mfirstCategory).findFirst(First.class);
+                First updatefirst = new First();
+                updatefirst.setThisMonthCost(oldFirst.getCost()+mtvinput);
+                updatefirst.updateAll("name = ?",mfirstCategory);
                 accounts.setFirst(mfirstCategory);
 //                accounts.setTime(mtime);
                 accounts.setCard(mcard);

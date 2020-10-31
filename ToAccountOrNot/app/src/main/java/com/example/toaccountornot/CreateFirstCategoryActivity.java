@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.toaccountornot.utils.Budget;
 import com.example.toaccountornot.utils.First;
+import com.example.toaccountornot.utils.TotalBudget;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 
@@ -14,6 +16,9 @@ import org.litepal.LitePal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 该活动创建自定义一级菜单，二级菜单
+ */
 public class CreateFirstCategoryActivity extends AppCompatActivity {
     Intent intent;
     @Override
@@ -21,8 +26,35 @@ public class CreateFirstCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_first_category);
         intent = getIntent();
-        if (intent.getStringExtra("FirstOrSecond").equals("second")) {
-            new XPopup.Builder(this).asInputConfirm("添加二级类别", "请输入内容。",
+        if (intent.getStringExtra("FirstOrSecond").equals("budget")) {
+            new XPopup.Builder(this)
+                    .dismissOnTouchOutside(false)
+                    .asInputConfirm("设置总预算", "请设置金额。",
+                    new OnInputConfirmListener() {
+                        @Override
+                        public void onConfirm(String text) {
+                            TotalBudget updateBudget = new TotalBudget();
+                            updateBudget.setBudget(Double.valueOf(text));
+                            updateBudget.update(1);
+                            finish();
+                        }
+                    }).show();
+        }else if (intent.getStringExtra("FirstOrSecond").equals("subbudget")){
+            final String name = intent.getStringExtra("BudgetName");
+            new XPopup.Builder(this)
+                    .dismissOnTouchOutside(false)
+                    .asInputConfirm("设置"+name+"预算", "请设置金额。",
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    TotalBudget updateBudget = new TotalBudget();
+                                    updateBudget.setBudget(Double.valueOf(text));
+                                    updateBudget.updateAll("name = ?",name);
+                                    finish();
+                                }
+                            }).show();
+        }else if (intent.getStringExtra("FirstOrSecond").equals("second")) {
+            new XPopup.Builder(this).dismissOnTouchOutside(false).asInputConfirm("添加二级类别", "请输入内容。",
                     new OnInputConfirmListener() {
                         @Override
                         public void onConfirm(String text) {
@@ -38,7 +70,7 @@ public class CreateFirstCategoryActivity extends AppCompatActivity {
                     })
                     .show();//添加二级菜单
         }else {//添加一级
-            new XPopup.Builder(this).asInputConfirm("添加一级类别", "请输入内容。",
+            new XPopup.Builder(this).dismissOnTouchOutside(false).asInputConfirm("添加一级类别", "请输入内容。",
                     new OnInputConfirmListener() {
                         @Override
                         public void onConfirm(String text) {
