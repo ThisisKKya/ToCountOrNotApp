@@ -95,7 +95,7 @@
                         android:textColor="#333333" />
 
                     <TextView
-                        android:id="@+id/text_price"
+                        android:id="@+id/text_remain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="8"
@@ -135,7 +135,7 @@
                             android:textColor="@color/greyish" />
 
                         <TextView
-                            android:id="@+id/text_date"
+                            android:id="@+id/text_cost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -178,156 +178,84 @@
 
     </androidx.cardview.widget.CardView>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/subbudget_recycler"
+        android:layout_below="@id/card_detail">
+
+    </androidx.recyclerview.widget.RecyclerView>
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card_budget1"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/subbudget_recycler"-->
-<!--        android:layout_below="@id/card_detail">-->
+<!--        android:layout_below="@id/card_detail"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:cardCornerRadius="7dp"-->
+<!--        app:cardElevation="0dp">-->
+<!--        <LinearLayout-->
 
-<!--    </androidx.recyclerview.widget.RecyclerView>-->
+<!--            android:id="@+id/click_item"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="?android:attr/selectableItemBackground"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:visibility="visible">-->
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_budget1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/card_detail"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="7dp"
-        app:cardElevation="0dp">
-        <LinearLayout
+<!--            <ImageView-->
+<!--                android:id="@+id/property_image"-->
+<!--                android:layout_width="11pt"-->
+<!--                android:layout_height="12pt"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:layout_marginLeft="11dp"-->
+<!--                android:layout_marginRight="11dp"-->
+<!--                android:layout_marginTop="20dp"-->
 
-            android:id="@+id/click_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
+<!--                android:layout_weight="0"-->
+<!--                android:cropToPadding="true"-->
+<!--                android:scaleType="centerInside"-->
+<!--                app:srcCompat="@drawable/food" />-->
 
-            <ImageView
-                android:id="@+id/property_image"
-                android:layout_width="11pt"
-                android:layout_height="12pt"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginTop="20dp"
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:orientation="vertical">-->
 
-                android:layout_weight="0"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/food" />
+<!--                <TextView-->
+<!--                    android:id="@+id/budget_first"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="  餐饮"-->
+<!--                    android:textColor="#333333" />-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+<!--            </LinearLayout>-->
 
-                <TextView
-                    android:id="@+id/budget_first"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="  餐饮"
-                    android:textColor="#333333" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/money"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
-                android:layout_weight="0"
-                android:gravity="center"
-                android:text="100/1000"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="16dp" />
+<!--            <TextView-->
+<!--                android:id="@+id/money"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginRight="12dp"-->
+<!--                android:layout_weight="0"-->
+<!--                android:gravity="center"-->
+<!--                android:text="100/1000"-->
+<!--                android:textColor="?attr/colorPrimary"-->
+<!--                android:textSize="16dp" />-->
 
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_budget2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/card_budget1"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="7dp"
-        app:cardElevation="0dp">
-        <LinearLayout
-
-            android:id="@+id/click_item2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-            <ImageView
-                android:id="@+id/property_image2"
-                android:layout_width="11pt"
-                android:layout_height="12pt"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginTop="20dp"
-
-                android:layout_weight="0"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/shopping" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/budget_first2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="  购物"
-                    android:textColor="#333333" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/money2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
-                android:layout_weight="0"
-                android:gravity="center"
-                android:text="200/500"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="16dp" />
-
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

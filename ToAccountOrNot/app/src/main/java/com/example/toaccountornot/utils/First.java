@@ -9,6 +9,9 @@ public class First extends LitePalSupport {
     private int image;
     private ArrayList<String> second = new ArrayList<>();
     private String inorout;//转账trans，收入in，支出out，通用all(如自定义)
+    private Double budget;
+    private Double thisMonthCost;
+
 
     public First(String name,int image,String inorout){
         this.name = name;
@@ -47,6 +50,15 @@ public class First extends LitePalSupport {
     public void setInorout(String inorout) {
         this.inorout = inorout;
     }
+    public  void setThisMonthCost(double cost) {
+        this.thisMonthCost = cost;
+    }
+    public void setBudget(double budget){
+        this.budget = budget;
+    }
+
+    public double getBudget(){return this.budget;}
+    public double getCost(){return  this.thisMonthCost;}
 }
 
 

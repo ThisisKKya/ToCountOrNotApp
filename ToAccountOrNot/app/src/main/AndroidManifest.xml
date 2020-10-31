@@ -10,10 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateFirstCategoryActivity"></activity>
+        <activity android:name=".CreateBudget"></activity>
+        <activity android:name=".CreateFirstCategoryActivity" />
         <activity
             android:name=".AboutActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CardDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -36,8 +37,8 @@
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".AccountActivity"
-            android:launchMode="singleTask"
             android:label="@string/title_activity_account"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NavigationActivity"
