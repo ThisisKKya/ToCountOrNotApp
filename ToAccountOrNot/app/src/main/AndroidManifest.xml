@@ -42,6 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NavigationActivity"
+            android:launchMode="singleTask"
             android:label="@string/title_activity_navigation" />
         <activity
             android:name=".PatternLockActivity"

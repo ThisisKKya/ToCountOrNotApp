@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
          * 修改需要初始化的类目后需要将下方使用删除所有First库中内容，才能初始化
          * 修改完成后注释掉
          */
-        LitePal.deleteAll(First.class);//这一句
+//        LitePal.deleteAll(First.class);//这一句
         TotalBudget totalBudget = LitePal.findFirst(TotalBudget.class);
         if (totalBudget == null) {
             TotalBudget initBudget = new TotalBudget(3000);
