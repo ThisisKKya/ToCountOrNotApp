@@ -86,6 +86,9 @@ public class SingleAdapter extends RecyclerView.Adapter<SingleAdapter.ViewHolder
             case "out":
                 holder.money.setText(df.format(-single.getPrice()));
                 break;
+            case "trans":
+                holder.money.setText(df.format(single.getPrice()));
+                break;
         }
         Utils.imageSwitch(single.getFirst(), holder.image_property);
         if(singleList.size()>3)

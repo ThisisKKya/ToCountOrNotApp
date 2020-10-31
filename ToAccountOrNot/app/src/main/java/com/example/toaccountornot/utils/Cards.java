@@ -1,6 +1,7 @@
 package com.example.toaccountornot.utils;
 
 import android.util.Log;
+import android.widget.ListView;
 
 import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
@@ -43,6 +44,13 @@ public class Cards extends LitePalSupport {
         for (Accounts account : accounts) {
             income += account.getPrice();
         }
+        List<Accounts> trans = LitePal.where("inorout = ? and second like ?","trans","%->"+card)
+                                    .find(Accounts.class);
+        for (Accounts account : trans) {
+            income += account.getPrice();
+            Log.d("trans",account.getSecond());
+            Log.d("trans",card);
+        }
         return income;
     }
 
@@ -52,6 +60,13 @@ public class Cards extends LitePalSupport {
                 .find(Accounts.class);
         for (Accounts account : accounts) {
             outcome += account.getPrice();
+        }
+        List<Accounts> trans = LitePal.where("inorout = ? and second like ?","trans",card+"->%")
+                .find(Accounts.class);
+        for (Accounts account : trans) {
+            outcome += account.getPrice();
+            Log.d("trans",account.getSecond());
+            Log.d("trans",card);
         }
         return outcome;
     }

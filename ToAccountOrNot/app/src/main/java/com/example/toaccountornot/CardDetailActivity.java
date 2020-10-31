@@ -159,9 +159,9 @@ public class CardDetailActivity extends AppCompatActivity {
         Log.d("test","daylist");
         dayList.clear();
         // 因为LitePal不支持group by, 故使用SQL语句查询
-        Cursor cursor = LitePal.findBySQL("select card,date from Accounts where card = ?"+"and date_year=?" +
+        Cursor cursor = LitePal.findBySQL("select card,date from Accounts where card like ?"+"and date_year=?" +
                         "and date_month=? group by date order by date desc",
-                label.getText().toString(),
+                "%"+label.getText().toString()+"%",
                 label_year.getText().toString(),
                 label_month.getText().toString());
         if (cursor.moveToFirst()) {
