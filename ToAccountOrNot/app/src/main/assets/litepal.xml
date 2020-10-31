@@ -3,11 +3,12 @@
 
     <dbname value="accountlist" />  //数据库名称
 
-    <version value="12" />   //数据库版本
+    <version value="17" />   //数据库版本
 
     <list>
         <mapping class="com.example.toaccountornot.utils.Accounts"></mapping>
         <mapping class="com.example.toaccountornot.utils.Cards"></mapping>
         <mapping class="com.example.toaccountornot.utils.First"></mapping>
+        <mapping class="com.example.toaccountornot.utils.TotalBudget"></mapping>
     </list>
 </litepal>

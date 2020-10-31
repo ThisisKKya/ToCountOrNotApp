@@ -15,6 +15,7 @@ import org.litepal.LitePal;
 import java.util.ArrayList;
 
 import com.example.toaccountornot.utils.Cards;
+import com.example.toaccountornot.utils.TotalBudget;
 
 import org.litepal.LitePal;
 
@@ -53,6 +54,11 @@ public class SplashActivity extends AppCompatActivity {
          * 修改完成后注释掉
          */
         LitePal.deleteAll(First.class);//这一句
+        TotalBudget totalBudget = LitePal.findFirst(TotalBudget.class);
+        if (totalBudget == null) {
+            TotalBudget initBudget = new TotalBudget(3000);
+            initBudget.save();
+        }
         First firstFirst = LitePal.findFirst(First.class);
         //数据库未初始化
         if (firstFirst == null) {
@@ -66,8 +72,10 @@ public class SplashActivity extends AppCompatActivity {
             foodList.add("晚饭");
             foodList.add("添加自定义");
             food.setSecond(foodList);
+            food.setThisMonthCost(0);
             food.save();
             First shopping = new First("购物",R.drawable.shopping,"out");
+            shopping.setThisMonthCost(0);
             ArrayList<String> shoppinglist = new ArrayList<String>();
             shoppinglist.add("服饰");
             shoppinglist.add("化妆品");
@@ -75,6 +83,7 @@ public class SplashActivity extends AppCompatActivity {
             shopping.setSecond(shoppinglist);
             shopping.save();
             First daily = new First("日用",R.drawable.daily,"out");
+            daily.setThisMonthCost(0);
             ArrayList<String> dailylist = new ArrayList<String>();
             dailylist.add("洗衣液");
             dailylist.add("纸巾");
@@ -82,6 +91,7 @@ public class SplashActivity extends AppCompatActivity {
             daily.setSecond(dailylist);
             daily.save();
             First study = new First("学习",R.drawable.study,"out");
+            study.setThisMonthCost(0);
             ArrayList<String> studylist = new ArrayList<String>();
             studylist.add("课本");
             studylist.add("文具");
@@ -89,6 +99,7 @@ public class SplashActivity extends AppCompatActivity {
             study.setSecond(studylist);
             study.save();
             First transport = new First("交通",R.drawable.transport,"out");
+            transport.setThisMonthCost(0);
             ArrayList<String> transportlist = new ArrayList<String>();
             transportlist.add("地铁");
             transportlist.add("公交");
@@ -96,6 +107,7 @@ public class SplashActivity extends AppCompatActivity {
             transport.setSecond(transportlist);
             transport.save();
             First snacks = new First("零食",R.drawable.snacks,"out");
+            snacks.setThisMonthCost(0);
             ArrayList<String> snackslist = new ArrayList<String>();
             snackslist.add("饮料");
             snackslist.add("水果");
@@ -164,6 +176,10 @@ public class SplashActivity extends AppCompatActivity {
             //通用
             First custom = new First("添加自定义",R.drawable.setting,"all");
             custom.save();
+            First updatefirst = new First();
+            updatefirst.setThisMonthCost(0);
+            updatefirst.setBudget(0);
+            updatefirst.updateAll();
         }
     }
 
