@@ -178,7 +178,10 @@ public class CardDetailActivity extends AppCompatActivity {
             double outcome = 0;
             double income = 0;
             for (Day day : dayList) {
+                Log.d("Outcome",String.valueOf(outcome));
                 outcome += day.getOutcome_day();
+                Log.d("Outcome",String.valueOf(outcome));
+                Log.d("Outcome_day", String.valueOf(day.getOutcome_day()));
                 income += day.getIncome_day();
                 DecimalFormat df = new DecimalFormat("#.##");
 
