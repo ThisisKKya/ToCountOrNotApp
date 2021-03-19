@@ -190,8 +190,11 @@ public class BaseCategoryFragment extends Fragment   {
                         llKeborad.setVisibility(View.VISIBLE);
                     }
                     else {
+                        if (etInput.length() != 0) {
+                            mtvinput = Double.valueOf(etInput.getText().toString().trim());
+                        }
                         llKeborad.setVisibility(View.GONE);
-                        etInput.setText("0");
+                        etInput.setText(mtvinput.toString());
                     }
                 }
             }
