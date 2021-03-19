@@ -182,20 +182,16 @@ public class BaseCategoryFragment extends Fragment   {
                     intent.setClass(getContext(), CreateFirstCategoryActivity.class);
                     startActivity(intent);
                 } else {
-                    if (llKeborad.getVisibility() == View.GONE){
+//                    if (llKeborad.getVisibility() == View.GONE){
                         if(minorout == "trans")
                             tvSecond.setText("转入账户:");
                         else
                             tvSecond.setText(mfirstCategory+"(无)");
                         llKeborad.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        if (etInput.length() != 0) {
-                            mtvinput = Double.valueOf(etInput.getText().toString().trim());
-                        }
-                        llKeborad.setVisibility(View.GONE);
-                        etInput.setText(mtvinput.toString());
-                    }
+//                    }
+//                    else {
+//                        llKeborad.setVisibility(View.GONE);
+//                    }
                 }
             }
         });
