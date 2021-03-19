@@ -46,7 +46,9 @@ public class CardsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_view);
-        initcarddata();
+        //LitePal.deleteAll(Cards.class);
+        //LitePal.deleteAll(Accounts.class);
+        //initcarddata();
         initCards();
         Log.d("card","have finished");
         recyclerView = findViewById(R.id.cards_view);//在视图中找到ListView
