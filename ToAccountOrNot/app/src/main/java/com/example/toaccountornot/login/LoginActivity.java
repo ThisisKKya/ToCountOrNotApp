@@ -80,17 +80,27 @@ public class LoginActivity extends AppCompatActivity {
             new AlertDialog.Builder(LoginActivity.this)
                     .setTitle("警告")
                     .setMessage("用户名不能为空")
-                    .setNegativeButton("返回", null)
+                    .setNegativeButton("返回",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            login_finish.setEnabled(true);
+                        }
+                    })
                     .create().show();
         }else if(password.isEmpty()){
             new AlertDialog.Builder(LoginActivity.this)
                     .setTitle("警告")
                     .setMessage("密码不能为空")
-                    .setNegativeButton("返回", null)
+                    .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            login_finish.setEnabled(true);
+                        }
+                    })
                     .create().show();
-        }
-        //登录逻辑
-//        Handler loginhandler = new Handler(Looper.myLooper(), new Handler.Callback() {
+        }else{
+            //登录逻辑
+            // Handler loginhandler = new Handler(Looper.myLooper(), new Handler.Callback() {
 //            @Override
 //            public boolean handleMessage(@NonNull Message msg) {
 //                String response = (msg != null) ? (String)msg.obj : null;
@@ -103,13 +113,15 @@ public class LoginActivity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
-        String correct_psw = "user";//服务器传来正确密码
-        if(correct_psw.equals(password)){
-            onLoginSucceess();
+            String correct_psw = "user";//服务器传来正确密码
+            if(correct_psw.equals(password)){
+                onLoginSucceess();
+            }
+            else{
+                onLoginFail();
+            }
         }
-        else{
-            onLoginFail();
-        }
+
     }
     void onLoginSucceess() {
         login_finish.setEnabled(true);
