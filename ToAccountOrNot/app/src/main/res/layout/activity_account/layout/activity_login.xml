@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".login.SignUpActivity">
+    tools:context=".login.LoginActivity">
     <!--title bar-->
     <RelativeLayout
         android:id="@+id/main_title"
@@ -15,13 +15,13 @@
         android:padding="10dip" >
 
         <ImageView
-            android:id="@+id/signup_back"
+            android:id="@+id/login_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back" />
 
     </RelativeLayout>
-    <!--subTitle - POPO-->
+    <!--subTitle-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,8 +51,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/popo_title">
+        android:layout_centerInParent="true">
 
         <LinearLayout
             android:id="@+id/input_layout"
@@ -82,7 +81,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                     <EditText
-                        android:id="@+id/signup_username"
+                        android:id="@+id/login_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -119,7 +118,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                     <EditText
-                        android:id="@+id/signup_psw"
+                        android:id="@+id/login_psw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -135,6 +134,7 @@
 
 
         <TextView
+            android:id="@+id/to_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/input_layout"
@@ -144,7 +144,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/btn_create_account"
+            android:id="@+id/login_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/input_layout"
