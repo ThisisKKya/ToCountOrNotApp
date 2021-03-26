@@ -20,15 +20,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/back" />
 
-        <TextView
-            android:id="@+id/btn_backto_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_light"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:text="已有帐号？"/>
     </RelativeLayout>
     <!--subTitle - POPO-->
     <LinearLayout
@@ -81,9 +72,9 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/paw_code" />
+                    android:layout_width="50sp"
+                    android:layout_height="40sp"
+                    android:src="@drawable/user_name" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -96,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
                         android:inputType="text"
-                        android:hint="设置用户名"
+                        android:hint="输入用户名"
                         android:padding="5dip"
                         android:textSize="12sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -118,9 +109,9 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/paw_left" />
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:src="@drawable/passw" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -132,7 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:hint="设置密码"
+                        android:hint="输入密码"
                         android:inputType="textPassword"
                         android:padding="5dip"
                         android:textSize="12sp" />
@@ -153,16 +144,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/paw_left" />
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:src="@drawable/pass_again" />
 
                 <EditText
                     android:id="@+id/signup_psw_check"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
-                    android:hint="请再次确认密码"
+                    android:hint="再次确认密码"
                     android:inputType="textPassword"
                     android:padding="5dip"
                     android:textSize="12sp" />
@@ -172,20 +163,28 @@
 
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_layout"
+            android:layout_alignEnd="@+id/input_layout"
+            android:text="已有账号?"
+            android:textColor="@color/text_light"
+            android:textSize="15sp" />
+
+        <TextView
             android:id="@+id/btn_create_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/input_layout"
             android:layout_centerInParent="true"
             android:layout_marginTop="35dip"
-            android:background="@drawable/text_bg"
             android:gravity="center"
             android:paddingBottom="2dip"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:paddingTop="2dip"
-            android:text="Create Account"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:text="注册"
+            android:textColor="@color/text_light"
+            android:textSize="30sp" />
     </RelativeLayout>
 </RelativeLayout>
