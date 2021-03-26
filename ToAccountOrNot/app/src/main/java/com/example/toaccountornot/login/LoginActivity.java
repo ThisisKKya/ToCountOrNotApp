@@ -1,15 +1,21 @@
 package com.example.toaccountornot.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.toaccountornot.R;
+
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     ImageView login_back;
@@ -43,10 +49,39 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        login_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginIn();
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    /*登录逻辑*/
+    void loginIn(){
+        //防止重复登录
+        login_finish.setEnabled(false);
+        //获取username & password
+        String userName = login_username.getText().toString();
+        String password = login_psw.getText().toString();
+        //登录逻辑
+        Handler loginhandler = new Handler(Looper.myLooper(), new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                String response = (msg != null) ? (String)msg.obj : null;
+                if(response != null) {
+//                    try {
+////                        JSONObject jsonObject  = new JSONObject(response);
+////                        String responseCode = jsonObject.getString("responseCode");
+//                    }
+                }
+                return false;
+            }
+        });
     }
 }
