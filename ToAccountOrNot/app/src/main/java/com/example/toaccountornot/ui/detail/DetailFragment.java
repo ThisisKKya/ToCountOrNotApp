@@ -1,32 +1,22 @@
 package com.example.toaccountornot.ui.detail;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.BudgetActivity;
 import com.example.toaccountornot.R;
-import com.example.toaccountornot.ui.account.PhotoActivity;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayAdapter;
 import com.lxj.xpopup.XPopup;
@@ -41,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 
 
 /**
@@ -59,8 +48,6 @@ public class DetailFragment extends Fragment {
     private String year;
     private String month;
     private BasePopupView datePicker;
-
-
 
     @NonNull
     @Override
@@ -91,7 +78,7 @@ public class DetailFragment extends Fragment {
         LinearLayout choose_date = view.findViewById(R.id.choose_date);
         rec_day = view.findViewById(R.id.mainlist);
         LinearLayout budget_layout = view.findViewById(R.id.budget_layout);
-        ImageView camera = view.findViewById(R.id.photo);
+
         label_year.setText(year);
         label_month.setText(month);
         rec_day.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -110,16 +97,6 @@ public class DetailFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //进相册or拍照
-                Intent intent = new Intent(getContext(), PhotoActivity.class);
-                startActivity(intent);
-                }
-        });
-
     }
 
     private void initDayList() {
