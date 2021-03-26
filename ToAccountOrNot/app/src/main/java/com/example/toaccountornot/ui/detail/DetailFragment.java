@@ -1,13 +1,8 @@
 package com.example.toaccountornot.ui.detail;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.toaccountornot.BudgetActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.ui.account.PhotoActivity;
 import com.example.toaccountornot.utils.Day;
@@ -102,14 +93,14 @@ public class DetailFragment extends Fragment {
                 datePicker.show();
             }
         });
-        budget_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), BudgetActivity.class);
-                intent.putExtra("outcome", label_out.getText());
-                startActivity(intent);
-            }
-        });
+//        budget_layout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), BudgetActivity.class);
+//                intent.putExtra("outcome", label_out.getText());
+//                startActivity(intent);
+//            }
+//        });
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
