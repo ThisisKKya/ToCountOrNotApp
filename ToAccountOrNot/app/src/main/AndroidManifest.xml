@@ -28,8 +28,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.SignUpActivity"></activity>
-        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".login.SignUpActivity" />
         <activity android:name=".ui.account.PhotoActivity" />
         <activity android:name=".CreateBudget" />
         <activity android:name=".CreateFirstCategoryActivity" />
@@ -76,16 +76,14 @@
         </activity>
 
         <provider
-            android:authorities="com.example.toaccountornot.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.toaccountornot.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
         </provider>
-
     </application>
 
 </manifest>
