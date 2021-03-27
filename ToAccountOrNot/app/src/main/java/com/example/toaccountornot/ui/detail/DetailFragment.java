@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toaccountornot.R;
-import com.example.toaccountornot.ui.account.PhotoActivity;
+import com.example.toaccountornot.baidu_ocr.BaiduOcrActivity;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayAdapter;
 import com.lxj.xpopup.XPopup;
@@ -106,7 +106,8 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //进相册or拍照
-                Intent intent = new Intent(getContext(), PhotoActivity.class);
+                //Intent intent = new Intent(getContext(), PhotoActivity.class);
+                Intent intent = new Intent(getContext(), BaiduOcrActivity.class);
                 startActivity(intent);
                 }
         });

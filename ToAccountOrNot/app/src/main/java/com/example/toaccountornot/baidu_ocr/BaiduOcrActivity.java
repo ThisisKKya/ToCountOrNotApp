@@ -1,0 +1,240 @@
+package com.example.toaccountornot.baidu_ocr;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+//import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
+import com.baidu.ocr.sdk.model.GeneralBasicParams;
+import com.baidu.ocr.sdk.model.GeneralResult;
+import com.baidu.ocr.sdk.model.OcrRequestParams;
+import com.baidu.ocr.sdk.model.OcrResponseResult;
+import com.baidu.ocr.sdk.model.WordSimple;
+import com.baidu.ocr.ui.camera.CameraActivity;
+import com.baidu.ocr.ui.camera.CameraNativeHelper;
+import com.baidu.ocr.ui.camera.CameraView;
+import com.example.toaccountornot.R;
+
+import java.io.File;
+
+public class BaiduOcrActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_CAMERA = 102;
+    private static final int REQUEST_CODE_DRIVING_LICENSE = 103;
+    private static final int REQUEST_CODE_VEHICLE_LICENSE = 104;
+    private static final int REQUEST_CODE_REGNIZE_WORD = 105;
+    private static final int REQUEST_CODE_VAT_INVOCIE = 106;
+    private TextView mContent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_baidu);
+
+        mContent = (TextView) findViewById(R.id.tv_show_word_content);
+
+        // 识别文字
+        findViewById(R.id.bt_regonize_word).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent, REQUEST_CODE_REGNIZE_WORD);
+            }
+        });
+
+
+        // 识别发票
+        findViewById(R.id.bt_vatinvoice).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent, REQUEST_CODE_VAT_INVOCIE);
+            }
+        });
+
+        // 初始化
+        initAccessTokenWithAkSk();
+    }
+
+    private void initAccessTokenWithAkSk() {
+        OCR.getInstance(this).initAccessTokenWithAkSk(
+                new OnResultListener<AccessToken>() {
+                    @Override
+                    public void onResult(AccessToken result) {
+
+                        // 本地自动识别需要初始化
+                        initLicense();
+
+                        Log.d("MainActivity", "onResult: " + result.toString());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mContent.setText("初始化认证成功");
+                                //Toast.makeText(MainActivity.this, "初始化认证成功", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(OCRError error) {
+                        error.printStackTrace();
+                        Log.e("MainActivity", "onError: " + error.getMessage());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(BaiduOcrActivity.this, "初始化认证失败,请检查 key", Toast.LENGTH_SHORT).show();
+                                onDestroy();
+                            }
+                        });
+                    }
+                }, getApplicationContext(),
+                // 需要自己配置 https://console.bce.baidu.com
+                "Uq48vOb5xpDtryKC3L61FrOB",
+                // 需要自己配置 https://console.bce.baidu.com
+                "bfnopp7wMo9e4QERORxYcLSFia2Gtvqv");
+    }
+
+    private void initLicense() {
+        CameraNativeHelper.init(this, OCR.getInstance(this).getLicense(),
+                new CameraNativeHelper.CameraNativeInitCallback() {
+                    @Override
+                    public void onError(int errorCode, Throwable e) {
+                        final String msg;
+                        switch (errorCode) {
+                            case CameraView.NATIVE_SOLOAD_FAIL:
+                                msg = "加载so失败，请确保apk中存在ui部分的so";
+                                break;
+                            case CameraView.NATIVE_AUTH_FAIL:
+                                msg = "授权本地质量控制token获取失败";
+                                break;
+                            case CameraView.NATIVE_INIT_FAIL:
+                                msg = "本地质量控制";
+                                break;
+                            default:
+                                msg = String.valueOf(errorCode);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(BaiduOcrActivity.this,
+                                        "本地质量控制初始化错误，错误原因： " + msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_REGNIZE_WORD && resultCode == Activity.RESULT_OK){
+            String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+            //recVehicleCard(filePath);
+            recWord(filePath);
+        }
+
+        if (requestCode == REQUEST_CODE_VAT_INVOCIE && resultCode == Activity.RESULT_OK){
+            String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+            recvatInvoice(filePath);
+        }
+    }
+
+
+
+    /***
+     * 发票
+     * ***/
+    private void recvatInvoice(String filePath){
+        // 增值税发票识别参数设置
+        OcrRequestParams param = new OcrRequestParams();
+        // 设置image参数
+        param.setImageFile(new File(filePath));
+        OCR.getInstance(this).recognizeVatInvoice(param, new OnResultListener<OcrResponseResult>() {
+            @Override
+            public void onResult(OcrResponseResult result) {
+                //listener.onResult(result.getJsonRes());
+                if(result != null){
+                    mContent.setText(result.getJsonRes());
+                }
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                //listener.onResult(error.getMessage());
+                Toast.makeText(BaiduOcrActivity.this, "识别出错,请查看log错误代码", Toast.LENGTH_SHORT).show();
+                Log.d("MainActivity", "onError: " + error.getMessage());
+            }
+        });
+    }
+
+    /***
+     * 基础解析文字
+     * ***/
+    private void recWord(String filePath){
+        // 通用文字识别参数设置
+        GeneralBasicParams param = new GeneralBasicParams();
+        param.setDetectDirection(true);
+        param.setImageFile(new File(filePath));
+
+        // 调用通用文字识别服务
+        OCR.getInstance(this).recognizeGeneralBasic(param, new OnResultListener<GeneralResult>() {
+            @Override
+            public void onResult(GeneralResult result) {
+
+                // 调用成功，返回GeneralResult对象
+                if (result != null ){
+                    for (WordSimple wordSimple : result.getWordList()) {
+                        // wordSimple不包含位置信息
+//                    wordSimple word = wordSimple;
+//                    sb.append(word.getWords());
+//                    sb.append("\n");
+                        mContent.setText(wordSimple.toString());
+                    }
+                }
+                else{
+                    Toast.makeText(BaiduOcrActivity.this, "啥都没有", Toast.LENGTH_SHORT).show();
+                }
+
+                // json格式返回字符串
+                //listener.onResult(result.getJsonRes());
+            }
+            @Override
+            public void onError(OCRError error) {
+                // 调用失败，返回OCRError对象
+                Toast.makeText(BaiduOcrActivity.this, "识别出错,请查看log错误代码", Toast.LENGTH_SHORT).show();
+                Log.d("MainActivity", "onError: " + error.getMessage());
+            }
+        });
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        CameraNativeHelper.release();
+        // 释放内存资源
+        OCR.getInstance(this).release();
+        super.onDestroy();
+
+    }
+}
