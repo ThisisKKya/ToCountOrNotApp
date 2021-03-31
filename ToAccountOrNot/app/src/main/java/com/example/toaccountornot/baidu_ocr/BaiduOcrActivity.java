@@ -34,6 +34,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 104;
     private static final int REQUEST_CODE_REGNIZE_WORD = 105;
     private static final int REQUEST_CODE_VAT_INVOCIE = 106;
+    private static final int REQUEST_CODE_TRAIN_TICKET = 107;
     private TextView mContent;
 
     @Override
@@ -70,6 +71,19 @@ public class BaiduOcrActivity extends AppCompatActivity {
             }
         });
 
+        // 识别车票
+        findViewById(R.id.bt_train_ticket).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent, REQUEST_CODE_TRAIN_TICKET);
+            }
+        });
+
         // 初始化
         initAccessTokenWithAkSk();
     }
@@ -100,7 +114,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
+                                mContent.setText("初始化失败！");
                                 Toast.makeText(BaiduOcrActivity.this, "初始化认证失败,请检查 key", Toast.LENGTH_SHORT).show();
                                 onDestroy();
                             }
@@ -157,8 +171,33 @@ public class BaiduOcrActivity extends AppCompatActivity {
             String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
             recvatInvoice(filePath);
         }
+
+        if (requestCode == REQUEST_CODE_TRAIN_TICKET && resultCode == Activity.RESULT_OK){
+            String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+            recTrainTicket(filePath);
+        }
     }
 
+
+    private void recTrainTicket(String filePath){
+        // 火车票识别参数设置
+        OcrRequestParams param = new OcrRequestParams();
+        // 设置image参数
+        param.setImageFile(new File(filePath));
+        // 调用火车票识别服务
+        OCR.getInstance(this).recognizeTrainticket(param, new OnResultListener<OcrResponseResult>() {
+            @Override
+            public void onResult(OcrResponseResult result) {
+                //listener.onResult(result.getJsonRes());
+                mContent.setText(result.getJsonRes());
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                //listener.onResult(error.getMessage());
+            }
+        });
+    }
 
 
     /***

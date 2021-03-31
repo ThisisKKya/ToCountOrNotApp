@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_baidu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
@@ -18,13 +18,18 @@
         android:text="识别文字"
         tools:ignore="HardcodedText" />
 
-
-
     <Button
         android:id="@+id/bt_vatinvoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="发票识别"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/bt_train_ticket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="车票识别"
         tools:ignore="HardcodedText" />
 
     <TextView
