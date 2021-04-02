@@ -38,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     private Handler handler;
     private Animator animator;
 
+    boolean activeFlag = false;
+
     void initView(){
         login_back = findViewById(R.id.login_back);
         login_username = findViewById(R.id.login_username);
@@ -77,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void gotoNew() {
+        activeFlag = true;
         button.gotoNew();
 
         final Intent intent=new Intent(this,NavigationActivity.class);
@@ -119,11 +122,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        animator.cancel();
-        rlContent.getBackground().setAlpha(0);
-        button.regainBackground();
+        if(activeFlag){
+            animator.cancel();
+            rlContent.getBackground().setAlpha(0);
+            button.regainBackground();
+            activeFlag = false;
+        }
     }
-//
 
     @Override
     public void onBackPressed() {
