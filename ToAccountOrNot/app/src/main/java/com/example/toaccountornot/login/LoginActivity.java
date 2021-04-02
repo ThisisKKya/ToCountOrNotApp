@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         if(activeFlag){
             animator.cancel();
             rlContent.getBackground().setAlpha(0);
-            button.regainBackground();
+            button.regainBackground("登录");
             activeFlag = false;
         }
     }

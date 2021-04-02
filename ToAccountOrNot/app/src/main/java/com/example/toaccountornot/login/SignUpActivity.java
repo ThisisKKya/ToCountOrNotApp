@@ -2,22 +2,33 @@ package com.example.toaccountornot.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
+import com.example.toaccountornot.button.NbButton;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText user_name;
     EditText user_password;
     EditText password_check;
     TextView back_to_login;
-    TextView confirm;
+
+    private NbButton confirm;
+    private RelativeLayout rlContent;
+    private Handler handler;
+    private Animator animator;
+
+    boolean activeFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +42,12 @@ public class SignUpActivity extends AppCompatActivity {
         user_password = findViewById(R.id.signup_psw);
         password_check = findViewById(R.id.signup_psw_check);
         back_to_login = findViewById(R.id.goto_login);
-        confirm = findViewById(R.id.btn_create_account);
+        confirm = findViewById(R.id.signup_finish);
+
+        rlContent=findViewById(R.id.rl_content);
+
+        rlContent.getBackground().setAlpha(0);
+        handler=new Handler();
 
         back_to_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +66,56 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    private void gotoNew() {
+        activeFlag = true;
+        confirm.gotoNew();
+
+        final Intent intent=new Intent(this,NavigationActivity.class);
+
+        int xc=(confirm.getLeft()+confirm.getRight())/2;
+        int yc=(confirm.getTop()+confirm.getBottom())/2;
+        animator= ViewAnimationUtils.createCircularReveal(rlContent,xc,yc,0,1111);
+        animator.setDuration(200);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.anim_in,R.anim.anim_out);
+                    }
+                },400);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.start();
+        rlContent.getBackground().setAlpha(255);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(activeFlag){
+            animator.cancel();
+            rlContent.getBackground().setAlpha(0);
+            confirm.regainBackground("注册");
+            activeFlag = false;
+        }
+    }
     void signUp() {
         if(!ifvalid(user_name.getId()) || !ifvalid(user_password.getId()) || !ifvalid(password_check.getId())) {
             onSignUpFaild("输入不合法");
@@ -110,10 +176,14 @@ public class SignUpActivity extends AppCompatActivity {
      */
     public void onsignUpSuccess() {
         confirm.setEnabled(true);
-        Toast.makeText(getBaseContext(),"注册成功！", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
-        startActivity(intent);
-        finish();
+        confirm.startAnim();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //跳转
+                gotoNew();
+            }
+        },300);
     }
 
     // 注册失败，显示提示信息

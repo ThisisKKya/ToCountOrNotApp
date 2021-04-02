@@ -52,8 +52,6 @@ public class NbButton extends Button {
         backDrawable.setCornerRadius(120);
         setBackground(backDrawable);
 
-        setText("登陆");
-
         paint=new Paint();
         paint.setColor(getResources().getColor(R.color.white));
         paint.setStrokeWidth(4);
@@ -110,12 +108,12 @@ public class NbButton extends Button {
         setVisibility(GONE);
 
     }
-    public void regainBackground(){
+    public void regainBackground(String text){
         setVisibility(VISIBLE);
         backDrawable.setBounds(0,0,width,heigh);
         backDrawable.setCornerRadius(24);
         setBackground(backDrawable);
-        setText("登陆");
+        setText(text);
         isMorphing=false;
     }
 
