@@ -29,7 +29,14 @@
         android:id="@+id/bt_train_ticket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="车票识别"
+        android:text="火车车票识别"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/bt_taxi_ticket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出租车车票"
         tools:ignore="HardcodedText" />
 
     <TextView
