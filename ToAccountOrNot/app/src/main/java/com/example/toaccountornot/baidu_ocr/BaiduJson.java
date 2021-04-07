@@ -102,4 +102,12 @@ public class BaiduJson {
 
         return "date:"+this.date+",amount:"+this.amount;
     }
+
+    public double getBaiduAmount() {
+        return amount;
+    }
+
+    public String getBaiduDate() {
+        return date;
+    }
 }

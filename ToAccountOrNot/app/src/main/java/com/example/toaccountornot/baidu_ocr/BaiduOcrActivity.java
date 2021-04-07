@@ -201,6 +201,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
 
     /**
      * 解析出租车票
+     * date和amount在taxijson实例里
      * */
     private void recTaxiTicket(String filePath){
         // 出租车票识别参数设置
@@ -216,7 +217,11 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     BaiduJson taxijson = new BaiduJson();
                     try {
                         taxijson.ReturnTaxiTicket(result.getJsonRes());
+                        //结果展示
                         mContent.setText(taxijson.toString());
+                        //如果想要amout和date,调用get函数就好了
+                        //taxijson.getBaiduAmount();
+                        //taxijson.getBaiduDate();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
