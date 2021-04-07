@@ -17,6 +17,14 @@ import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.button.NbButton;
 
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class SignUpActivity extends AppCompatActivity {
     EditText user_name;
     EditText user_password;
@@ -61,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUp();
+                sendRequestWithOkHttp();
             }
         });
     }
@@ -123,8 +132,32 @@ public class SignUpActivity extends AppCompatActivity {
         }
         // 防止重复点击
         confirm.setEnabled(false);
+
         onsignUpSuccess();
 
+    }
+
+    void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient().newBuilder()
+                        .build();
+                MediaType mediaType = MediaType.parse("application/json");
+                RequestBody body = RequestBody.create(mediaType, "{\"name\":\"jerry\",\"password\":\"I am jerry\"}");
+                Request request = new Request.Builder()
+                        .url("https://73bc7477-f9ff-4dfc-bafe-6db7da6c9429.mock.pstmn.io/user/register")
+                        .method("POST", body)
+                        .addHeader("Content-Type", "application/json")
+                        .build();
+                try (Response response = client.newCall(request).execute()) {
+                    System.out.println("====================================");
+                    System.out.println(response.body().string());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 
