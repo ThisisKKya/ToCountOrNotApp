@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,15 +19,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.toaccountornot.CardDetailActivity;
 import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.button.NbButton;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
+import com.example.toaccountornot.utils.HttpUtil;
 
-import org.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
     ImageView login_back;
@@ -40,6 +51,12 @@ public class LoginActivity extends AppCompatActivity {
 
     boolean activeFlag = false;
 
+    public static final String url = "http://10.0.2.2:8080/user/login";
+
+    public static final int SUCCESS = 1;
+    public static final int NOT_EXIST = 2;
+    public static final int WRONG_PASSWORD = 3;
+
     void initView(){
         login_back = findViewById(R.id.login_back);
         login_username = findViewById(R.id.login_username);
@@ -49,7 +66,22 @@ public class LoginActivity extends AppCompatActivity {
         rlContent=findViewById(R.id.rl_content);
 
         rlContent.getBackground().setAlpha(0);
-        handler=new Handler();
+        handler=new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                switch (msg.what) {
+                    case SUCCESS:
+                        onLoginSucceess();
+                        break;
+                    case NOT_EXIST:
+                        onLoginFail("用户不存在");
+                        break;
+                    case WRONG_PASSWORD:
+                        onLoginFail("密码错误！请重试");
+                        break;
+                }
+            }
+        };
 
         login_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,16 +211,68 @@ public class LoginActivity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
-            String correct_psw = "user";//服务器传来正确密码
-            if(correct_psw.equals(password)){
-                onLoginSucceess();
-            }
-            else{
-                onLoginFail();
-            }
-        }
+//            String correct_psw = "user";//服务器传来正确密码
+//            if(correct_psw.equals(password)){
+//                onLoginSucceess();
+//            }
+//            else{
+//                onLoginFail();
+//            }
+            // 封装数据
+            HashMap<String, String> map = new HashMap<>();
+            map.put("name", userName);
+            map.put("password", password);
 
+            System.out.println(JSON.toJSONString(map));
+
+            // 发请求
+            HttpUtil.sendRequestWithOkHttp(JSON.toJSONString(map), url, new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    // 解析响应的数据
+                    parseJSONWithFastjson(response.body().string());
+                }
+            });
+
+        }
     }
+
+    void parseJSONWithFastjson(String jsonData) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        // 保存token
+        SharedPreferences sharedPreferences = getSharedPreferences("myConfig", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", data);
+        editor.commit();
+        // 调试信息
+        System.out.println("=================LoginActivity.parseJSONWithFastjson()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+        System.out.println("已保存token:"+sharedPreferences.getString("token", ""));
+        Message msg = new Message();
+        switch (message) {
+            case "success":
+                msg.what = SUCCESS;
+                break;
+            case "User does not exist":
+                msg.what = NOT_EXIST;
+                break;
+            case "Wrong password":
+                msg.what = WRONG_PASSWORD;
+                break;
+        }
+        handler.sendMessage(msg);
+    }
+
     void onLoginSucceess() {
         button.setEnabled(true);
         button.startAnim();
@@ -201,11 +285,12 @@ public class LoginActivity extends AppCompatActivity {
         },300);
     }
 
-    void onLoginFail() {
+    void onLoginFail(String msg) {
         button.setEnabled(true);
+        System.out.println("==============onLoginFail===============");
         new AlertDialog.Builder(LoginActivity.this)
                 .setTitle("警告")
-                .setMessage("密码错误！请重试")
+                .setMessage(msg)
                 .create().show();
     }
 }
