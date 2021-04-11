@@ -1,7 +1,9 @@
 package com.example.toaccountornot.login;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -71,7 +73,11 @@ public class SignUpActivity extends AppCompatActivity {
         switch (viewId) {
             case R.id.signup_username:
                 if(username.isEmpty()) {
-                    user_name.setError("账号不能为空");
+                    new AlertDialog.Builder(SignUpActivity.this)
+                            .setTitle("警告")
+                            .setMessage("账号不能为空")
+                            .setNegativeButton("返回",null)
+                            .create().show();
                     valid = false;
                 }
                 // 还需判断账号是否重复
@@ -81,11 +87,19 @@ public class SignUpActivity extends AppCompatActivity {
                 break;
             case R.id.signup_psw:
                 if(password.isEmpty()) {
-                    user_password.setError("密码不能为空");
+                    new AlertDialog.Builder(SignUpActivity.this)
+                            .setTitle("警告")
+                            .setMessage("密码不能为空")
+                            .setNegativeButton("返回",null)
+                            .create().show();
                     valid = false;
                 }
                 else if(password.length() < 8 || password.length() > 16) {
-                    user_password.setError("密码须在8到16位之间");
+                    new AlertDialog.Builder(SignUpActivity.this)
+                            .setTitle("警告")
+                            .setMessage("密码必须在8-16位之间")
+                            .setNegativeButton("返回",null)
+                            .create().show();
                     valid = false;
                 }
                 else {
@@ -94,7 +108,11 @@ public class SignUpActivity extends AppCompatActivity {
                 break;
             case R.id.signup_psw_check:
                 if(repassword == null || repassword.equals("") || !repassword.equals(password)) {
-                    password_check.setError("两次输入的密码不一致");
+                    new AlertDialog.Builder(SignUpActivity.this)
+                            .setTitle("警告")
+                            .setMessage("两次输入密码不一致")
+                            .setNegativeButton("返回",null)
+                            .create().show();
                     valid = false;
                 }
                 else {
@@ -110,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
      */
     public void onsignUpSuccess() {
         confirm.setEnabled(true);
-        Toast.makeText(getBaseContext(),"注册成功！", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getBaseContext(),"注册成功！", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
         startActivity(intent);
         finish();
@@ -118,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     // 注册失败，显示提示信息
     public void onSignUpFaild(String failMessage) {
-        Toast.makeText(getBaseContext(),failMessage,Toast.LENGTH_LONG).show();
+//        Toast.makeText(getBaseContext(),failMessage,Toast.LENGTH_LONG).show();
         confirm.setEnabled(true);
     }
 
