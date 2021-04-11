@@ -1,19 +1,30 @@
 package com.example.toaccountornot.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
+import com.example.toaccountornot.utils.HttpUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,6 +37,25 @@ public class SignUpActivity extends AppCompatActivity {
     EditText password_check;
     TextView back_to_login;
     TextView confirm;
+
+    public static final String url = "http://10.0.2.2:8080/user/register";
+
+    public static final int FAILURE = 0;
+    public static final int SUCCESS = 1;
+
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case FAILURE:
+                    onSignUpFaild("用户名已存在");
+                    break;
+                case SUCCESS:
+                    onsignUpSuccess();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +83,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUp();
-                sendRequestWithOkHttp();
             }
         });
     }
@@ -67,33 +96,45 @@ public class SignUpActivity extends AppCompatActivity {
         // 防止重复点击
         confirm.setEnabled(false);
 
-        onsignUpSuccess();
+        // 封装数据
+        HashMap<String, String> map = new HashMap<>();
+        String username = user_name.getText().toString();
+        String password = user_password.getText().toString();
+        map.put("name", username);
+        map.put("password", password);
 
-    }
-
-    void sendRequestWithOkHttp() {
-        new Thread(new Runnable() {
+        // 发请求
+        HttpUtil.sendRequestWithOkHttp(JSON.toJSONString(map), url, new Callback() {
             @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient().newBuilder()
-                        .build();
-                MediaType mediaType = MediaType.parse("application/json");
-                RequestBody body = RequestBody.create(mediaType, "{\"name\":\"jerry\",\"password\":\"I am jerry\"}");
-                Request request = new Request.Builder()
-                        .url("https://73bc7477-f9ff-4dfc-bafe-6db7da6c9429.mock.pstmn.io/user/register")
-                        .method("POST", body)
-                        .addHeader("Content-Type", "application/json")
-                        .build();
-                try (Response response = client.newCall(request).execute()) {
-                    System.out.println("====================================");
-                    System.out.println(response.body().string());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
             }
-        }).start();
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                // 解析响应的数据
+                parseJSONWithFastjson(response.body().string());
+            }
+        });
     }
 
+    void parseJSONWithFastjson(String jsonData) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        System.out.println("=================SignUpActivity.parseJSONWithFastjson()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+        Message msg = new Message();
+        if(message.equals("success")) {
+            msg.what = SUCCESS;
+        } else {
+            msg.what = FAILURE;
+        }
+        handler.sendMessage(msg);
+    }
 
     // 判断输入的账号，密码是否合法
     public boolean ifvalid(int viewId) {
