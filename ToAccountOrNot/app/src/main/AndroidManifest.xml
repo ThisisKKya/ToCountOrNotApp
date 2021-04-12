@@ -89,6 +89,9 @@
             android:name=".baidu_ocr.BaiduOcrActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">
         </activity>
+        <activity
+            android:name=".baidu_ocr.Baidu_boom">
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

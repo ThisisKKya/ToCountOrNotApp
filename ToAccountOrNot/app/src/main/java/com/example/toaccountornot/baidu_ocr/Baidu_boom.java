@@ -1,15 +1,14 @@
 package com.example.toaccountornot.baidu_ocr;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
@@ -29,8 +28,7 @@ import org.json.JSONException;
 
 import java.io.File;
 
-public class BaiduOcrActivity extends AppCompatActivity {
-
+public class Baidu_boom extends AppCompatActivity {
     private static final int REQUEST_CODE_CAMERA = 102;
     private static final int REQUEST_CODE_DRIVING_LICENSE = 103;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 104;
@@ -38,75 +36,46 @@ public class BaiduOcrActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_VAT_INVOCIE = 106;
     private static final int REQUEST_CODE_TRAIN_TICKET = 107;
     private static final int REQUEST_CODE_TAXI_TICKET = 108;
-    private TextView mContent;
 
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baidu);
-
-        mContent = (TextView) findViewById(R.id.tv_show_word_content);
-
-        // 识别文字
-        findViewById(R.id.bt_regonize_word).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_REGNIZE_WORD);
-            }
-        });
 
 
-        // 识别发票
-        findViewById(R.id.bt_vatinvoice).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_VAT_INVOCIE);
-            }
-        });
-
-        // 识别车票
-        findViewById(R.id.bt_train_ticket).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_TRAIN_TICKET);
-            }
-        });
-
-        // 识别车票
-        findViewById(R.id.bt_taxi_ticket).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BaiduOcrActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_TAXI_TICKET);
-            }
-        });
-
-        // 初始化
-        initAccessTokenWithAkSk();
+    // 识别发票
+    public void boom_vatinvoice(Context context, FragmentActivity fragmentActivity) {
+        Intent intent = new Intent(context, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                FileUtil.getSaveFile(fragmentActivity).getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                CameraActivity.CONTENT_TYPE_GENERAL);
+        startActivityForResult(intent, REQUEST_CODE_VAT_INVOCIE);
     }
 
-    private void initAccessTokenWithAkSk() {
+    // 识别火车票
+    public void boom_train_ticket() {
+        Intent intent = new Intent(Baidu_boom.this, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                CameraActivity.CONTENT_TYPE_GENERAL);
+        startActivityForResult(intent, REQUEST_CODE_TRAIN_TICKET);
+    }
+
+    // 识别出租车票
+    public void boom_taxi_ticket() {
+        Intent intent = new Intent(Baidu_boom.this, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                CameraActivity.CONTENT_TYPE_GENERAL);
+        startActivityForResult(intent, REQUEST_CODE_TAXI_TICKET);
+    }
+
+
+    // 语音识别
+
+
+    public void initAccessTokenWithAkSk() {
         OCR.getInstance(this).initAccessTokenWithAkSk(
                 new OnResultListener<AccessToken>() {
                     @Override
@@ -119,8 +88,8 @@ public class BaiduOcrActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mContent.setText("初始化认证成功");
-                                //Toast.makeText(MainActivity.this, "初始化认证成功", Toast.LENGTH_SHORT).show();
+                                //mContent.setText("初始化认证成功");
+                                //Toast.makeText(Baidu_boom.this, "初始化认证成功", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -132,8 +101,8 @@ public class BaiduOcrActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mContent.setText("初始化失败！");
-                                Toast.makeText(BaiduOcrActivity.this, "初始化认证失败,请检查 key", Toast.LENGTH_SHORT).show();
+                                //mContent.setText("初始化失败！");
+                                //Toast.makeText(Baidu_boom.this, "初始化认证失败,请检查 key", Toast.LENGTH_SHORT).show();
                                 onDestroy();
                             }
                         });
@@ -144,6 +113,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
                 // 需要自己配置 https://console.bce.baidu.com
                 "bfnopp7wMo9e4QERORxYcLSFia2Gtvqv");
     }
+
 
     private void initLicense() {
         CameraNativeHelper.init(this, OCR.getInstance(this).getLicense(),
@@ -167,13 +137,14 @@ public class BaiduOcrActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(BaiduOcrActivity.this,
+                                Toast.makeText(Baidu_boom.this,
                                         "本地质量控制初始化错误，错误原因： " + msg, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -201,6 +172,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * 解析出租车票
      * date和amount在taxijson实例里
@@ -220,7 +192,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     try {
                         taxijson.ReturnTaxiTicket(result.getJsonRes());
                         //结果展示
-                        mContent.setText(taxijson.toString());
+                        //mContent.setText(taxijson.toString());
                         //如果想要amout和date,调用get函数就好了
                         //taxijson.getBaiduAmount();
                         //taxijson.getBaiduDate();
@@ -256,7 +228,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     BaiduJson trainjson = new BaiduJson();
                     try {
                         trainjson.ReturnTrainTicket(result.getJsonRes());
-                        mContent.setText(trainjson.toString());
+                        //mContent.setText(trainjson.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -289,7 +261,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     BaiduJson vatbaiduJson = new BaiduJson();
                     try {
                         vatbaiduJson.ReturnVatInvoice(result.getJsonRes());
-                        mContent.setText(vatbaiduJson.toString());
+                        //mContent.setText(vatbaiduJson.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -321,11 +293,11 @@ public class BaiduOcrActivity extends AppCompatActivity {
                 // 调用成功，返回GeneralResult对象
                 if (result != null ){
                     for (WordSimple wordSimple : result.getWordList()) {
-                        mContent.setText(wordSimple.toString());
+                        //mContent.setText(wordSimple.toString());
                     }
                 }
                 else{
-                    Toast.makeText(BaiduOcrActivity.this, "啥都没有", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Baidu_boom.this, "啥都没有", Toast.LENGTH_SHORT).show();
                 }
 
                 // json格式返回字符串
@@ -352,7 +324,9 @@ public class BaiduOcrActivity extends AppCompatActivity {
 
     public void returnRecError(OCRError error){
         // 调用失败，返回OCRError对象
-        Toast.makeText(BaiduOcrActivity.this, "识别出错,请查看log错误代码", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Baidu_boom.this, "识别出错,请查看log错误代码", Toast.LENGTH_SHORT).show();
         Log.d("MainActivity", "onError: " + error.getMessage());
     }
+
+
 }

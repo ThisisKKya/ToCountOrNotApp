@@ -4,6 +4,7 @@
     <color name="colorPrimary">#55768b</color>
     <color name="colorPrimaryDark">#4e6c80</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="boomtest">#707070</color>
 
     <color name="light_blue_500">#03A9F4</color>
     <color name="pressed">#33000000</color>
