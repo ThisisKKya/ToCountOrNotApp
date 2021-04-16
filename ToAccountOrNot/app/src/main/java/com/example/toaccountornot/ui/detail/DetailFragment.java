@@ -69,7 +69,7 @@ public class DetailFragment extends Fragment {
     private String month;
     private BasePopupView datePicker;
 
-    public static final String url = "http://42.193.103.76:8888/flow/month";
+    public static final String url = "http://10.0.2.2:8080/flow/month";
 
     @NonNull
     @Override
