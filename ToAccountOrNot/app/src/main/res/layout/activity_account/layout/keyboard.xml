@@ -16,7 +16,7 @@
             android:keyLabel="3" />
         <Key
             android:codes="-100000"
-            android:keyLabel="时间" />
+            android:keyLabel="" />
     </Row>
     <Row>
         <Key

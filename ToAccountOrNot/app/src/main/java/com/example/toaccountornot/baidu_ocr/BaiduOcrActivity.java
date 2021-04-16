@@ -43,6 +43,9 @@ public class BaiduOcrActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_TAXI_TICKET = 108;
     private TextView mContent;
 
+    private double amount;
+    private String date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +80,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
             }
         });
 
-        // 识别车票
+        // 识别火车票
         findViewById(R.id.bt_train_ticket).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +93,7 @@ public class BaiduOcrActivity extends AppCompatActivity {
             }
         });
 
-        // 识别车票
+        // 识别出租车车票
         findViewById(R.id.bt_taxi_ticket).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +179,26 @@ public class BaiduOcrActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * 传递解析数据
+     */
+    private void passResult(String first) {
+        if(amount == 0.0||date == null)
+            Toast.makeText(BaiduOcrActivity.this, "未识别出有效信息", Toast.LENGTH_SHORT).show();
+        else {
+            SharedPreferences imageparse = getSharedPreferences("imageparse", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = imageparse.edit();
+            editor.putString("first", first);
+            editor.putString("amount", String.valueOf(amount));
+            editor.putString("date", date);
+            editor.commit();
+            amount = 0.0;
+            date = null;
+            Intent intent = new Intent(BaiduOcrActivity.this, AccountActivity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -223,20 +246,9 @@ public class BaiduOcrActivity extends AppCompatActivity {
                         //结果展示
 //                        mContent.setText(taxijson.toString());
                         //如果想要amout和date,调用get函数就好了
-                        double amount = taxijson.getBaiduAmount();
-                        String date = taxijson.getBaiduDate();
-                        if(amount == 0.0||date == null)
-                            Toast.makeText(BaiduOcrActivity.this, "未识别出有效信息", Toast.LENGTH_SHORT).show();
-                        else {
-                            SharedPreferences imageparse = getSharedPreferences("imageparse", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = imageparse.edit();
-                            editor.putString("first", "交通");
-                            editor.putString("amount", String.valueOf(amount));
-                            editor.putString("date", date);
-                            editor.commit();
-                            Intent intent = new Intent(BaiduOcrActivity.this, AccountActivity.class);
-                            startActivity(intent);
-                        }
+                        amount = taxijson.getBaiduAmount();
+                        date = taxijson.getBaiduDate();
+                        passResult("交通");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -269,6 +281,12 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     BaiduJson trainjson = new BaiduJson();
                     try {
                         trainjson.ReturnTrainTicket(result.getJsonRes());
+                        //结果展示
+//                        mContent.setText(taxijson.toString());
+                        //如果想要amout和date,调用get函数就好了
+                        amount = trainjson.getBaiduAmount();
+                        date = trainjson.getBaiduDate();
+                        passResult("交通");
                         mContent.setText(trainjson.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -302,7 +320,12 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     BaiduJson vatbaiduJson = new BaiduJson();
                     try {
                         vatbaiduJson.ReturnVatInvoice(result.getJsonRes());
-                        mContent.setText(vatbaiduJson.toString());
+                        //结果展示
+//                        mContent.setText(taxijson.toString());
+                        //如果想要amout和date,调用get函数就好了
+                        amount = vatbaiduJson.getBaiduAmount();
+                        date = vatbaiduJson.getBaiduDate();
+                        passResult("日用");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

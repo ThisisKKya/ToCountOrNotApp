@@ -40,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,9 +71,10 @@ public class BaseCategoryFragment extends Fragment   {
     RecyclerView recyclerView;
     CategoryAdapter adapter;
 
-    String parseDate;
-    double parseAmount;
-    String parseFirst;
+    String parseDate = null;
+    double parseAmount = 0.0;
+    String parseFirst = null;
+    boolean parseFlag = false;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,13 +175,27 @@ public class BaseCategoryFragment extends Fragment   {
         recyclerView = view.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
         recyclerView.setLayoutManager(layoutManager);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mtime);
         initKey();
         initRecycler();
+        Keyboard.Key key = helper.getKey(-100000);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        key.label = simpleDateFormat.format(mtime);
+        keyboard_temp.invalidate();
         SharedPreferences imageparse = getActivity().getSharedPreferences("imageparse", Context.MODE_PRIVATE);
         parseAmount = Double.parseDouble(imageparse.getString("amount","0.0"));
         parseDate = imageparse.getString("date",null);
         parseFirst = imageparse.getString("first",null);
-        if(parseFirst!=null&&parseDate!=null&&parseAmount!=0.0){
+        System.out.println("=================BaseCategory.onCreateView===================");
+        System.out.println("date:"+parseDate);
+        System.out.println("amount:"+parseAmount);
+        System.out.println("first:"+parseFirst);
+        isImageParse();
+        System.out.println("==========PARSEFLAG=========");
+        System.out.println(parseFlag==true?"1":"0");
+        if(parseFlag){
+            System.out.println("====keyboardcall====");
             CategoryAdapter.MyViewClickListener myViewClickListener = new CategoryAdapter.MyViewClickListener() {
                 @Override
                 public void callKeyboard(String firstCategory) {
@@ -190,13 +206,30 @@ public class BaseCategoryFragment extends Fragment   {
                 }
             };
             myViewClickListener.callKeyboard(parseFirst);
+            etInput.setText(String.valueOf(parseAmount));
+            try {
+                mtime = simpleDateFormat.parse(parseDate);
+                System.out.println(mtime);
+            } catch(ParseException e) {
+                e.printStackTrace();
+                System.out.print("you get the ParseException");
+            }
+            calendar.setTime(mtime);
+            key.label = simpleDateFormat.format(mtime);
+            keyboard_temp.invalidate();
+            SharedPreferences.Editor editor = imageparse.edit();
+            editor.clear();
+            editor.commit();
         }
-        System.out.println("=================BaseCategory.onCreateView===================");
-        System.out.println("date:"+parseDate);
-        System.out.println("amount:"+parseAmount);
-        System.out.println("first:"+parseFirst);
 
         return view;
+    }
+    private void isImageParse() {
+        if(parseFirst!=null&&parseDate!=null&&parseAmount!=0.0)
+            parseFlag = true;
+        else
+            parseFlag = false;
+        return;
     }
 
     public  void initRecycler() {
@@ -293,6 +326,7 @@ public class BaseCategoryFragment extends Fragment   {
 
             @Override
             public void doneCallback() {
+            //按下完成键
                 if (etInput.length() != 0) {
                     mtvinput = Double.valueOf(etInput.getText().toString().trim());
                 }
@@ -357,6 +391,7 @@ public class BaseCategoryFragment extends Fragment   {
 
             @Override
             public void dateCallback(final Keyboard.Key key) {
+
                 TimePickerPopup popup = new TimePickerPopup(getContext())
 //                        .setDefaultDate(defaultDate)  //设置默认选中日期
 //                        .setYearRange(1990, 1999) //设置年份范围
