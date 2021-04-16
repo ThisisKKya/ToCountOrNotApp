@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.toaccountornot.CreateFirstCategoryActivity;
 import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
@@ -27,19 +27,25 @@ import com.example.toaccountornot.ui.account.account_tab_ui.MyKeyboardView;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.First;
+import com.example.toaccountornot.utils.HttpUtil;
 import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 
+import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class BaseCategoryFragment extends Fragment   {
     public List<First> categoryList = new ArrayList<>();
@@ -291,6 +297,20 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setDate_month(String.valueOf(calendar.get(Calendar.MONTH) + 1));
                 accounts.setDate_week(String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR)));
                 accounts.save();
+                // 向服务器添加数据
+                String url = "http://10.0.2.2:8080/bill/insert";
+                System.out.println(JSON.toJSONString(accounts).toString());
+                HttpUtil.sendPOSTRequestWithToken(JSON.toJSONString(accounts), url, new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        parseJSONWithFastjson(response.body().string());
+                    }
+                });
 //                Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
                 Keyboard.Key key = helper.getKey(-100000);
                 Intent intent = new Intent(getContext(), NavigationActivity.class);
@@ -341,6 +361,18 @@ public class BaseCategoryFragment extends Fragment   {
                         .show();
             }
         });
+    }
+
+    void parseJSONWithFastjson(String jsonData) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        // 调试信息
+        System.out.println("=================BaseCategoryFragment.parseJSONWithFastjson()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
     }
 }
 

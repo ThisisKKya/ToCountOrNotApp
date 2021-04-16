@@ -29,10 +29,6 @@ import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -169,7 +165,7 @@ public class SignUpActivity extends AppCompatActivity {
         map.put("password", password);
 
         // 发请求
-        HttpUtil.sendRequestWithOkHttp(JSON.toJSONString(map), url, new Callback() {
+        HttpUtil.sendPOSTRequest(JSON.toJSONString(map), url, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 

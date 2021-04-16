@@ -1,10 +1,13 @@
 package com.example.toaccountornot.utils;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import org.litepal.crud.LitePalSupport;
 import java.util.Date;
 
 public class Accounts extends LitePalSupport {
 
+    @JSONField(serialize = false)
     private long id; //账目专属id号
     private String first;   //一级分类
     private String second;  //二级分类
@@ -14,9 +17,13 @@ public class Accounts extends LitePalSupport {
     private String member;  //成员
     // 为测试流水新增的
     private String date;
+    @JSONField(name = "year")
     private String date_year;
+    @JSONField(name = "month")
     private String date_month;
+    @JSONField(name = "week")
     private String date_week;
+    @JSONField(name = "type")
     private String inorout; //收入支出类型
 
     /*
@@ -128,5 +135,22 @@ public class Accounts extends LitePalSupport {
 
     public void setMember(String member) {
         this.member = member;
+    }
+
+    @Override
+    public String toString() {
+        return "Accounts{" +
+                "id=" + id +
+                ", first='" + first + '\'' +
+                ", second='" + second + '\'' +
+                ", price=" + price +
+                ", card='" + card + '\'' +
+                ", member='" + member + '\'' +
+                ", date='" + date + '\'' +
+                ", date_year='" + date_year + '\'' +
+                ", date_month='" + date_month + '\'' +
+                ", date_week='" + date_week + '\'' +
+                ", inorout='" + inorout + '\'' +
+                '}';
     }
 }

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -21,16 +20,12 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.toaccountornot.CardDetailActivity;
 import com.example.toaccountornot.NavigationActivity;
 import com.example.toaccountornot.R;
 import com.example.toaccountornot.button.NbButton;
-import com.example.toaccountornot.utils.Accounts;
-import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.HttpUtil;
 
 import org.jetbrains.annotations.NotNull;
-import org.litepal.LitePal;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -226,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println(JSON.toJSONString(map));
 
             // 发请求
-            HttpUtil.sendRequestWithOkHttp(JSON.toJSONString(map), url, new Callback() {
+            HttpUtil.sendPOSTRequest(JSON.toJSONString(map), url, new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
