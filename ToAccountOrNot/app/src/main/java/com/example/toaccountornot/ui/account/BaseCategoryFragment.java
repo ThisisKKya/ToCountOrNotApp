@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,7 @@ public class BaseCategoryFragment extends Fragment   {
 
     String parseDate;
     double parseAmount;
+    String parseFirst;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,15 +175,30 @@ public class BaseCategoryFragment extends Fragment   {
         recyclerView.setLayoutManager(layoutManager);
         initKey();
         initRecycler();
-        SharedPreferences imageparse = getActivity().getSharedPreferences("taxi", Context.MODE_PRIVATE);
+        SharedPreferences imageparse = getActivity().getSharedPreferences("imageparse", Context.MODE_PRIVATE);
         parseAmount = Double.parseDouble(imageparse.getString("amount","0.0"));
         parseDate = imageparse.getString("date",null);
+        parseFirst = imageparse.getString("first",null);
+        if(parseFirst!=null&&parseDate!=null&&parseAmount!=0.0){
+            CategoryAdapter.MyViewClickListener myViewClickListener = new CategoryAdapter.MyViewClickListener() {
+                @Override
+                public void callKeyboard(String firstCategory) {
+                    mfirstCategory = firstCategory;
+                    initsecondstring();
+                    tvSecond.setText(mfirstCategory + "(无)");
+                    llKeborad.setVisibility(View.VISIBLE);
+                }
+            };
+            myViewClickListener.callKeyboard(parseFirst);
+        }
         System.out.println("=================BaseCategory.onCreateView===================");
         System.out.println("date:"+parseDate);
         System.out.println("amount:"+parseAmount);
+        System.out.println("first:"+parseFirst);
 
         return view;
     }
+
     public  void initRecycler() {
         adapter = new CategoryAdapter(categoryList);
         recyclerView.setAdapter(adapter);
@@ -340,15 +357,6 @@ public class BaseCategoryFragment extends Fragment   {
 
             @Override
             public void dateCallback(final Keyboard.Key key) {
-                Calendar date = Calendar.getInstance();
-                date.set(2000, 5,1);
-                Calendar date2 = Calendar.getInstance();
-                date2.set(2020, 5,1);
-//                Calendar defaultDate = Calendar.getInstance();
-//                System.out.println("==============BaseCatrgoryFragment.dateCallback===============");
-//                System.out.println(defaultDate);
-//                if(parseDate!=null)
-//                    defaultDate.setTime(new Date(parseDate));
                 TimePickerPopup popup = new TimePickerPopup(getContext())
 //                        .setDefaultDate(defaultDate)  //设置默认选中日期
 //                        .setYearRange(1990, 1999) //设置年份范围
