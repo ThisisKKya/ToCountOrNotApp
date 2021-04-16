@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
     boolean activeFlag = false;
 
-    public static final String url = "http://10.0.2.2:8080/user/login";
+    public static final String url = "http://42.193.103.76:8888/user/login";
 
     public static final int SUCCESS = 1;
     public static final int NOT_EXIST = 2;

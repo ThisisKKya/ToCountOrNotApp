@@ -1,7 +1,9 @@
 package com.example.toaccountornot.baidu_ocr;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.baidu.ocr.sdk.model.WordSimple;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
+import com.example.toaccountornot.AccountActivity;
 import com.example.toaccountornot.R;
 
 import org.json.JSONException;
@@ -218,10 +221,22 @@ public class BaiduOcrActivity extends AppCompatActivity {
                     try {
                         taxijson.ReturnTaxiTicket(result.getJsonRes());
                         //结果展示
-                        mContent.setText(taxijson.toString());
+//                        mContent.setText(taxijson.toString());
                         //如果想要amout和date,调用get函数就好了
-                        //taxijson.getBaiduAmount();
-                        //taxijson.getBaiduDate();
+                        double amount = taxijson.getBaiduAmount();
+                        String date = taxijson.getBaiduDate();
+                        if(amount == 0.0||date == null)
+                            Toast.makeText(BaiduOcrActivity.this, "未识别出有效信息", Toast.LENGTH_SHORT).show();
+                        else {
+                            SharedPreferences imageparse = getSharedPreferences("imageparse", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = imageparse.edit();
+                            editor.putString("first", "交通");
+                            editor.putString("amount", String.valueOf(amount));
+                            editor.putString("date", date);
+                            editor.commit();
+                            Intent intent = new Intent(BaiduOcrActivity.this, AccountActivity.class);
+                            startActivity(intent);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
