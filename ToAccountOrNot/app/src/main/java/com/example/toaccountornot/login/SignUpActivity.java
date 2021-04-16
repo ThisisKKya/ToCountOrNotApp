@@ -44,24 +44,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     boolean activeFlag = false;
 
-    public static final String url = "http://10.0.2.2:8080/user/register";
+    public static final String url = "http://42.193.103.76:8888/user/register";
 
     public static final int FAILURE = 0;
     public static final int SUCCESS = 1;
-
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case FAILURE:
-                    onSignUpFaild("用户名已存在");
-                    break;
-                case SUCCESS:
-                    onsignUpSuccess();
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +66,19 @@ public class SignUpActivity extends AppCompatActivity {
         rlContent=findViewById(R.id.rl_content);
 
         rlContent.getBackground().setAlpha(0);
-        handler=new Handler();
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                switch (msg.what) {
+                    case FAILURE:
+                        onSignUpFaild("用户名已存在");
+                        break;
+                    case SUCCESS:
+                        onsignUpSuccess();
+                        break;
+                }
+            }
+        };
 
         back_to_login.setOnClickListener(new View.OnClickListener() {
             @Override

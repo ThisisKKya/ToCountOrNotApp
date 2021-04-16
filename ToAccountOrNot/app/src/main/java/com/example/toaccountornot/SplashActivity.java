@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.toaccountornot.login.LoginActivity;
+import com.example.toaccountornot.ui.detail.DetailFragment;
 import com.example.toaccountornot.utils.First;
 
 import org.litepal.LitePal;
@@ -39,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

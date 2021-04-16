@@ -1,6 +1,8 @@
 package com.example.toaccountornot.ui.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,6 +68,9 @@ public class BaseCategoryFragment extends Fragment   {
     MyKeyboardHelper helper;
     RecyclerView recyclerView;
     CategoryAdapter adapter;
+
+    String parseDate;
+    double parseAmount;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,6 +173,12 @@ public class BaseCategoryFragment extends Fragment   {
         recyclerView.setLayoutManager(layoutManager);
         initKey();
         initRecycler();
+        SharedPreferences imageparse = getActivity().getSharedPreferences("taxi", Context.MODE_PRIVATE);
+        parseAmount = Double.parseDouble(imageparse.getString("amount","0.0"));
+        parseDate = imageparse.getString("date",null);
+        System.out.println("=================BaseCategory.onCreateView===================");
+        System.out.println("date:"+parseDate);
+        System.out.println("amount:"+parseAmount);
 
         return view;
     }
@@ -298,7 +309,7 @@ public class BaseCategoryFragment extends Fragment   {
                 accounts.setDate_week(String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR)));
                 accounts.save();
                 // 向服务器添加数据
-                String url = "http://10.0.2.2:8080/bill/insert";
+                String url = "http://42.193.103.76:8888/bill/insert";
                 System.out.println(JSON.toJSONString(accounts).toString());
                 HttpUtil.sendPOSTRequestWithToken(JSON.toJSONString(accounts), url, new Callback() {
                     @Override
@@ -333,8 +344,13 @@ public class BaseCategoryFragment extends Fragment   {
                 date.set(2000, 5,1);
                 Calendar date2 = Calendar.getInstance();
                 date2.set(2020, 5,1);
+//                Calendar defaultDate = Calendar.getInstance();
+//                System.out.println("==============BaseCatrgoryFragment.dateCallback===============");
+//                System.out.println(defaultDate);
+//                if(parseDate!=null)
+//                    defaultDate.setTime(new Date(parseDate));
                 TimePickerPopup popup = new TimePickerPopup(getContext())
-//                        .setDefaultDate(date)  //设置默认选中日期
+//                        .setDefaultDate(defaultDate)  //设置默认选中日期
 //                        .setYearRange(1990, 1999) //设置年份范围
 //                        .setDateRang(date, date2) //设置日期范围
                         .setTimePickerListener(new TimePickerListener() {
