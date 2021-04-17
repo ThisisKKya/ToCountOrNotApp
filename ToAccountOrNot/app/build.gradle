@@ -65,4 +65,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     // fastjson
     implementation 'com.alibaba:fastjson:1.1.72.android'
+    implementation 'com.nightonke:boommenu:2.0.9'
 }
