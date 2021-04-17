@@ -75,6 +75,8 @@ public class BaseCategoryFragment extends Fragment   {
     double parseAmount = 0.0;
     String parseFirst = null;
     boolean parseFlag = false;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,9 +182,13 @@ public class BaseCategoryFragment extends Fragment   {
         initKey();
         initRecycler();
         Keyboard.Key key = helper.getKey(-100000);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         key.label = simpleDateFormat.format(mtime);
         keyboard_temp.invalidate();
+        parseImage();
+
+        return view;
+    }
+    private void parseImage(){
         SharedPreferences imageparse = getActivity().getSharedPreferences("imageparse", Context.MODE_PRIVATE);
         parseAmount = Double.parseDouble(imageparse.getString("amount","0.0"));
         parseDate = imageparse.getString("date",null);
@@ -214,16 +220,18 @@ public class BaseCategoryFragment extends Fragment   {
                 e.printStackTrace();
                 System.out.print("you get the ParseException");
             }
+            Calendar calendar = Calendar.getInstance();
             calendar.setTime(mtime);
+            Keyboard.Key key = helper.getKey(-100000);
+            key.label = simpleDateFormat.format(mtime);
             key.label = simpleDateFormat.format(mtime);
             keyboard_temp.invalidate();
             SharedPreferences.Editor editor = imageparse.edit();
             editor.clear();
             editor.commit();
         }
-
-        return view;
     }
+
     private void isImageParse() {
         if(parseFirst!=null&&parseDate!=null&&parseAmount!=0.0)
             parseFlag = true;
@@ -242,7 +250,6 @@ public class BaseCategoryFragment extends Fragment   {
                 initsecondstring();
                 if (mfirstCategory.equals("自定义") ) {
 //                    Toast.makeText(getContext(),mfirstCategory,Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent();
                     intent.putExtra("FirstOrSecond","first");
                     intent.putExtra("inorout",minorout);
@@ -433,5 +440,7 @@ public class BaseCategoryFragment extends Fragment   {
         System.out.println("message:"+message);
         System.out.println("data:"+data);
     }
+
+    
 }
 
