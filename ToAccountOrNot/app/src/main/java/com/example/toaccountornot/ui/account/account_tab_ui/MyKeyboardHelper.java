@@ -1,6 +1,7 @@
 package com.example.toaccountornot.ui.account.account_tab_ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.text.Editable;
@@ -17,6 +18,9 @@ public class MyKeyboardHelper {
     private EditText editText; //显示该键盘的EditText
     private Keyboard k1;// 自定义键盘
     private KeyboardCallBack callBack;//按键回调监听
+
+    private String amount;
+    private boolean flag = false;
 
     public MyKeyboardHelper(Context context, MyKeyboardView keyboardView) {
         this(context, keyboardView, null);
@@ -53,6 +57,13 @@ public class MyKeyboardHelper {
             }
         }
         return key;
+    }
+
+    private void insertParse() {
+        SharedPreferences imageParse = context.getSharedPreferences("imageparse",Context.MODE_PRIVATE);
+        amount = imageParse.getString("amount",null);
+        if(amount!=null)
+            flag = true;
     }
 
     private KeyboardView.OnKeyboardActionListener listener = new KeyboardView.OnKeyboardActionListener() {
@@ -93,6 +104,7 @@ public class MyKeyboardHelper {
 
         @Override
         public void onKey(int primaryCode, int[] keyCodes) {
+
             //设置了codes属性后，点击键盘会触发该方法，回调codes的值
             //codes值与ASCLL码对应
             Editable editable = editText.getText();
