@@ -17,12 +17,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
+import com.example.toaccountornot.utils.HttpUtil;
+import com.example.toaccountornot.utils.ParseJsonUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class CreateCardDetailActivity extends AppCompatActivity {
     LinearLayout cardnumbershow;
@@ -45,6 +56,7 @@ public class CreateCardDetailActivity extends AppCompatActivity {
             }
         });
         cardnumbershow = findViewById(R.id.cardnumber_show);
+
         cardtype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +124,51 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
                     startActivity(intent);
+
+                    //存储自定义的卡
+
+                    // 封装数据
+                    HashMap<String, String> map = new HashMap<>();
+                    String name;
+                    if (TextUtils.isEmpty(cardnumber.getText()))
+                        name = bankname.getText().toString();
+                    else
+                        name = bankname.getText().toString() + "(" + cardnumber.getText().toString() + ")";
+
+                    String note = remark.getText().toString();
+
+                    int image;
+                    switch (cardtype.getText().toString()) {
+                        case "储蓄卡":
+                            image = R.drawable.bankcard;
+                            break;
+                        case "信用卡":
+                            image = R.drawable.creditcard;
+                            break;
+                        default:
+                            image = R.drawable.customize;
+                            break;
+                    }
+
+                    map.put("name", name);
+                    map.put("note", note);
+                    map.put("image",String.valueOf(image));
+
+                    // 发请求
+                    String url = "http://42.193.103.76:8888/card/insert";
+                    HttpUtil.sendPOSTRequestWithToken(JSON.toJSONString(map), url, new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        }
+
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            // 解析响应的数据
+                            ParseJsonUtil.parseJSONWithFastjson(response.body().string(),"createcard");
+                        }
+
+                    });
+                    /*
                     Cards card = new Cards();
                     if (TextUtils.isEmpty(cardnumber.getText()))
                         card.setCard(bankname.getText().toString());
@@ -130,6 +187,7 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                             break;
                     }
                     card.save();
+                     */
                 }
             }
         });

@@ -261,7 +261,7 @@ public class LoginActivity extends AppCompatActivity {
             case "User does not exist":
                 msg.what = NOT_EXIST;
                 break;
-            case "Wrong password":
+            default:
                 msg.what = WRONG_PASSWORD;
                 break;
         }

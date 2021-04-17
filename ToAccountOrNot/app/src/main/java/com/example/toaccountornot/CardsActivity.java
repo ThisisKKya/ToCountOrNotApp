@@ -51,10 +51,11 @@ public class CardsActivity extends AppCompatActivity {
         //initcarddata();
         initCards();
         Log.d("card","have finished");
-        recyclerView = findViewById(R.id.cards_view);//在视图中找到ListView
+        recyclerView = findViewById(R.id.cards_view);
         adapter = new CardsAdapter(CardsActivity.this,cardlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(CardsActivity.this));
         recyclerView.setAdapter(adapter);
+        
         TextView label_in = findViewById(R.id.label_in);
         TextView label_out = findViewById(R.id.label_out);
         TextView label_sur = findViewById(R.id.label_sur);
@@ -109,29 +110,29 @@ public class CardsActivity extends AppCompatActivity {
 //            }
 //        });
     }
-    private void initcarddata(){
-        List<Cards> wechat = LitePal.where("card = ?","微信").find(Cards.class);
-        if (wechat.size()==0){
-            Cards card = new Cards();
-            card.setCard("微信");
-            card.setImage(R.drawable.wechat);
-            card.save();
-        }
-        List<Cards> alipay  = LitePal.where("card = ?","支付宝").find(Cards.class);
-        if (alipay.size()==0){
-            Cards card = new Cards();
-            card.setCard("支付宝");
-            card.setImage(R.drawable.alipay);
-            card.save();
-        }
-        List<Cards> cash = LitePal.where("card = ?","现金").find(Cards.class);
-        if (cash.size() == 0){
-            Cards card = new Cards();
-            card.setCard("现金");
-            card.setImage(R.drawable.cash);
-            card.save();
-        }
-    }
+//    private void initcarddata(){
+//        List<Cards> wechat = LitePal.where("card = ?","微信").find(Cards.class);
+//        if (wechat.size()==0){
+//            Cards card = new Cards();
+//            card.setCard("微信");
+//            card.setImage(R.drawable.wechat);
+//            card.save();
+//        }
+//        List<Cards> alipay  = LitePal.where("card = ?","支付宝").find(Cards.class);
+//        if (alipay.size()==0){
+//            Cards card = new Cards();
+//            card.setCard("支付宝");
+//            card.setImage(R.drawable.alipay);
+//            card.save();
+//        }
+//        List<Cards> cash = LitePal.where("card = ?","现金").find(Cards.class);
+//        if (cash.size() == 0){
+//            Cards card = new Cards();
+//            card.setCard("现金");
+//            card.setImage(R.drawable.cash);
+//            card.save();
+//        }
+//    }
     private void initCards() {
 //        Cards test = new Cards();
 //        test.setCards("测试","tesr",R.drawable.fruit,1.00,2.00,3.00);

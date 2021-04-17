@@ -441,6 +441,6 @@ public class BaseCategoryFragment extends Fragment   {
         System.out.println("data:"+data);
     }
 
-    
+
 }
 
