@@ -3,7 +3,6 @@ package com.example.toaccountornot.ui.detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +43,6 @@ import com.lxj.xpopupext.listener.TimePickerListener;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
 import org.json.JSONException;
@@ -80,6 +78,8 @@ public class DetailFragment extends Fragment {
     private static final int REQUEST_CODE_VAT_INVOCIE = 106;
     private static final int REQUEST_CODE_TRAIN_TICKET = 107;
     private static final int REQUEST_CODE_TAXI_TICKET = 108;
+    private static int flag = 0;
+    private Baiduocr baiduocr = new Baiduocr();
 
 
 
@@ -90,7 +90,12 @@ public class DetailFragment extends Fragment {
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         initView(inflater, container);
-        initAccessTokenWithAkSk();
+        Log.d("helloha",String.valueOf(flag));
+        if(flag == 0) {
+            initAccessTokenWithAkSk();
+            flag = 1;
+        }
+
         initPicker();
         return view;
     }
@@ -128,7 +133,6 @@ public class DetailFragment extends Fragment {
                         @Override
                         public void onBoomButtonClick(int index) {
                             click(index);
-                            //Toast.makeText(getContext(), "Clicked " + index, Toast.LENGTH_SHORT).show();
                         }
                     })
                     .unable(false)
@@ -167,6 +171,9 @@ public class DetailFragment extends Fragment {
 
     }
 
+    /***
+     * Ham菜单颜色改变
+     * ***/
     private void change(int index) {
         HamButton.Builder builder = (HamButton.Builder) boomMenuButton.getBuilder(index);
         if(index == 0) {
@@ -185,7 +192,9 @@ public class DetailFragment extends Fragment {
         builder.normalTextColorRes(R.color.boomtest);
     }
 
-    // 菜单的点击事件
+    /***
+     * Ham菜单触发点击事件
+     * ***/
     private void click(int index) {
         //Intent intent = new Intent(getContext(), CameraActivity.class);
         if(index == 0) {
@@ -374,193 +383,33 @@ public class DetailFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_REGNIZE_WORD && resultCode == Activity.RESULT_OK){
-            String filePath = FileUtil.getSaveFile(getContext()).getAbsolutePath();
-            //recVehicleCard(filePath);
-            recWord(filePath);
-        }
-
         if (requestCode == REQUEST_CODE_VAT_INVOCIE && resultCode == Activity.RESULT_OK){
             String filePath = FileUtil.getSaveFile(getContext()).getAbsolutePath();
-            recvatInvoice(filePath);
+            baiduocr.recvatInvoice(filePath);
         }
 
         if (requestCode == REQUEST_CODE_TRAIN_TICKET && resultCode == Activity.RESULT_OK){
             String filePath = FileUtil.getSaveFile(getContext()).getAbsolutePath();
-            recTrainTicket(filePath);
+            baiduocr.recTrainTicket(filePath);
         }
 
         if (requestCode == REQUEST_CODE_TAXI_TICKET && resultCode == Activity.RESULT_OK){
             String filePath = FileUtil.getSaveFile(getContext()).getAbsolutePath();
-            recTaxiTicket(filePath);
+            baiduocr.recTaxiTicket(filePath);
         }
     }
-
-
-    /**
-     * 解析出租车票
-     * date和amount在taxijson实例里
-     * */
-    private void recTaxiTicket(String filePath){
-        // 出租车票识别参数设置
-        OcrRequestParams param = new OcrRequestParams();
-        // 设置image参数
-        param.setImageFile(new File(filePath));
-        // 调用出租车发票识别服务
-        OCR.getInstance(getContext()).recognizeTaxireceipt(param, new OnResultListener<OcrResponseResult>() {
-            @Override
-            public void onResult(OcrResponseResult result) {
-                //listener.onResult(result.getJsonRes());
-                if(result!= null){
-                    BaiduJson taxijson = new BaiduJson();
-                    try {
-                        taxijson.ReturnTaxiTicket(result.getJsonRes());
-                        Log.d("helloha_出租车票",taxijson.toString());
-                        //结果展示
-                        //mContent.setText(taxijson.toString());
-                        //如果想要amout和date,调用get函数就好了
-                        //taxijson.getBaiduAmount();
-                        //taxijson.getBaiduDate();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                // 调用失败，返回OCRError对象
-                returnRecError(error);
-            }
-        });
-    }
-
-    /**
-     * 解析火车票
-     * */
-    private void recTrainTicket(String filePath){
-        // 火车票识别参数设置
-        OcrRequestParams param = new OcrRequestParams();
-        // 设置image参数
-        param.setImageFile(new File(filePath));
-        // 调用火车票识别服务
-        OCR.getInstance(getContext()).recognizeTrainticket(param, new OnResultListener<OcrResponseResult>() {
-            @Override
-            public void onResult(OcrResponseResult result) {
-                //listener.onResult(result.getJsonRes());
-                if(result!= null){
-                    BaiduJson trainjson = new BaiduJson();
-                    try {
-                        trainjson.ReturnTrainTicket(result.getJsonRes());
-                        Log.d("helloha_火车票",trainjson.toString());
-                        //mContent.setText(trainjson.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    //mContent.setText(result.getJsonRes());
-                }
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                // 调用失败，返回OCRError对象
-                returnRecError(error);
-            }
-        });
-    }
-
-
-    /***
-     * 解析发票
-     * ***/
-    private void recvatInvoice(String filePath){
-        // 增值税发票识别参数设置
-        OcrRequestParams param = new OcrRequestParams();
-        // 设置image参数
-        param.setImageFile(new File(filePath));
-        OCR.getInstance(getContext()).recognizeVatInvoice(param, new OnResultListener<OcrResponseResult>() {
-            @Override
-            public void onResult(OcrResponseResult result) {
-                //listener.onResult(result.getJsonRes());
-                if(result != null){
-                    BaiduJson vatbaiduJson = new BaiduJson();
-                    try {
-                        vatbaiduJson.ReturnVatInvoice(result.getJsonRes());
-                        //结果展示
-                        //mContent.setText(taxijson.toString());
-                        //如果想要amout和date,调用get函数就好了
-                        //taxijson.getBaiduAmount();
-                        //taxijson.getBaiduDate();
-                        Log.d("helloha_发票",vatbaiduJson.toString());
-                        //Log.d("helloha",vatbaiduJson.getBaiduDate());
-                        //mContent.setText(vatbaiduJson.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                // 调用失败，返回OCRError对象
-                returnRecError(error);
-            }
-        });
-    }
-
-    /***
-     * 基础解析文字
-     * ***/
-    private void recWord(String filePath){
-        // 通用文字识别参数设置
-        GeneralBasicParams param = new GeneralBasicParams();
-        param.setDetectDirection(true);
-        param.setImageFile(new File(filePath));
-
-        // 调用通用文字识别服务
-        OCR.getInstance(getContext()).recognizeGeneralBasic(param, new OnResultListener<GeneralResult>() {
-            @Override
-            public void onResult(GeneralResult result) {
-
-                // 调用成功，返回GeneralResult对象
-                if (result != null ){
-                    for (WordSimple wordSimple : result.getWordList()) {
-                        //mContent.setText(wordSimple.toString());
-                    }
-                }
-                else{
-                    Toast.makeText(getContext(), "啥都没有", Toast.LENGTH_SHORT).show();
-                }
-
-                // json格式返回字符串
-                //listener.onResult(result.getJsonRes());
-            }
-            @Override
-            public void onError(OCRError error) {
-                // 调用失败，返回OCRError对象
-                returnRecError(error);
-            }
-        });
-    }
-
 
 
     @Override
     public void onDestroy() {
         CameraNativeHelper.release();
         // 释放内存资源
-        OCR.getInstance(getContext()).release();
+        if(flag == 0) {
+            OCR.getInstance(getContext()).release();
+        }
         super.onDestroy();
 
     }
-
-    public void returnRecError(OCRError error){
-        // 调用失败，返回OCRError对象
-        Toast.makeText(getContext(), "识别出错,请查看log错误代码", Toast.LENGTH_SHORT).show();
-        Log.d("MainActivity", "onError: " + error.getMessage());
-    }
-
 
 
 }
