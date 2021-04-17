@@ -1,9 +1,7 @@
 package com.example.toaccountornot.ui.detail;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,9 +15,7 @@ import com.baidu.ocr.sdk.model.OcrRequestParams;
 import com.baidu.ocr.sdk.model.OcrResponseResult;
 import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
-import com.example.toaccountornot.AccountActivity;
 import com.example.toaccountornot.baidu_ocr.BaiduJson;
-import com.example.toaccountornot.baidu_ocr.BaiduOcrActivity;
 import com.example.toaccountornot.baidu_ocr.FileUtil;
 
 import org.json.JSONException;
@@ -32,9 +28,6 @@ public class Baiduocr extends Fragment {
      * 解析出租车票
      * date和amount在taxijson实例里
      * */
-    private double amount;
-    private String date;
-
     void recTaxiTicket(String filePath){
         // 出租车票识别参数设置
         OcrRequestParams param = new OcrRequestParams();
@@ -49,12 +42,7 @@ public class Baiduocr extends Fragment {
                     BaiduJson taxijson = new BaiduJson();
                     try {
                         taxijson.ReturnTaxiTicket(result.getJsonRes());
-                        //结果展示
-//                        mContent.setText(taxijson.toString());
-                        //如果想要amout和date,调用get函数就好了
-                        amount = taxijson.getBaiduAmount();
-                        date = taxijson.getBaiduDate();
-                        passResult("交通");
+                        Log.d("helloha_出租车票",taxijson.toString());
                         //结果展示
                         //mContent.setText(taxijson.toString());
                         //如果想要amout和date,调用get函数就好了
@@ -93,12 +81,6 @@ public class Baiduocr extends Fragment {
                     try {
                         trainjson.ReturnTrainTicket(result.getJsonRes());
                         Log.d("helloha_火车票",trainjson.toString());
-                        //结果展示
-//                        mContent.setText(taxijson.toString());
-                        //如果想要amout和date,调用get函数就好了
-                        amount = trainjson.getBaiduAmount();
-                        date = trainjson.getBaiduDate();
-                        passResult("交通");
                         //mContent.setText(trainjson.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -132,9 +114,6 @@ public class Baiduocr extends Fragment {
                     BaiduJson vatbaiduJson = new BaiduJson();
                     try {
                         vatbaiduJson.ReturnVatInvoice(result.getJsonRes());
-                        amount = vatbaiduJson.getBaiduAmount();
-                        date = vatbaiduJson.getBaiduDate();
-                        passResult("日用");
                         //结果展示
                         //mContent.setText(taxijson.toString());
                         //如果想要amout和date,调用get函数就好了
@@ -164,23 +143,5 @@ public class Baiduocr extends Fragment {
         Log.d("MainActivity", "onError: " + error.getMessage());
     }
 
-    /**
-     * 传递解析数据
-     */
-    private void passResult(String first) {
-        if(amount == 0.0||date == null)
-            Toast.makeText(getContext(), "未识别出有效信息", Toast.LENGTH_SHORT).show();
-        else {
-            SharedPreferences imageparse = getActivity().getSharedPreferences("imageparse", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = imageparse.edit();
-            editor.putString("first", first);
-            editor.putString("amount", String.valueOf(amount));
-            editor.putString("date", date);
-            editor.commit();
-            amount = 0.0;
-            date = null;
-            Intent intent = new Intent(getContext(), AccountActivity.class);
-            startActivity(intent);
-        }
-    }
+
 }
