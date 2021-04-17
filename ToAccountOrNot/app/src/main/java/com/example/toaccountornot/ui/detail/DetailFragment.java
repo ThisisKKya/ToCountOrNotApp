@@ -82,7 +82,6 @@ import okhttp3.Response;
  * 明细
  */
 public class DetailFragment extends Fragment {
-    private static Context context;
 
     private View view;
     private TextView label_year;
@@ -98,12 +97,15 @@ public class DetailFragment extends Fragment {
     private BasePopupView datePicker;
     private BoomMenuButton boomMenuButton;
     private Baidu_boom baiduboom = new Baidu_boom();
+
     private static final int REQUEST_CODE_REGNIZE_WORD = 105;
     private static final int REQUEST_CODE_VAT_INVOCIE = 106;
     private static final int REQUEST_CODE_TRAIN_TICKET = 107;
     private static final int REQUEST_CODE_TAXI_TICKET = 108;
     private static int flag = 0;
-    private BaiduocrFragment baiduocr = new BaiduocrFragment();
+
+    private double amount;
+    private String date;
 
     public static final String url = "http://42.193.103.76:8888/flow/month";
 
@@ -120,7 +122,6 @@ public class DetailFragment extends Fragment {
             initAccessTokenWithAkSk();
             flag = 1;
         }
-
         initPicker();
         return view;
     }
@@ -530,8 +531,7 @@ public class DetailFragment extends Fragment {
      * 解析出租车票
      * date和amount在taxijson实例里
      * */
-    private double amount;
-    private String date;
+
 
     void recTaxiTicket(String filePath){
         // 出租车票识别参数设置
