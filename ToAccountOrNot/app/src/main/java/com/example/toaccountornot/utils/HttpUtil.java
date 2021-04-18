@@ -58,4 +58,23 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
 
     }
+
+    public static void sendGETRequestWithTokenCard(String url, Map<String, String> params, Callback callback) {
+
+        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+//        builder.addPathSegment(params.get("year"));
+//        builder.addPathSegment(params.get("month"));
+
+        System.out.println("GET "+builder.build().toString());
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(new TokenInterceptor())
+                .build();
+        Request request = new Request.Builder()
+                .url(builder.build())
+                .method("GET", null)
+                .build();
+        client.newCall(request).enqueue(callback);
+
+    }
 }

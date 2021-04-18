@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.toaccountornot.CreateFirstCategoryActivity;
 import com.example.toaccountornot.NavigationActivity;
@@ -92,18 +93,6 @@ public class BaseCategoryFragment extends Fragment   {
 //        initCategory();
         initRecycler();
         Log.d(TAG, "onResume: running");
-    }
-
-    @Override
-    public void onPause() {
-        Log.d(TAG, "onPause: ");
-        super.onPause();
-    }
-
-    @Override
-    public void onStart() {
-        Log.d(TAG, "onStart: ");
-        super.onStart();
     }
 
     @Nullable
@@ -285,32 +274,51 @@ public class BaseCategoryFragment extends Fragment   {
         }
     }
     public void initStringList() {
-        // 封装参数
-//        HashMap<String, String> params = new HashMap<>();
-//        /**
-//         * 需要查询所有card的请求！！
-//         */
-//        String url = "";
-//        HttpUtil.sendGETRequestWithToken(url, params, new Callback() {
-//            @Override
-//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//                // 解析响应的数据
-//                parseJSONWithFastjson(response.body().string());
-//            }
-//        });
+        /*从服务器拿card的数据*/
+        String url = "http://42.193.103.76:8888/card/all";
+        HttpUtil.sendGETRequestWithTokenCard(url, null, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-        List<Cards> list = LitePal.findAll(Cards.class);    //从数据库读账户
-        for (Cards card:list) {
-            cardString.add(card.getCard());
-        }
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                // 解析响应的数据
+                parseJSONWithFastjsonCard(response.body().string());
+            }
+        });
+
+        /*从Litepal读card*/
+//        List<Cards> list = LitePal.findAll(Cards.class);
+//        for (Cards card:list) {
+//            cardString.add(card.getCard());
+//        }
+
         memberString.add("爸爸");
         memberString.add("妈妈");
         memberString.add("我");
+    }
+
+    /**
+     * 解析card
+     * */
+    private void parseJSONWithFastjsonCard (String jsonData) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        System.out.println("=================parseJSONWithFastjson()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+        JSONArray list = JSON.parseArray(data);
+        for (int i = 0; i < list.size(); i++) {
+            JSONObject jsonObject = list.getJSONObject(i);
+            String name = jsonObject.getString("name");
+            cardString.add(name);
+        }
+
     }
 
     public void initKey() {

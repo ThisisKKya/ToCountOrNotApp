@@ -11,17 +11,26 @@ import com.example.toaccountornot.login.LoginActivity;
 import com.example.toaccountornot.ui.detail.DetailFragment;
 import com.example.toaccountornot.utils.First;
 
+import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.example.toaccountornot.utils.Cards;
+import com.example.toaccountornot.utils.HttpUtil;
+import com.example.toaccountornot.utils.ParseJsonUtil;
 import com.example.toaccountornot.utils.TotalBudget;
 
 import org.litepal.LitePal;
 
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 /**
@@ -70,6 +79,8 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initcarddata(){
 
+
+        /*Litepal初始化card数据*/
         List<Cards> wechat = LitePal.where("card = ?","微信").find(Cards.class);
         if (wechat.size()==0){
             Cards card = new Cards();

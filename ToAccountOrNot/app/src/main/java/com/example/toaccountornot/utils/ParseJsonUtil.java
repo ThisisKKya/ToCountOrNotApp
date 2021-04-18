@@ -40,4 +40,17 @@ public class ParseJsonUtil {
         System.out.println("message:"+message);
         System.out.println("data:"+data);
     }
+
+    public static String parseJSONWithFastjsonReturnData (String jsonData,String fromWhere) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        System.out.println("=================parseJSONWithFastjson()===================");
+        System.out.println(fromWhere);
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+        return data;
+    }
 }
