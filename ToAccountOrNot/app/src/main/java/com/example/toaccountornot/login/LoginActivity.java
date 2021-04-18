@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -277,6 +278,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void onLoginSucceess() {
+        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("userId",login_username.getText().toString());
+        editor.commit();
         button.setEnabled(true);
         button.startAnim();
         handler.postDelayed(new Runnable() {
