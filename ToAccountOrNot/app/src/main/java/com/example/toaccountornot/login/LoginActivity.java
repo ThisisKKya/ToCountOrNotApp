@@ -56,6 +56,14 @@ public class LoginActivity extends AppCompatActivity {
         login_back = findViewById(R.id.login_back);
         login_username = findViewById(R.id.login_username);
         login_psw = findViewById(R.id.login_psw);
+
+        Intent intent =getIntent();
+        String user = intent.getStringExtra("user");
+        String psw = intent.getStringExtra("psw");
+        if(user!=null)
+            login_username.setText(user);
+        if(psw!=null)
+            login_psw.setText(psw);
         to_sign_up = findViewById(R.id.to_sign_up);
         button = findViewById(R.id.login_finish);
         rlContent=findViewById(R.id.rl_content);
