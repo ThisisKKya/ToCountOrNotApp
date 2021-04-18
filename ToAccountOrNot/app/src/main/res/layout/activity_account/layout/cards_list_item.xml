@@ -102,13 +102,13 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/card_return"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/returnsignal"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/card_return"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="0"-->
+<!--            app:srcCompat="@drawable/returnsignal"/>-->
 
 
     </LinearLayout>

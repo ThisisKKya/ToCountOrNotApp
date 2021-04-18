@@ -15,25 +15,38 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.Day;
 import com.example.toaccountornot.utils.DayCardAdapter;
+import com.example.toaccountornot.utils.DayFlow;
+import com.example.toaccountornot.utils.HttpUtil;
 import com.example.toaccountornot.utils.Month;
 import com.example.toaccountornot.utils.MonthAdapter;
+import com.example.toaccountornot.utils.Single;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopupext.listener.TimePickerListener;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 
+import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class CardDetailActivity extends AppCompatActivity {
 
@@ -66,6 +79,7 @@ public class CardDetailActivity extends AppCompatActivity {
         initView();
         initPicker_YM();
         initDaylist();
+//        initInternetDayList();
         initClickListener();
     }
     void initView() {
@@ -280,4 +294,86 @@ public class CardDetailActivity extends AppCompatActivity {
         timePickerPopup.setMode(TimePickerPopup.Mode.Y);
         datePicker = new XPopup.Builder(CardDetailActivity.this).asCustom(timePickerPopup);
     }
+
+
+    void initInternetDayList(){
+        // 封装参数
+        String url = "42.193.103.76:8888/flow/month/card";
+        HashMap<String, String> params = new HashMap<>();
+        params.put("card",label.getText().toString());
+        params.put("year", label_year.getText().toString());
+        params.put("month", label_month.getText().toString());
+
+//        HttpUtil.sendGETRequestWithTokenCardDetailDay(url, params, new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                // 解析响应的数据
+//                parseJSONWithFastjson(response.body().string());
+//            }
+//        });
+    }
+    void parseJSONWithFastjson(String jsonData) {
+        dayList.clear();
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        JSONObject dataObject = JSON.parseObject(data);
+        final Double income = dataObject.getDouble("income") == null ? 0 : dataObject.getDouble("income");
+        final Double expense = dataObject.getDouble("expense") == null ? 0 : dataObject.getDouble("expense");
+        JSONArray list = dataObject.getJSONArray("list");
+
+        // 调试信息
+        System.out.println("=================CardDetailActivity.parseJSONWithFastjson()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+        System.out.println("income:"+income);
+        System.out.println("expense:"+expense);
+
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println("==========list"+i+"=============");
+//            JSONObject jsonObject = list.getJSONObject(i);
+//            String date = jsonObject.getString("date");
+//            System.out.println("date:"+date);
+//            Double dayIncome = jsonObject.getDouble("income") == null ? 0 : jsonObject.getDouble("income");
+//            System.out.println("dayIncome:"+dayIncome);
+//            Double dayExpense = jsonObject.getDouble("expense") == null ? 0: jsonObject.getDouble("expense");
+//            System.out.println("dayExpense:"+dayExpense);
+//            JSONArray accountList = jsonObject.getJSONArray("list");
+//            ArrayList<Single> singleList = new ArrayList<>();
+//            for (int j = 0; j < accountList.size(); j++) {
+//                Accounts account = accountList.getObject(j, Accounts.class);
+//                System.out.println(account);
+//                Single single = new Single(account.getId(),
+//                        account.getInorout(),
+//                        account.getFirst(),
+//                        account.getSecond(),
+//                        account.getPrice(),
+//                        account.getDate(),
+//                        account.getCard(),
+//                        account.getMember());
+//                singleList.add(single);
+//            }
+//            DayFlow dayFlow = new DayFlow(date, dayIncome, dayExpense, singleList);
+//            dayFlows.add(dayFlow);
+//        }
+
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                DecimalFormat df = new DecimalFormat("#.##");
+//                label_in.setText(df.format(income));
+//                label_out.setText(df.format(expense));
+//                dayFlowAdapter.notifyDataSetChanged();
+//            }
+//        });
+
+    }
+
 }

@@ -50,7 +50,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             name = view.findViewById(R.id.account_card);
             remark = view.findViewById(R.id.account_remark);
             headImage = view.findViewById(R.id.account_image);
-            card_return = view.findViewById(R.id.card_return);
+//            card_return = view.findViewById(R.id.card_return);
             in = view.findViewById(R.id.account_in);
             out = view.findViewById(R.id.account_out);
             sur = view.findViewById(R.id.account_sur);
@@ -74,7 +74,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
         Log.d("card",""+card.getImage());
         if(String.valueOf(card.getImage())!=null)
             holder.headImage.setImageResource(card.getImage());
-        holder.card_return.setImageResource(R.drawable.returnsignal);
+//        holder.card_return.setImageResource(R.drawable.returnsignal);
         String income = "+" + card.getIncome();
         holder.in.setText(income);
         String outcome = "-" + card.getOutcome();
@@ -90,17 +90,17 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     }
 
     void initClickListener(final CardsAdapter.ViewHolder holder, final Cards card) {
-        holder.clickitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, card.getCard(), Toast.LENGTH_SHORT).show();
-                Intent cardintent = new Intent();
-                cardintent.setClass(mContext, CardDetailActivity.class);
-                Bundle cardbundle = new Bundle();
-                cardbundle.putString("name", card.getCard());
-                cardintent.putExtras(cardbundle);
-                mContext.startActivity(cardintent);
-            }
-        });
+//        holder.clickitem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(mContext, card.getCard(), Toast.LENGTH_SHORT).show();
+//                Intent cardintent = new Intent();
+//                cardintent.setClass(mContext, CardDetailActivity.class);
+//                Bundle cardbundle = new Bundle();
+//                cardbundle.putString("name", card.getCard());
+//                cardintent.putExtras(cardbundle);
+//                mContext.startActivity(cardintent);
+//            }
+//        });
     }
 }

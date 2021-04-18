@@ -47,6 +47,10 @@ public class CardsActivity extends AppCompatActivity {
     private double allin;
     private double allout;
     private double allsur;
+
+    TextView label_in;
+    TextView label_out;
+    TextView label_sur;
     @Override
     protected void onResume(){
         super.onResume();
@@ -63,13 +67,9 @@ public class CardsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(CardsActivity.this));
         recyclerView.setAdapter(adapter);
         
-        TextView label_in = findViewById(R.id.label_in);
-        TextView label_out = findViewById(R.id.label_out);
-        TextView label_sur = findViewById(R.id.label_sur);
-        label_in.setText(String.valueOf(allin));
-        label_out.setText(String.valueOf(allout));
-        label_sur.setText(String.valueOf(allsur));
-
+        label_in = findViewById(R.id.label_in);
+        label_out = findViewById(R.id.label_out);
+        label_sur = findViewById(R.id.label_sur);
 
         ImageView return_bar = findViewById(R.id.return_bar);
         return_bar.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +90,6 @@ public class CardsActivity extends AppCompatActivity {
        });
     }
     private void initCards() {
-        allin = 0;
-        allout = 0;
-        allsur = 0;
 
         /*从服务器拿card的数据*/
         String url = "http://42.193.103.76:8888/card/all";
@@ -125,7 +122,9 @@ public class CardsActivity extends AppCompatActivity {
      * 解析card并显示recycleview
      * */
     private void parseJSONWithFastjson (String jsonData,String fromWhere) {
-
+        allin = 0;
+        allout = 0;
+        allsur = 0;
         JSONObject object = JSON.parseObject(jsonData);
         Integer code = object.getInteger("code");
         String message = object.getString("message");
@@ -136,8 +135,8 @@ public class CardsActivity extends AppCompatActivity {
         System.out.println("message:"+message);
         System.out.println("data:"+data);
         JSONArray list = JSON.parseArray(data);
-        if(adapter!=null)
-            cardlist.clear();
+//        if(adapter!=null)
+        cardlist.clear();
         for (int i = 0; i < list.size(); i++) {
             System.out.println("==========list"+i+"=============");
             JSONObject jsonObject = list.getJSONObject(i);
@@ -159,13 +158,17 @@ public class CardsActivity extends AppCompatActivity {
             allin += income;
             allout += expense;
             allsur += balance;
+            System.out.println("allin:"+allin);
+            System.out.println("allout:"+allout);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     adapter.notifyDataSetChanged();
+                    label_in.setText(String.valueOf(allin));
+                    label_out.setText(String.valueOf(allout));
+                    label_sur.setText(String.valueOf(allsur));
                 }
             });
         }
-
     }
 }

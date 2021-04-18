@@ -78,6 +78,11 @@ public class BaseCategoryFragment extends Fragment   {
     String parseFirst = null;
     boolean parseFlag = false;
 
+    ArrayList<Integer> idList = new ArrayList<>();
+    ArrayList<Cards> cardList = new ArrayList<>();
+    int mid = 1;
+    Cards mcurCard = new Cards();
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,6 +119,9 @@ public class BaseCategoryFragment extends Fragment   {
                                     public void onSelect(int position, String text) {
                                         tvCard.setText("账户:"+text);
                                         mcard = text;
+                                        mid = idList.get(position);
+                                        System.out.println("position:"+position);
+                                        mcurCard = cardList.get(position);
                                         //Toast.makeText(getContext(),"click " + text,Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -316,7 +324,20 @@ public class BaseCategoryFragment extends Fragment   {
         for (int i = 0; i < list.size(); i++) {
             JSONObject jsonObject = list.getJSONObject(i);
             String name = jsonObject.getString("name");
+            idList.add(jsonObject.getInteger("id"));
+            double balance = jsonObject.getDouble("balance");
+            double expense = jsonObject.getDouble("expense");
+            int image = jsonObject.getInteger("image");
+            double income = jsonObject.getDouble("income");
+            String note = jsonObject.getString("note");
+            Cards extra = new Cards();
+            extra.setCards(name,note,image,income,expense,balance);
+            if(name.equals("微信")) {
+                mcurCard = extra;
+                mid = jsonObject.getInteger("id");
+            }
             cardString.add(name);
+            cardList.add(extra);
         }
 
     }
@@ -363,10 +384,22 @@ public class BaseCategoryFragment extends Fragment   {
                 if (etInput.length() != 0) {
                     mtvinput = Double.valueOf(etInput.getText().toString().trim());
                 }
+                Cards temp = mcurCard;
+                if(minorout == "in") {
+                    double tempIn = temp.getIncome();
+                    tempIn += mtvinput;
+                    temp.setIncome(tempIn);
+                }else if(minorout == "out"){
+                    double tempOut = temp.getOutcome();
+                    tempOut += mtvinput;
+                    temp.setOutcome(tempOut);
+                }
+                temp.setSurplus(temp.getIncome()-temp.getOutcome());
+                temp.save();
                 Accounts accounts = new Accounts();
                 First oldFirst = LitePal.where("name = ?",mfirstCategory).findFirst(First.class);
                 First updatefirst = new First();
-                updatefirst.setThisMonthCost(oldFirst.getCost()+mtvinput);
+//                updatefirst.setThisMonthCost(oldFirst.getCost()+mtvinput);
                 updatefirst.updateAll("name = ?",mfirstCategory);
                 accounts.setFirst(mfirstCategory);
 //                accounts.setTime(mtime);
@@ -404,6 +437,18 @@ public class BaseCategoryFragment extends Fragment   {
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                         parseJSONWithFastjson(response.body().string());
+                    }
+                });
+                String url_card = "http://42.193.103.76:8888/card/update/"+String.valueOf(mid);
+                HttpUtil.sendPUTRequestWithToken(JSON.toJSONString(temp), url_card, new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        parseJSONWithFastjsonCardInOut(response.body().string());
                     }
                 });
 //                Toast.makeText(getContext(),"已完成",Toast.LENGTH_SHORT).show();
@@ -467,6 +512,17 @@ public class BaseCategoryFragment extends Fragment   {
         System.out.println("data:"+data);
     }
 
+    void parseJSONWithFastjsonCardInOut(String jsonData) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        // 调试信息
+        System.out.println("=================BaseCategoryFragment.parseJSONWithFastjsonCardInOut()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.toaccountornot;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -7,6 +8,8 @@ import androidx.cardview.widget.CardView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.toaccountornot.utils.Accounts;
 import com.example.toaccountornot.utils.Cards;
 import com.example.toaccountornot.utils.HttpUtil;
@@ -38,6 +42,11 @@ import okhttp3.Response;
 public class CreateCardDetailActivity extends AppCompatActivity {
     LinearLayout cardnumbershow;
 
+    private static final int FAILURE = 0;
+    private static final int SUCCESS = 1;
+
+    Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +65,20 @@ public class CreateCardDetailActivity extends AppCompatActivity {
             }
         });
         cardnumbershow = findViewById(R.id.cardnumber_show);
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                switch (msg.what) {
+                    case FAILURE:
+                        onFaild("用户名已存在");
+                        break;
+                    case SUCCESS:
+                        onSuccess();
+                        break;
+                }
+            }
+        };
 
         cardtype.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,19 +144,15 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                             .create().show();
                 }
                 else{
-                    Intent intent = new Intent();
-                    intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
-                    startActivity(intent);
-
                     //存储自定义的卡
 
                     // 封装数据
                     HashMap<String, String> map = new HashMap<>();
                     String name;
                     if (TextUtils.isEmpty(cardnumber.getText()))
-                        name = bankname.getText().toString();
+                        name = bankname.getText().toString() + cardtype.getText().toString();
                     else
-                        name = bankname.getText().toString() + "(" + cardnumber.getText().toString() + ")";
+                        name = bankname.getText().toString() + cardtype.getText().toString()+ "(" + cardnumber.getText().toString() + ")";
 
                     String note = remark.getText().toString();
 
@@ -164,7 +183,7 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                             // 解析响应的数据
-                            ParseJsonUtil.parseJSONWithFastjson(response.body().string(),"createcard");
+                            parseJSONWithFastjson(response.body().string());
                         }
 
                     });
@@ -191,6 +210,33 @@ public class CreateCardDetailActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void parseJSONWithFastjson(String jsonData) {
+        JSONObject object = JSON.parseObject(jsonData);
+        Integer code = object.getInteger("code");
+        String message = object.getString("message");
+        String data = object.getString("data");
+        System.out.println("=================CreateCardDetailActivity.parseJSONWithFastjson()===================");
+        System.out.println("code:"+code);
+        System.out.println("message:"+message);
+        System.out.println("data:"+data);
+        Message msg = new Message();
+        if(message.equals("success")) {
+            msg.what = SUCCESS;
+        } else {
+            msg.what = FAILURE;
+        }
+        handler.sendMessage(msg);
+    }
+
+    private void onFaild(String failMessage){
+        Toast.makeText(CreateCardDetailActivity.this,failMessage,Toast.LENGTH_LONG).show();
+    }
+    private void onSuccess() {
+        Intent intent = new Intent();
+        intent.setClass(CreateCardDetailActivity.this, CardsActivity.class);
+        startActivity(intent);
     }
 }
 
