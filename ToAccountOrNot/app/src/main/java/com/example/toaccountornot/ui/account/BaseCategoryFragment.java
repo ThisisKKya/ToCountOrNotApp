@@ -45,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -88,7 +89,7 @@ public class BaseCategoryFragment extends Fragment   {
     @Override
     public void onResume() {
         super.onResume();
-        initCategory();
+//        initCategory();
         initRecycler();
         Log.d(TAG, "onResume: running");
     }
@@ -270,8 +271,7 @@ public class BaseCategoryFragment extends Fragment   {
             }
         });
     }
-    public void initCategory() {
-    }
+    public void initCategory() {}
     public void initsecondstring(){
         Log.d("hello",mfirstCategory);
         List<First> firsts = LitePal.where("name = ?",mfirstCategory).find(First.class);
@@ -285,6 +285,24 @@ public class BaseCategoryFragment extends Fragment   {
         }
     }
     public void initStringList() {
+        // 封装参数
+//        HashMap<String, String> params = new HashMap<>();
+//        /**
+//         * 需要查询所有card的请求！！
+//         */
+//        String url = "";
+//        HttpUtil.sendGETRequestWithToken(url, params, new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                // 解析响应的数据
+//                parseJSONWithFastjson(response.body().string());
+//            }
+//        });
 
         List<Cards> list = LitePal.findAll(Cards.class);    //从数据库读账户
         for (Cards card:list) {

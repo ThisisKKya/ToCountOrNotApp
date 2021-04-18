@@ -117,12 +117,12 @@ public class DetailFragment extends Fragment {
         year = String.valueOf(calendar.get(Calendar.YEAR));
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         initView(inflater, container);
-        Log.d("helloha",String.valueOf(flag));
         if(flag == 0) {
             initAccessTokenWithAkSk();
             flag = 1;
         }
         initPicker();
+
         return view;
     }
 
@@ -130,7 +130,6 @@ public class DetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("hello","11Resume");
 //        initDayList();
         initDayListWithInternet();
     }
@@ -198,10 +197,6 @@ public class DetailFragment extends Fragment {
                 startActivity(intent);
                 }
         });
-        SharedPreferences sp = getActivity().getSharedPreferences("testtest",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("test","succeess!!");
-        editor.commit();
 
     }
 
@@ -638,7 +633,7 @@ public class DetailFragment extends Fragment {
                         //如果想要amout和date,调用get函数就好了
                         //taxijson.getBaiduAmount();
                         //taxijson.getBaiduDate();
-                        Log.d("helloha_发票",vatbaiduJson.toString());
+//                        Log.d("helloha_发票",vatbaiduJson.toString());
                         //Log.d("helloha",vatbaiduJson.getBaiduDate());
                         //mContent.setText(vatbaiduJson.toString());
                     } catch (JSONException e) {
@@ -666,15 +661,13 @@ public class DetailFragment extends Fragment {
      * 传递解析数据
      */
     private void passResult(String first) {
-        System.out.println("==========passResult==========");
-        System.out.println("amount:"+amount);
-        System.out.println("date:"+date);
+//        System.out.println("==========passResult==========");
+//        System.out.println("amount:"+amount);
+//        System.out.println("date:"+date);
         if(amount == 0.0||date == null) {
-            System.out.println("invaliddddddddddddddddd");
             Toast.makeText(getContext(), "未识别出有效信息", Toast.LENGTH_SHORT).show();
         }
         else {
-            System.out.println("=========sharepreference========================");
             try{
                 SharedPreferences imageparse = getActivity().getSharedPreferences("imageparse", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = imageparse.edit();
