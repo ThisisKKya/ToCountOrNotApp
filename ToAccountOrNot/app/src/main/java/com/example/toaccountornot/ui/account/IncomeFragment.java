@@ -32,14 +32,6 @@ public class IncomeFragment extends BaseCategoryFragment {
     }
     @Override
     public void initCategory() {
-        categoryList = LitePal.where("inorout = ? or inorout = ?","in","all").find(First.class);
-//        Category salary = new Category("工资", R.drawable.salary);
-//        categoryList.add(salary);
-//        Category parttime = new Category("兼职",R.drawable.parttime);
-//        categoryList.add(parttime);
-//        Category gift = new Category("礼金",R.drawable.gift);
-//        categoryList.add(gift);
-//        Category setting = new Category("自定义",R.drawable.setting);
-//        categoryList.add(setting);
+        categoryList = LitePal.where("inorout = ?",minorout).find(First.class);
     }
 }

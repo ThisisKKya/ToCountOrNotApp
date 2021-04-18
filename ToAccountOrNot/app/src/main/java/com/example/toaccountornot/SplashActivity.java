@@ -69,6 +69,7 @@ public class SplashActivity extends AppCompatActivity {
 //    }
 
     private void initcarddata(){
+
         List<Cards> wechat = LitePal.where("card = ?","微信").find(Cards.class);
         if (wechat.size()==0){
             Cards card = new Cards();
