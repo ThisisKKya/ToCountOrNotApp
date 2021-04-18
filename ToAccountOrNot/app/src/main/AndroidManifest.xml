@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.toaccountornot">
-
     <!--
     baidu api需要的权限
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +10,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     -->
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -37,9 +35,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.SignUpActivity"
+        <activity android:name=".baidu_asr.BaiduAsrActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".login.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".login.LoginActivity"
+        <activity
+            android:name=".login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.account.PhotoActivity" />
         <activity android:name=".CreateBudget" />
@@ -79,16 +86,15 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".baidu_ocr.BaiduOcrActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
