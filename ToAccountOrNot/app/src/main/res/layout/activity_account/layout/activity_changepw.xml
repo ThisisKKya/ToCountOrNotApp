@@ -75,7 +75,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                     <EditText
-                        android:id="@+id/signup_username"
+                        android:id="@+id/change_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -112,7 +112,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                     <EditText
-                        android:id="@+id/signup_psw"
+                        android:id="@+id/check_psw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -142,7 +142,7 @@
                     android:src="@drawable/rewrite_npw" />
 
                 <EditText
-                    android:id="@+id/signup_psw_check"
+                    android:id="@+id/new_psw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
@@ -162,7 +162,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.example.toaccountornot.button.NbButton
-            android:id="@+id/signup_finish"
+            android:id="@+id/begin_change"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="100dp"

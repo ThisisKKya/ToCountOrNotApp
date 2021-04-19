@@ -162,6 +162,24 @@ public class HttpUtil {
 
     }
 
+    public static void sendPutUpdate(String requestData, String url, Callback callback) {
+        System.out.println("===========sendPutUpdate==============");
+        System.out.println(requestData);
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(new TokenInterceptor())
+                .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, requestData);
+        Request request = new Request.Builder()
+                .url(url)
+                .method("PUT", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+
+
     public static void sendGETRequestWithTokenCardDetailDay(String url, Map<String, String> params, Callback callback) {
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
