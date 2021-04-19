@@ -144,8 +144,8 @@ public class DetailFragment extends Fragment {
         label_in = view.findViewById(R.id.label_in);
         LinearLayout choose_date = view.findViewById(R.id.choose_date);
         rec_day = view.findViewById(R.id.mainlist);
-        LinearLayout budget_layout = view.findViewById(R.id.budget_layout);
-        ImageView camera = view.findViewById(R.id.photo);
+        //LinearLayout budget_layout = view.findViewById(R.id.budget_layout);
+        //ImageView camera = view.findViewById(R.id.photo);
         label_year.setText(year);
         label_month.setText(month);
         rec_day.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -188,15 +188,15 @@ public class DetailFragment extends Fragment {
 //            }
 //        });
 
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //进相册or拍照
-                //Intent intent = new Intent(getContext(), PhotoActivity.class);
-                Intent intent = new Intent(getContext(), BaiduOcrActivity.class);
-                startActivity(intent);
-                }
-        });
+//        camera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //进相册or拍照
+//                //Intent intent = new Intent(getContext(), PhotoActivity.class);
+//                Intent intent = new Intent(getContext(), BaiduOcrActivity.class);
+//                startActivity(intent);
+//                }
+//        });
 
     }
 
@@ -434,7 +434,7 @@ public class DetailFragment extends Fragment {
                         baiduboom.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getContext(), "初始化认证成功", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "初始化认证成功", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

@@ -277,6 +277,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     // 注册失败，显示提示信息
     public void onSignUpFaild(String failMessage) {
+        user_name.setText(null);
+        user_password.setText(null);
+        password_check.setText(null);
         Toast.makeText(getBaseContext(),failMessage,Toast.LENGTH_LONG).show();
         confirm.setEnabled(true);
     }

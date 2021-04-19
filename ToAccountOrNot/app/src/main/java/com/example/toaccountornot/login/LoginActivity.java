@@ -295,6 +295,15 @@ public class LoginActivity extends AppCompatActivity {
 
     void onLoginFail(String msg) {
         button.setEnabled(true);
+        switch (msg){
+            case "用户不存在":
+                login_username.setText(null);
+                login_psw.setText(null);
+                break;
+            case "密码错误！请重试":
+                login_psw.setText(null);
+                break;
+        }
         System.out.println("==============onLoginFail===============");
         new AlertDialog.Builder(LoginActivity.this)
                 .setTitle("警告")

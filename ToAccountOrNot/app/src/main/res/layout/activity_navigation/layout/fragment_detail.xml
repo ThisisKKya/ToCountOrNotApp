@@ -53,7 +53,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="10dp"
-                    app:srcCompat="@drawable/photo" />
+                     />
 
 <!--                <com.nightonke.boommenu.BoomMenuButton-->
 <!--                    android:id="@+id/bmb"-->
@@ -153,15 +153,14 @@
 
                             android:layout_marginRight="6dp"
                             android:layout_weight="0"
-                            android:scaleType="centerInside"
-                            app:srcCompat="@drawable/savings" />
+                            android:scaleType="centerInside"/>
+<!--                            app:srcCompat="@drawable/savings" />-->
 
                         <TextView
                             android:id="@+id/budget"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="预算  "
                             android:textColor="@android:color/white"
                             android:textSize="14sp" />
 

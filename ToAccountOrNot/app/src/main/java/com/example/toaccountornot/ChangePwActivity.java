@@ -58,6 +58,7 @@ public class ChangePwActivity extends AppCompatActivity {
         input_psw = findViewById(R.id.new_psw);
         begin_chagne = findViewById(R.id.begin_change);
 
+
         SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String name = sp.getString("userId","");
         user_name.setText(name);
@@ -67,13 +68,20 @@ public class ChangePwActivity extends AppCompatActivity {
             public void handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
                     case SUCCESS:
-                        onChangeSucceess();
+                        if(input_psw.length() < 8 || input_psw.length() > 16) {
+                            onChangeFail("新密码必须在8-16位之间");
+                        }
+                        else {
+                            onChangeSucceess();
+                        }
                         break;
                     case NOT_EXIST:
                         onChangeFail("用户不存在");
                         break;
                     case WRONG_PASSWORD:
                         onChangeFail("密码错误！请重试");
+                        check_psw.setText(null);
+                        input_psw.setText(null);
                         break;
                     case SUCCESS_TO_CHANGE:
                         return_to_Login();
@@ -189,6 +197,8 @@ public class ChangePwActivity extends AppCompatActivity {
     // 密码错误
     void onChangeFail(String msg) {
         begin_chagne.setEnabled(true);
+        input_psw.setText(null);
+        check_psw.setText(null);
         new AlertDialog.Builder(ChangePwActivity.this)
                 .setTitle("警告")
                 .setMessage(msg)
