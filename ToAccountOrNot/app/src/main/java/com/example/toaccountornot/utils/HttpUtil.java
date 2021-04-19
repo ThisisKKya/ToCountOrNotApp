@@ -81,7 +81,7 @@ public class HttpUtil {
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
         switch (url) {
-            case url_year_pie :
+            case url_year_pie:
             case url_year_bar:
             case url_year_member:
             case url_year_firstname:
@@ -109,8 +109,23 @@ public class HttpUtil {
                 break;
         }
         builder.addPathSegment(params.get("type"));
-        if(member != "null")    builder.addPathSegment(params.get("member"));
-        if(firstname != "null")     builder.addPathSegment(params.get("first"));
+        if (member != "null") builder.addPathSegment(params.get("member"));
+        if (firstname != "null") builder.addPathSegment(params.get("first"));
+        System.out.println("GET "+builder.build().toString());
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(new TokenInterceptor())
+                .build();
+        Request request = new Request.Builder()
+                .url(builder.build())
+                .method("GET", null)
+                .build();
+        client.newCall(request).enqueue(callback);
+
+    }
+
+
+
     public static void sendGETRequestWithTokenCard(String url, Map<String, String> params, Callback callback) {
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
@@ -129,7 +144,7 @@ public class HttpUtil {
 
     }
 
-    }
+
 
     public static void sendPUTRequestWithToken(String requestData, String url, Callback callback) {
 
