@@ -26,7 +26,7 @@ public class OutcomeFragment extends BaseCategoryFragment {
     }
     @Override
     public void initCategory() {
-        categoryList = LitePal.where("inorout = ? or inorout = ?","out","all").find(First.class);
+        categoryList = LitePal.where("inorout = ?",minorout).find(First.class);
     }
 
 }

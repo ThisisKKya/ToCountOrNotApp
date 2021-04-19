@@ -111,7 +111,11 @@ public class HttpUtil {
         builder.addPathSegment(params.get("type"));
         if(member != "null")    builder.addPathSegment(params.get("member"));
         if(firstname != "null")     builder.addPathSegment(params.get("first"));
+    public static void sendGETRequestWithTokenCard(String url, Map<String, String> params, Callback callback) {
 
+        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+//        builder.addPathSegment(params.get("year"));
+//        builder.addPathSegment(params.get("month"));
         System.out.println("GET "+builder.build().toString());
 
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -125,4 +129,41 @@ public class HttpUtil {
 
     }
 
+    }
+
+    public static void sendPUTRequestWithToken(String requestData, String url, Callback callback) {
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(new TokenInterceptor())
+                .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, requestData);
+        Request request = new Request.Builder()
+                .url(url)
+                .method("PUT", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        client.newCall(request).enqueue(callback);
+
+    }
+
+    public static void sendGETRequestWithTokenCardDetailDay(String url, Map<String, String> params, Callback callback) {
+
+        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+        builder.addPathSegment(params.get("year"));
+        builder.addPathSegment(params.get("month"));
+        builder.addPathSegment(params.get("card"));
+
+        System.out.println("GET "+builder.build().toString());
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(new TokenInterceptor())
+                .build();
+        Request request = new Request.Builder()
+                .url(builder.build())
+                .method("GET", null)
+                .build();
+        client.newCall(request).enqueue(callback);
+
+    }
 }

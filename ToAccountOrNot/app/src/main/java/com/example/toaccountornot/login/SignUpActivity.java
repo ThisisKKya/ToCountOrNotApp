@@ -105,7 +105,9 @@ public class SignUpActivity extends AppCompatActivity {
         activeFlag = true;
         confirm.gotoNew();
 
-        final Intent intent=new Intent(this,NavigationActivity.class);
+        final Intent intent=new Intent(this,LoginActivity.class);
+        intent.putExtra("user",user_name.getText().toString());
+        intent.putExtra("user_psw",user_password.getText().toString());
 
         int xc=(confirm.getLeft()+confirm.getRight())/2;
         int yc=(confirm.getTop()+confirm.getBottom())/2;
@@ -275,7 +277,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     // 注册失败，显示提示信息
     public void onSignUpFaild(String failMessage) {
-//        Toast.makeText(getBaseContext(),failMessage,Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(),failMessage,Toast.LENGTH_LONG).show();
         confirm.setEnabled(true);
     }
 

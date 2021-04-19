@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,6 +57,14 @@ public class LoginActivity extends AppCompatActivity {
         login_back = findViewById(R.id.login_back);
         login_username = findViewById(R.id.login_username);
         login_psw = findViewById(R.id.login_psw);
+
+        Intent intent =getIntent();
+        String user = intent.getStringExtra("user");
+        String psw = intent.getStringExtra("psw");
+        if(user!=null)
+            login_username.setText(user);
+        if(psw!=null)
+            login_psw.setText(psw);
         to_sign_up = findViewById(R.id.to_sign_up);
         button = findViewById(R.id.login_finish);
         rlContent=findViewById(R.id.rl_content);
@@ -261,7 +270,7 @@ public class LoginActivity extends AppCompatActivity {
             case "User does not exist":
                 msg.what = NOT_EXIST;
                 break;
-            case "Wrong password":
+            default:
                 msg.what = WRONG_PASSWORD;
                 break;
         }
@@ -269,6 +278,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void onLoginSucceess() {
+        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("userId",login_username.getText().toString());
+        editor.commit();
         button.setEnabled(true);
         button.startAnim();
         handler.postDelayed(new Runnable() {

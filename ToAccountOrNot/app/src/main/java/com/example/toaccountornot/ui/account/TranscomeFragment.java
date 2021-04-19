@@ -111,7 +111,7 @@ public class TranscomeFragment extends BaseCategoryFragment {
 
     @Override
     public void initCategory() {
-        categoryList = LitePal.where("inorout = ? ","trans").find(First.class);
+        categoryList = LitePal.where("inorout = ?",minorout).find(First.class);
     }
 
 }
