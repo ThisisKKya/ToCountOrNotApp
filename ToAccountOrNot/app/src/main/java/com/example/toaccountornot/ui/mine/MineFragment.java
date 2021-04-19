@@ -34,8 +34,10 @@ public class MineFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        ImageView imageView = view.findViewById(R.id.icon);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        //ImageView imageView = view.findViewById(R.id.icon);
+        LinearLayout change = view.findViewById(R.id.buttonChange);
+
+        change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChangePwActivity.class);
