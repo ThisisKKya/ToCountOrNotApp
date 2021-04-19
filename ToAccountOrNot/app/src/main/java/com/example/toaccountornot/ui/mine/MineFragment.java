@@ -37,7 +37,6 @@ public class MineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChangePwActivity.class);
-
                 startActivity(intent);
             }
         });

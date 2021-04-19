@@ -65,6 +65,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".DatabaseActivity" />
         <activity
+            android:name=".ChangePwActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".PinLockActivity"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
