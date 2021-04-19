@@ -24,6 +24,8 @@ public class CursorManager {
     SimpleDateFormat simpleDateFormat;
     public int order;
 
+
+
     public CursorManager () {
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

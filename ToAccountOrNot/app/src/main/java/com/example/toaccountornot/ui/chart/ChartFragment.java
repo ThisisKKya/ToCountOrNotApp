@@ -96,6 +96,8 @@ public class ChartFragment extends Fragment{
     private SimpleDateFormat simpleDateFormat;
     final String[] mytime = new String[]{"天", "周", "月", "年"};
 
+    public incomeAdapter adapter;
+
 
     @Nullable
     @Override
@@ -478,7 +480,6 @@ public class ChartFragment extends Fragment{
         barChart.invalidate();
     }
 
-
     // 流水展示
     // int i:1(income),2(outcome),3(people)
     // cate:"一"，"二"
@@ -488,7 +489,7 @@ public class ChartFragment extends Fragment{
         myList = rvList.choice(i-1,cate,time,flag,member);
         //LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
 //        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        incomeAdapter adapter = new incomeAdapter(myList);
+        adapter = new incomeAdapter(myList);
         recyclerView.setAdapter(adapter);
     }
 
